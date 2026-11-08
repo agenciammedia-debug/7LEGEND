@@ -333,14 +333,11 @@
   .subt .frase { display: none; }
   .subt .frase.actual { display: block; animation: aparecer .3s ease; }
   @media (max-width: 880px) {
-    .subt { left: 8px; right: 8px; width: auto; bottom: calc(6px + env(safe-area-inset-bottom)); transform: translateY(12px); font-size: 14px; padding: 10px 14px; border-radius: 14px; }
+    .subt { left: 10px; right: 10px; width: auto; transform: translateY(12px); font-size: 14px; padding: 10px 14px; border-radius: 14px;
+      bottom: calc(10px + env(safe-area-inset-bottom) + var(--cta-h, 0px)); transition: opacity .4s, transform .4s, bottom .35s cubic-bezier(.2,.8,.2,1); }
     .subt.on { transform: none; }
-    .voz { left: 8px; bottom: calc(6px + env(safe-area-inset-bottom) + var(--subt-h, 0px)); transition: bottom .35s cubic-bezier(.2,.8,.2,1), opacity .4s, transform .4s; }
-    .barra-cta { left: auto; right: 8px; padding: 0; background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; border-radius: 999px;
-      bottom: calc(6px + env(safe-area-inset-bottom) + var(--subt-h, 0px)); transition: bottom .35s cubic-bezier(.2,.8,.2,1), transform .5s cubic-bezier(.2,.8,.2,1); }
-    .barra-cta .t { display: none; }
-    .barra-cta .btn { padding: 11px 18px; font-size: 14.5px; box-shadow: 0 10px 26px rgba(0,113,227,.35); }
-    footer { padding-bottom: 150px; }
+    .voz { left: 10px; bottom: calc(10px + env(safe-area-inset-bottom) + var(--cta-h, 0px) + var(--subt-h, 0px)); transition: bottom .35s cubic-bezier(.2,.8,.2,1), opacity .4s, transform .4s; }
+    footer { padding-bottom: 170px; }
   }
   .subt-aviso { display: none; margin: 9px auto 0; width: max-content; max-width: 100%; background: var(--accent); color: #fff; font-size: 13px; font-weight: 700; padding: 7px 14px; border-radius: 999px; animation: latidoAzul 1.6s infinite; }
   .subt.mudo .subt-aviso { display: block; }
@@ -823,7 +820,7 @@
   <div class="wrap"><span><b style="color:var(--ink)">7LEGEND</b> · Los números de tu negocio en orden.</span><span>¿Ya tienes cuenta? <a href="app/">Entrar</a></span></div>
 </footer>
 
-<div class="barra-cta" id="barra-cta"><div class="t"><b>14 días gratis</b>Luego S/ <span class="precio-num">100</span>/mes · sin tarjeta</div><button class="btn btn-primary" onclick="abrirRegistro()">Probar 14 días gratis</button></div>
+<div class="barra-cta" id="barra-cta"><div class="t"><b>14 días gratis</b>Luego S/ <span class="precio-num">100</span>/mes · sin tarjeta</div><button class="btn btn-primary" onclick="abrirRegistro()">Probar gratis</button></div>
 
 
 <button class="voz" id="voz" aria-label="Narración"><span class="eq"><i></i><i></i><i></i><i></i></span><span id="voz-txt">Escuchar</span></button>
@@ -901,6 +898,8 @@ function alScroll() {
   const reg = $('registro');
   const abierto = reg && reg.classList.contains('on');
   barra.classList.toggle('on', scrollY > innerHeight * 0.6 && !finalVisible && !abierto);
+  const ctaH = barra.classList.contains('on') && getComputedStyle(barra).display !== 'none' ? barra.offsetHeight + 8 : 0;
+  document.documentElement.style.setProperty('--cta-h', ctaH + 'px');
   $('voz').classList.toggle('visible', (scrollY > innerHeight * 0.5 || VOZ.activa) && !abierto);
 }
 addEventListener('scroll', alScroll, { passive: true });
@@ -1222,8 +1221,7 @@ function hablar(clave) {
   VOZ.audio.src = 'voz/' + clave + '.mp3';
   VOZ.audio.muted = VOZ.mudo;
   const frases = SUBS[clave].t.split(/(?<=[.!?])\s+/);
-  subt.innerHTML = frases.map((f, k) => '<div class="frase' + (k ? '' : ' actual') + '">' + f.split(' ').map(p => '<span class="pal">' + p + ' </span>').join('') + '</div>').join('') +
-    '<div class="subt-aviso">🔊 Toca la pantalla para escuchar</div>';
+  subt.innerHTML = frases.map((f, k) => '<div class="frase' + (k ? '' : ' actual') + '">' + f.split(' ').map(p => '<span class="pal">' + p + ' </span>').join('') + '</div>').join('');
   subt.classList.add('on');
   VOZ.audio.play().catch(() => {
     if (!VOZ.mudo) { VOZ.mudo = true; VOZ.audio.muted = true; VOZ.audio.play().catch(() => simular(clave)); pintarVoz(); }
