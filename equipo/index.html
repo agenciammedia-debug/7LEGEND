@@ -55,6 +55,10 @@
   .serv.on .chk { background: var(--accent); border-color: var(--accent); }
   .elegidos { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 10px; }
   .eleg { display: flex; justify-content: space-between; font-size: 15px; padding: 3px 0; color: var(--accent); font-weight: 500; }
+  .eleg { align-items: center; }
+  .eleg .pin { width: 96px; border: 1.5px solid var(--accent); border-radius: 9px; padding: 5px 8px; font-size: 16px; text-align: right; color: var(--accent); font-weight: 600; outline: none; background: rgba(0,113,227,.05); font-family: inherit; }
+  .eleg .pin.mal { border-color: #ff3b30; background: rgba(255,59,48,.06); }
+  .serv .pr.lib { font-size: 12px; font-weight: 600; color: var(--accent); background: rgba(0,113,227,.08); padding: 3px 8px; border-radius: 7px; }
   .total { display: flex; justify-content: space-between; font-size: 20px; font-weight: 800; margin-top: 8px; letter-spacing: -0.02em; }
   .fila-sw { display: flex; justify-content: space-between; align-items: center; }
   .switch { position: relative; width: 51px; height: 31px; }
@@ -309,19 +313,26 @@ function pintarServicios() {
   const cont = document.getElementById('servs');
   cont.innerHTML = lista.map(s => {
     const on = servSel.some(x => x.nombre === s.nombre);
-    return '<div class="serv' + (on ? ' on' : '') + '" data-n="' + esc(s.nombre) + '"><span style="display:flex;gap:10px;align-items:center"><span class="chk">' + (on ? '✓' : '') + '</span>' + esc(s.nombre) + '</span><span class="pr">' + soles(s.precio) + '</span></div>';
+    return '<div class="serv' + (on ? ' on' : '') + '" data-n="' + esc(s.nombre) + '"><span style="display:flex;gap:10px;align-items:center"><span class="chk">' + (on ? '✓' : '') + '</span>' + esc(s.nombre) + '</span><span class="pr' + (s.libre ? ' lib' : '') + '">' + (s.libre ? 'Precio libre' : soles(s.precio)) + '</span></div>';
   }).join('') || '<div style="color:var(--ink3);padding:14px 2px">No hay servicios con ese nombre.</div>';
   cont.querySelectorAll('.serv').forEach(d => d.onclick = () => {
     const s = CFG.servicios.find(x => x.nombre === d.dataset.n);
     const i = servSel.findIndex(x => x.nombre === s.nombre);
-    if (i === -1) servSel.push({ nombre: s.nombre, precio: s.precio }); else servSel.splice(i, 1);
+    if (i === -1) servSel.push({ nombre: s.nombre, precio: s.libre ? '' : s.precio, libre: !!s.libre }); else servSel.splice(i, 1);
     pintarServicios();
+    if (i === -1 && s.libre) setTimeout(() => { const x = document.querySelector('.pin[data-k="' + (servSel.length - 1) + '"]'); if (x) x.focus(); }, 30);
   });
   const el = document.getElementById('elegidos');
-  el.innerHTML = servSel.length ? '<div class="elegidos">' + servSel.map(s => '<div class="eleg"><span>' + esc(s.nombre) + '</span><span>' + soles(s.precio) + '</span></div>').join('') +
-    '<div class="total"><span>Total</span><span>' + soles(totalSel()) + '</span></div></div>' : '';
+  el.innerHTML = servSel.length ? '<div class="elegidos">' + servSel.map((s, k) => '<div class="eleg"><span>' + esc(s.nombre) + '</span>' +
+    (s.libre ? '<input class="pin" data-k="' + k + '" inputmode="decimal" placeholder="S/ precio" value="' + esc(s.precio) + '">' : '<span>' + soles(s.precio) + '</span>') + '</div>').join('') +
+    '<div class="total"><span>Total</span><span id="tot-sel">' + soles(totalSel()) + '</span></div></div>' : '';
+  el.querySelectorAll('.pin').forEach(x => x.oninput = () => {
+    servSel[+x.dataset.k].precio = x.value; x.classList.remove('mal');
+    document.getElementById('tot-sel').textContent = soles(totalSel());
+  });
 }
-const totalSel = () => servSel.reduce((a, s) => a + Number(s.precio), 0);
+function precioNum(v) { const n = Number(String(v == null ? '' : v).replace(/[^\d.,]/g, '').replace(',', '.')); return isFinite(n) ? n : 0; }
+const totalSel = () => servSel.reduce((a, s) => a + precioNum(s.precio), 0);
 
 // ===================== REVISAR Y GUARDAR =====================
 function uuid() {
@@ -337,14 +348,15 @@ function historial() { return (leerLocal('leg_eq_hist', true) || []).filter(x =>
 function revisar() {
   const btn = document.getElementById('btn-enviar');
   const cliente = inpCli.value.trim();
-  const falta = !sel.trab ? 'Elige tu nombre' : !cliente ? 'Escribe el nombre' : !sel.metodo ? 'Elige el método de pago' : !sel.estado ? 'Elige si es nueva o recurrente' : !servSel.length ? 'Elige los servicios' : '';
+  const falta = !sel.trab ? 'Elige tu nombre' : !cliente ? 'Escribe el nombre' : !sel.metodo ? 'Elige el método de pago' : !sel.estado ? 'Elige si es nueva o recurrente' : !servSel.length ? 'Elige los servicios' : servSel.some(s => s.libre && !(precioNum(s.precio) > 0)) ? 'Escribe el precio' : '';
+  if (falta === 'Escribe el precio') document.querySelectorAll('.pin').forEach(x => { if (!(precioNum(x.value) > 0)) { x.classList.add('mal'); x.focus(); } });
   if (falta) {
     btn.textContent = falta; btn.classList.add('sacudir');
     setTimeout(() => { btn.classList.remove('sacudir'); btn.textContent = 'Registrar'; }, 900);
     return;
   }
   pendiente = { id: uuid(), trabajador: sel.trab, sede: sel.sede, cliente, metodo: sel.metodo, estado: sel.estado,
-    servicios: servSel.slice(), up: CFG.upselling && document.getElementById('up').checked, creado: Date.now() };
+    servicios: servSel.map(s => ({ nombre: s.nombre, precio: precioNum(s.precio) })), up: CFG.upselling && document.getElementById('up').checked, creado: Date.now() };
   const h = huella(cliente, servSel), previo = historial().filter(x => x.h === h).pop();
   esDupLocal = !!previo;
   const conf = document.getElementById('btn-conf');
@@ -359,7 +371,7 @@ function resumenHtml(d) {
     (CFG.sedes.length > 1 ? '<br><b>Sede:</b> ' + esc(d.sede) : '') + '<br><b>Pago:</b> ' + esc(d.metodo) + '<br><b>Es:</b> ' + esc(d.estado) +
     (CFG.upselling ? '<br><b>Up selling:</b> ' + (d.up ? 'Sí' : 'No') : '') +
     '<div style="margin-top:10px;color:var(--accent)">' + d.servicios.map(s => '• ' + esc(s.nombre) + ' · ' + soles(s.precio)).join('<br>') + '</div>' +
-    '<div class="total"><span>Total</span><span>' + soles(d.servicios.reduce((a, s) => a + Number(s.precio), 0)) + '</span></div>';
+    '<div class="total"><span>Total</span><span>' + soles(d.servicios.reduce((a, s) => a + precioNum(s.precio), 0)) + '</span></div>';
 }
 function forzar() {
   if (!pendiente) return;
