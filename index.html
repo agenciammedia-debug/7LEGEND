@@ -485,52 +485,31 @@
   .extras-l span { background: #fff; padding: 9px 15px; border-radius: 999px; font-size: 14px; font-weight: 500; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
   .extras-l span::before { content: '✓ '; color: var(--green2); font-weight: 800; }
 
-  /* ---------- Plan (precio PRO) ---------- */
-  .plan-borde { max-width: 960px; margin: 0 auto; border-radius: 36px; padding: 2px; background: conic-gradient(from var(--ang, 0deg), #0071e3, #9fd0ff, #e8e8ed, #b9a4ff, #0071e3);
-    animation: girarBorde 7s linear infinite; box-shadow: 0 40px 90px rgba(0,113,227,.14); }
-  .plan { display: grid; grid-template-columns: 1fr 1.05fr; background: #fff; border-radius: 34px; overflow: hidden; }
-  @media (max-width: 880px) { .plan { grid-template-columns: 1fr; } }
-  .plan-izq { background: linear-gradient(160deg, #effaf2, #eef5ff); padding: 34px; display: flex; flex-direction: column; }
-  .plan-der { padding: 34px; }
-  @media (max-width: 880px) { .plan-izq, .plan-der { padding: 24px 20px; } }
-  .plan-tag { display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--green); background: rgba(52,199,89,.15); padding: 6px 11px; border-radius: 999px; align-self: flex-start; }
-  .plan-tag.az { color: var(--accent); background: rgba(0,113,227,.1); }
-  .plan-gratis { font-size: clamp(40px, 6vw, 56px); font-weight: 800; letter-spacing: -0.05em; line-height: 1; margin: 16px 0 4px; }
-  .plan-gratis span { color: var(--green); }
-  .plan-izq .s { color: var(--ink2); font-size: 15px; margin-bottom: 20px; }
-  .cal { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; }
-  .dia { aspect-ratio: 1; border-radius: 11px; background: #fff; display: grid; place-items: center; font-size: 13px; font-weight: 700; color: var(--ink3); position: relative; box-shadow: 0 1px 2px rgba(0,0,0,.05);
-    transition: background .35s, color .35s, transform .35s cubic-bezier(.2,1.6,.4,1); }
-  .dia.on { background: var(--green2); color: #fff; transform: scale(1.04); }
-  .dia.fin.on { background: var(--accent); }
-  .dia.hoy::after, .dia.fin::after { position: absolute; bottom: -17px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 700; color: var(--ink2); white-space: nowrap; }
-  .dia.hoy::after { content: 'Hoy'; }
-  .dia.fin::after { content: 'Decides'; color: var(--accent); }
-  .cal-ley { margin-top: 30px; display: grid; gap: 8px; font-size: 14px; color: var(--ink2); }
-  .cal-ley div { display: flex; gap: 9px; align-items: center; }
-  .cal-ley i { width: 10px; height: 10px; border-radius: 3px; flex: none; }
-  .plan-precio { display: flex; align-items: baseline; gap: 6px; margin: 14px 0 2px; }
-  .plan-precio .m { font-size: 22px; font-weight: 700; color: var(--ink2); }
-  .plan-precio b { font-size: clamp(60px, 9vw, 84px); font-weight: 800; letter-spacing: -0.06em; line-height: 1; }
-  .plan-precio small { font-size: 18px; color: var(--ink3); font-weight: 600; }
-  .plan-dia { font-size: 15px; color: var(--ink2); margin-bottom: 20px; }
-  .plan-dia b { color: var(--ink); }
-  .plan-inc { list-style: none; padding: 0; margin: 0 0 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; }
-  @media (max-width: 420px) { .plan-inc { grid-template-columns: 1fr; } }
-  .plan-inc li { display: flex; gap: 9px; align-items: flex-start; font-size: 14.5px; line-height: 1.35; }
-  .plan-inc li i { width: 20px; height: 20px; border-radius: 50%; background: rgba(52,199,89,.15); color: var(--green); display: grid; place-items: center; font-size: 11px; font-style: normal; font-weight: 900; flex: none; margin-top: 1px; }
-  .btn-mega { font-size: 18px; padding: 18px 24px; }
-  .plan-sellos { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; margin-top: 14px; font-size: 12.5px; color: var(--ink2); }
-
-  /* ---------- Sello giratorio ---------- */
-  .sello { position: absolute; z-index: 7; width: 108px; height: 108px; top: -6px; right: 4%; pointer-events: none; }
-  .sello svg { width: 100%; height: 100%; animation: girar 14s linear infinite; }
-  .sello .c { position: absolute; inset: 27px; border-radius: 50%; background: var(--accent); color: #fff; display: grid; place-items: center; text-align: center; font-weight: 800; font-size: 11px; line-height: 1.05;
-    box-shadow: 0 10px 24px rgba(0,113,227,.4); }
-  .sello .c b { display: block; font-size: 20px; letter-spacing: -0.03em; }
-  @keyframes girar { to { transform: rotate(360deg); } }
-  @media (max-width: 880px) { .sello { width: 92px; height: 92px; top: auto; bottom: 130px; right: 0; } .sello .c { inset: 23px; } .sello .c b { font-size: 17px; } }
-
+  /* ---------- Precio ordenado ---------- */
+  .pr-borde { max-width: 470px; margin: 0 auto; border-radius: 34px; padding: 1.5px; background: conic-gradient(from var(--ang, 0deg), #0071e3, #b8d9ff, #ececf0, #ececf0, #b8d9ff, #0071e3);
+    animation: girarBorde 8s linear infinite; box-shadow: 0 36px 80px rgba(0,113,227,.12); }
+  .pr { background: #fff; border-radius: 32.5px; padding: 30px 28px 26px; text-align: center; }
+  @media (max-width: 480px) { .pr { padding: 26px 20px 22px; } }
+  .pr-linea { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); padding-top: 4px; }
+  .pr-track { position: absolute; top: 11px; left: 16.66%; right: 16.66%; height: 4px; border-radius: 4px; background: #ececf0; overflow: hidden; }
+  .pr-track i { display: block; height: 100%; width: 0; border-radius: 4px; background: linear-gradient(90deg, var(--green2), var(--accent)); transition: width 2.4s cubic-bezier(.4,0,.2,1); }
+  .pr-hito { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+  .pr-hito .pt { width: 18px; height: 18px; border-radius: 50%; background: #fff; border: 4px solid #d2d2d7; margin-bottom: 8px; transition: all .4s; position: relative; z-index: 1; }
+  .pr-hito.on .pt { border-color: var(--green2); background: var(--green2); box-shadow: 0 0 0 5px rgba(52,199,89,.18); }
+  .pr-hito:last-child.on .pt { border-color: var(--accent); background: var(--accent); box-shadow: 0 0 0 5px rgba(0,113,227,.18); }
+  .pr-hito b { font-size: 15px; letter-spacing: -0.01em; }
+  .pr-hito small { font-size: 12.5px; color: var(--ink3); }
+  .pr-sep { height: 1px; background: var(--line); margin: 24px 0 22px; }
+  .pr-luego { font-size: 13px; font-weight: 600; color: var(--ink3); text-transform: uppercase; letter-spacing: .06em; }
+  .pr-monto { display: flex; justify-content: center; align-items: baseline; gap: 4px; margin: 6px 0 2px; }
+  .pr-monto .m { font-size: 24px; font-weight: 700; color: var(--ink2); }
+  .pr-monto b { font-size: 76px; font-weight: 800; letter-spacing: -0.06em; line-height: 1; }
+  .pr-monto .mes { font-size: 19px; font-weight: 600; color: var(--ink3); }
+  .pr-dia { font-size: 14px; color: var(--ink2); }
+  .pr-inc { list-style: none; padding: 0; margin: 24px auto 26px; display: grid; gap: 12px; text-align: left; max-width: 300px; }
+  .pr-inc li { display: flex; gap: 11px; align-items: center; font-size: 15.5px; }
+  .pr-inc li i { width: 22px; height: 22px; border-radius: 50%; background: rgba(52,199,89,.15); color: var(--green); display: grid; place-items: center; font-size: 11px; font-style: normal; font-weight: 900; flex: none; }
+  .pr-nota { font-size: 12.5px; color: var(--ink3); margin-top: 14px; line-height: 1.5; }
   /* ---------- Botones: flecha, onda y llamado ---------- */
   .flecha-cta { display: inline-block; margin-left: 8px; animation: empuje 1.6s ease-in-out infinite; }
   @keyframes empuje { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(5px); } }
@@ -595,7 +574,6 @@
       </div>
     </div>
     <div class="escena entra" style="animation-delay:.4s" aria-hidden="true">
-      <div class="sello"><svg viewBox="0 0 100 100"><defs><path id="circ" d="M50,50 m-38,0 a38,38 0 1,1 76,0 a38,38 0 1,1 -76,0"/></defs><text font-size="9.4" font-weight="800" letter-spacing="2.2" fill="#1d1d1f"><textPath href="#circ">14 DÍAS GRATIS · SIN TARJETA · </textPath></text></svg><div class="c"><div><b>14</b>días</div></div></div>
       <div class="flot" id="flot1"><div class="ic" style="background:var(--accent)">+</div><div style="flex:1"><div class="t1">Nueva atención <span>ahora</span></div><div class="t2" id="flot1-txt"></div></div></div>
       <div class="flot" id="flot2"><div class="ic" style="background:#1d1d1f">7</div><div style="flex:1"><div class="t1">Cierre del día <span>23:30</span></div><div class="t2" id="flot2-txt"></div></div></div>
       <div class="telefono" id="telefono">
@@ -770,39 +748,34 @@
 </section>
 
 
-<!-- ============ 5. PRECIO PRO ============ -->
+<!-- ============ 5. PRECIO ============ -->
 <section id="precio" data-voz="s4">
   <div class="wrap">
     <span class="eti rev">Precio</span>
     <h2 class="sec-tit rev">Pruébalo gratis.<br>Decide después.</h2>
-    <p class="sec-sub rev">Un solo plan. Todo incluido. Sin letra pequeña.</p>
-    <div class="plan-borde rev">
-      <div class="plan" id="plan">
-        <div class="plan-izq">
-          <span class="plan-tag">Tu prueba</span>
-          <div class="plan-gratis"><span>14 días</span><br>gratis.</div>
-          <div class="s">Sin tarjeta. Usas todo, sin límites.</div>
-          <div class="cal" id="cal"></div>
-          <div class="cal-ley">
-            <div><i style="background:var(--green2)"></i>Pruebas todo con tu equipo real</div>
-            <div><i style="background:var(--accent)"></i>Te avisamos 3 días antes de que termine</div>
-          </div>
+    <p class="sec-sub rev">Un solo plan. Todo incluido.</p>
+    <div class="pr-borde rev">
+      <div class="pr">
+        <div class="pr-linea" id="pr-linea">
+          <div class="pr-track"><i id="pr-fill"></i></div>
+          <div class="pr-hito on"><span class="pt"></span><b>Hoy</b><small>Empiezas gratis</small></div>
+          <div class="pr-hito"><span class="pt"></span><b>Día 11</b><small>Te avisamos</small></div>
+          <div class="pr-hito"><span class="pt"></span><b>Día 14</b><small>Tú decides</small></div>
         </div>
-        <div class="plan-der">
-          <span class="plan-tag az">Después, si te gusta</span>
-          <div class="plan-precio"><span class="m">S/</span><b class="num precio-num">100</b><small>/mes</small></div>
-          <div class="plan-dia">Menos de <b>S/ <span id="por-dia">3.33</span> al día</b>. Pagas por Yape, Plin o transferencia.</div>
-          <ul class="plan-inc">
-            <li><i>✓</i>Sedes y personas ilimitadas</li>
-            <li><i>✓</i>App para ti y para tu equipo</li>
-            <li><i>✓</i>Comisiones automáticas</li>
-            <li><i>✓</i>Gastos y utilidad real</li>
-            <li><i>✓</i>Cierre diario en tu celular</li>
-            <li><i>✓</i>Te lo dejamos configurado</li>
-          </ul>
-          <button class="btn btn-primary btn-full btn-mega" onclick="abrirRegistro()">Empezar mis 14 días gratis<span class="flecha-cta">→</span></button>
-          <div class="plan-sellos"><span>🔒 Sin tarjeta</span><span>↩︎ Cancelas cuando quieras</span><span>💬 Soporte por WhatsApp</span></div>
+        <div class="pr-sep"></div>
+        <div class="pr-precio">
+          <div class="pr-luego">Si te gusta, luego</div>
+          <div class="pr-monto"><span class="m">S/</span><b class="num precio-num">100</b><span class="mes">/mes</span></div>
+          <div class="pr-dia">Menos de S/ <span id="por-dia">3.33</span> al día</div>
         </div>
+        <ul class="pr-inc">
+          <li><i>✓</i>Sedes y personas ilimitadas</li>
+          <li><i>✓</i>Comisiones, gastos y utilidad</li>
+          <li><i>✓</i>Cierre diario en tu celular</li>
+          <li><i>✓</i>Te lo dejamos configurado</li>
+        </ul>
+        <button class="btn btn-primary btn-full btn-mega" onclick="abrirRegistro()">Empezar mis 14 días gratis<span class="flecha-cta">→</span></button>
+        <div class="pr-nota">Sin tarjeta · Cancelas cuando quieras · Yape, Plin o transferencia</div>
       </div>
     </div>
   </div>
@@ -1078,16 +1051,17 @@ if (!REDUCIR) setInterval(() => {
 })();
 
 // =====================================================
-// PRECIO: calendario de 14 días
+// PRECIO: línea de tiempo de la prueba
 // =====================================================
 (function () {
-  const cal = $('cal');
   $('por-dia').textContent = (L.PRECIO / 30).toFixed(2);
-  cal.innerHTML = Array.from({ length: 14 }, (_, i) => '<div class="dia' + (i === 0 ? ' hoy' : '') + (i === 13 ? ' fin' : '') + '">' + (i + 1) + '</div>').join('');
-  alVer(cal, () => {
-    cal.querySelectorAll('.dia').forEach((d, i) => setTimeout(() => d.classList.add('on'), REDUCIR ? 0 : 120 + i * 110));
-    if (!REDUCIR) setTimeout(() => barra.classList.add('salto'), 2000);
-  }, .5);
+  const hitos = document.querySelectorAll('.pr-hito');
+  alVer($('pr-linea'), () => {
+    $('pr-fill').style.width = '100%';
+    setTimeout(() => hitos[1].classList.add('on'), REDUCIR ? 0 : 1200);
+    setTimeout(() => hitos[2].classList.add('on'), REDUCIR ? 0 : 2400);
+    if (!REDUCIR) setTimeout(() => barra.classList.add('salto'), 2600);
+  }, .6);
 })();
 
 // =====================================================
