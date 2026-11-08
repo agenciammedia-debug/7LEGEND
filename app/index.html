@@ -1094,7 +1094,9 @@ function cargarOneSignal() {
   s.src = 'https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js'; s.defer = true;
   document.head.appendChild(s);
   OneSignalDeferred.push(async function (OneSignal) {
-    await OneSignal.init({ appId: L.ONESIGNAL_APP_ID, serviceWorkerPath: 'app/OneSignalSDKWorker.js', serviceWorkerParam: { scope: '/app/' }, allowLocalhostAsSecureOrigin: true });
+    // Funciona en dominio propio (/app/) y en GitHub Pages de proyecto (/7legend/app/)
+    const carpeta = location.pathname.replace(/[^/]*$/, '');
+    await OneSignal.init({ appId: L.ONESIGNAL_APP_ID, serviceWorkerPath: carpeta.slice(1) + 'OneSignalSDKWorker.js', serviceWorkerParam: { scope: carpeta }, allowLocalhostAsSecureOrigin: true });
     osListo = true; etiquetarPush(); actualizarBotonPush();
   });
 }
