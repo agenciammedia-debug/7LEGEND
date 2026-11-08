@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>7LEGEND · Equipo</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Registrar">
+<meta name="theme-color" content="#f2f2f7">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="../img/equipo-192.png">
+<link rel="apple-touch-icon" href="../img/equipo-180.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="../config.js"></script>
+<script src="../comun.js"></script>
+<style>
+  :root { --bg: #f2f2f7; --ink: #1d1d1f; --ink3: #8e8e93; --line: rgba(60,60,67,.12); --fill: #e5e5ea; --accent: #0071e3; --green: #1a7f37; --red: #ff3b30; --orange: #ff9500; --pink: #ff2d55; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { margin: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
+  button, input, select { font-family: inherit; }
+  [hidden] { display: none !important; }
+  .cont { max-width: 520px; margin: 0 auto; padding: calc(env(safe-area-inset-top) + 14px) 16px calc(40px + env(safe-area-inset-bottom)); }
+  .cab { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 18px; }
+  .negocio { font-size: 13px; font-weight: 600; color: var(--ink3); }
+  h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.035em; margin: 2px 0 0; }
+  .btn-reg { background: var(--ink); color: #fff; border: none; border-radius: 999px; padding: 9px 16px; font-size: 14px; font-weight: 600; cursor: pointer; }
+  .grupo { background: #fff; border-radius: 16px; padding: 14px 16px; margin-bottom: 12px; }
+  .lbl { font-size: 12px; font-weight: 600; color: var(--ink3); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 10px; display: block; }
+  select.sel { width: 100%; border: none; background: transparent; font-size: 18px; font-weight: 600; padding: 4px 0; outline: none; -webkit-appearance: none; appearance: none; color: var(--ink);
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238e8e93' stroke-width='2' fill='none'/%3E%3C/svg%3E") no-repeat right 2px center; }
+  .ops { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .ops.dos { grid-template-columns: 1fr 1fr; }
+  .op { background: var(--fill); border: none; border-radius: 12px; padding: 13px 6px; font-size: 14px; font-weight: 600; cursor: pointer; color: var(--ink); transition: all .15s; min-height: 48px; }
+  .op.on { background: var(--accent); color: #fff; transform: scale(.97); box-shadow: 0 4px 12px rgba(0,113,227,.3); }
+  .cli-box { position: relative; }
+  .inp { width: 100%; border: none; font-size: 18px; padding: 4px 0; outline: none; background: transparent; color: var(--ink); }
+  .sugerencias { position: absolute; left: -8px; right: -8px; top: 100%; margin-top: 8px; background: #fff; border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.15); max-height: 240px; overflow-y: auto; z-index: 20; }
+  .sug { padding: 13px 16px; border-bottom: 1px solid var(--line); cursor: pointer; font-size: 16px; }
+  .sug:last-child { border: none; }
+  .sug.nueva { color: var(--accent); font-weight: 600; }
+  .chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chip { background: var(--fill); border: none; border-radius: 999px; padding: 8px 14px; font-size: 14px; font-weight: 600; white-space: nowrap; cursor: pointer; color: var(--ink); }
+  .chip.on { background: var(--ink); color: #fff; }
+  .buscar { width: 100%; background: rgba(118,118,128,.12); border: none; border-radius: 10px; padding: 10px 12px; font-size: 16px; outline: none; margin-bottom: 6px; }
+  .servs { max-height: 360px; overflow-y: auto; }
+  .serv { display: flex; justify-content: space-between; align-items: center; padding: 13px 2px; border-bottom: 1px solid var(--line); cursor: pointer; font-size: 16px; gap: 10px; }
+  .serv:last-child { border: none; }
+  .serv .pr { color: var(--ink3); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .serv.on { color: var(--accent); font-weight: 600; }
+  .serv.on .pr { color: var(--accent); }
+  .serv .chk { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #c7c7cc; flex: none; display: grid; place-items: center; color: #fff; font-size: 13px; }
+  .serv.on .chk { background: var(--accent); border-color: var(--accent); }
+  .elegidos { margin-top: 10px; border-top: 1px solid var(--line); padding-top: 10px; }
+  .eleg { display: flex; justify-content: space-between; font-size: 15px; padding: 3px 0; color: var(--accent); font-weight: 500; }
+  .total { display: flex; justify-content: space-between; font-size: 20px; font-weight: 800; margin-top: 8px; letter-spacing: -0.02em; }
+  .fila-sw { display: flex; justify-content: space-between; align-items: center; }
+  .switch { position: relative; width: 51px; height: 31px; }
+  .switch input { opacity: 0; width: 0; height: 0; }
+  .switch span { position: absolute; inset: 0; background: var(--fill); border-radius: 31px; transition: .25s; cursor: pointer; }
+  .switch span::before { content: ''; position: absolute; width: 27px; height: 27px; left: 2px; top: 2px; background: #fff; border-radius: 50%; box-shadow: 0 2px 6px rgba(0,0,0,.18); transition: .25s; }
+  .switch input:checked + span { background: var(--pink); }
+  .switch input:checked + span::before { transform: translateX(20px); }
+  .btn { width: 100%; border: none; border-radius: 14px; padding: 16px; font-size: 17px; font-weight: 600; cursor: pointer; background: var(--accent); color: #fff; transition: transform .12s; }
+  .btn:active { transform: scale(.98); }
+  .btn.gris { background: var(--fill); color: var(--ink); }
+  .btn[disabled] { opacity: .5; }
+  .sacudir { animation: sac .4s; background: var(--red) !important; }
+  @keyframes sac { 20%, 60% { transform: translateX(-8px); } 40%, 80% { transform: translateX(8px); } }
+
+  .modal { position: fixed; inset: 0; background: rgba(0,0,0,.4); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; }
+  .modal.on { display: flex; }
+  .m-card { background: #fff; border-radius: 22px; padding: 22px; width: 100%; max-width: 360px; max-height: 88vh; overflow-y: auto; animation: zoom .25s cubic-bezier(.2,.9,.3,1.2); }
+  @keyframes zoom { from { transform: scale(.92); opacity: 0; } to { transform: none; opacity: 1; } }
+  .m-tit { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 14px; }
+  .m-body { font-size: 15px; line-height: 1.6; margin-bottom: 18px; }
+  .m-body b { font-weight: 600; }
+  .dup { background: #fff2f1; color: #c4291f; border-radius: 12px; padding: 11px 13px; font-weight: 600; font-size: 14px; margin-bottom: 12px; }
+  .link-btn { background: none; border: none; width: 100%; margin-top: 10px; padding: 10px; color: var(--ink3); font-size: 14px; text-decoration: underline; cursor: pointer; }
+  .ok-ic { width: 60px; height: 60px; border-radius: 50%; background: #34c759; color: #fff; display: grid; place-items: center; font-size: 30px; margin: 0 auto 12px; }
+
+  #panel { position: fixed; inset: 0; background: var(--bg); z-index: 80; overflow-y: auto; transform: translateX(100%); transition: transform .3s ease; }
+  #panel.on { transform: none; }
+  .p-top { position: sticky; top: 0; display: flex; justify-content: space-between; align-items: center; padding: calc(env(safe-area-inset-top) + 12px) 16px 12px; background: rgba(242,242,247,.92); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); border-bottom: 1px solid var(--line); }
+  .p-top button { background: none; border: none; color: var(--accent); font-size: 17px; font-weight: 600; cursor: pointer; }
+  .r-item { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .r-item:last-child { border: none; }
+  .r-top { display: flex; gap: 10px; align-items: baseline; }
+  .r-hora { color: var(--ink3); font-size: 13px; min-width: 40px; }
+  .r-cli { flex: 1; font-weight: 600; }
+  .r-sub { font-size: 13px; color: var(--ink3); margin: 3px 0 0 50px; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th { text-align: left; font-size: 11px; color: var(--ink3); text-transform: uppercase; padding: 6px; border-bottom: 1px solid var(--line); }
+  td { padding: 10px 6px; border-bottom: 1px solid var(--line); }
+  .c { text-align: center; width: 70px; }
+  tr.yo td { background: rgba(0,113,227,.08); font-weight: 700; }
+  #badge { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); transform: translateX(-50%); color: #fff; padding: 9px 15px; border-radius: 999px; font-size: 13px; z-index: 90; max-width: 92%; text-align: center; }
+  .centro { min-height: 80vh; display: flex; flex-direction: column; justify-content: center; text-align: center; padding: 24px; }
+  .centro .marca { font-weight: 800; font-size: 26px; letter-spacing: -0.04em; margin-bottom: 10px; }
+  .centro p { color: #6e6e73; }
+  .instalar { background: rgba(0,113,227,.08); color: #004f9e; border-radius: 14px; padding: 12px 14px; margin-bottom: 14px; font-size: 14px; display: flex; gap: 10px; align-items: center; }
+  .instalar button { border: none; background: #fff; color: var(--accent); border-radius: 10px; padding: 7px 11px; font-weight: 700; cursor: pointer; }
+  .tabs-guia { display: flex; background: var(--fill); border-radius: 10px; padding: 2px; margin-bottom: 10px; }
+  .tabs-guia button { flex: 1; border: none; background: none; padding: 8px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; }
+  .tabs-guia button.on { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+  .guia { margin: 0; padding-left: 22px; color: #6e6e73; font-size: 15px; line-height: 1.6; }
+  .ico-share { display: inline-flex; vertical-align: -3px; color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div id="pant-carga" class="centro"><div class="marca">7LEGEND</div><p>Cargando…</p></div>
+<div id="pant-msg" class="centro" hidden><div class="marca">7LEGEND</div><p id="msg-txt"></p></div>
+
+<div id="app" class="cont" hidden>
+  <div class="cab">
+    <div><div class="negocio" id="t-negocio"></div><h1>Registrar</h1></div>
+    <button class="btn-reg" onclick="abrirPanel()">Mis registros</button>
+  </div>
+  <div id="aviso-instalar"></div>
+
+  <div class="grupo"><label class="lbl" for="trab" id="lbl-trab">Atendió</label><select class="sel" id="trab" onchange="elegirTrabajador()"></select></div>
+  <div class="grupo" id="g-sede"><span class="lbl">Sede</span><div class="ops dos" id="sedes"></div></div>
+  <div class="grupo"><span class="lbl">Método de pago</span><div class="ops" id="metodos"></div></div>
+  <div class="grupo"><label class="lbl" for="cliente" id="lbl-cli">Cliente</label>
+    <div class="cli-box"><input class="inp" id="cliente" placeholder="Escribe o elige el nombre…" autocomplete="off" maxlength="60"><div class="sugerencias" id="sug" hidden></div></div></div>
+  <div class="grupo"><span class="lbl" id="lbl-estado">Es cliente</span><div class="ops" id="estados"></div></div>
+  <div class="grupo"><span class="lbl">Servicios</span>
+    <div class="chips" id="cats"></div>
+    <input class="buscar" id="buscar" type="search" placeholder="Buscar servicio…">
+    <div class="servs" id="servs"></div>
+    <div id="elegidos"></div>
+  </div>
+  <div class="grupo fila-sw" id="g-up"><span style="font-weight:600">Up selling <span style="color:var(--ink3);font-weight:500;font-size:13px">(vendí un extra)</span></span><label class="switch"><input type="checkbox" id="up"><span></span></label></div>
+  <button class="btn" id="btn-enviar" onclick="revisar()" style="margin-top:6px">Registrar</button>
+</div>
+
+<!-- Revisión -->
+<div class="modal" id="m-rev"><div class="m-card">
+  <div class="m-tit">Revisa antes de guardar</div>
+  <div class="m-body" id="rev-body"></div>
+  <button class="btn" id="btn-conf" onclick="confirmar()">Confirmar y guardar</button>
+  <button class="btn gris" style="margin-top:8px" onclick="cerrarModal('m-rev')">Corregir</button>
+  <button class="link-btn" id="btn-forzar" hidden onclick="forzar()">Es otra atención distinta, guardar igual</button>
+</div></div>
+
+<!-- Éxito -->
+<div class="modal" id="m-ok"><div class="m-card" style="text-align:center">
+  <div class="ok-ic">✓</div>
+  <div class="m-tit">¡Guardado!</div>
+  <div class="m-body" id="ok-body" style="text-align:left"></div>
+  <button class="btn" onclick="limpiar()">Registrar otra</button>
+</div></div>
+
+<!-- Instalar -->
+<div class="modal" id="m-inst"><div class="m-card"><div class="m-tit">Instalar en tu celular</div><div id="inst-body"></div>
+  <button class="btn gris" style="margin-top:14px" onclick="cerrarModal('m-inst')">Listo</button></div></div>
+
+<!-- Mis registros -->
+<div id="panel">
+  <div class="p-top"><button onclick="cerrarPanel()">‹ Volver</button><b>Mis registros</b><button onclick="cargarRegistros()">↻</button></div>
+  <div class="cont" style="padding-top:16px" id="panel-body"></div>
+</div>
+
+<script>
+const DIA = 86400000;
+let K = '', TOKEN = '', CFG = null, CLIENTES = [], bloqueado = false;
+let sel = { trab: '', sede: '', metodo: '', estado: '' }, servSel = [], cat = 'Todos', pendiente = null, esDupLocal = false;
+let procesando = false, esperandoTurno = false;
+
+// ===================== ARRANQUE =====================
+(function arrancar() {
+  const q = new URLSearchParams(location.search);
+  const kUrl = q.get('k');
+  K = kUrl || leerLocal('leg_k') || '';
+  if (kUrl && kUrl !== leerLocal('leg_k')) { borrarLocal('leg_eq_token'); borrarLocal('leg_eq_cfg'); }
+  if (!K) return mensaje('Abre el link que te envió el dueño del negocio para empezar a registrar.');
+  guardarLocal('leg_k', K);
+  TOKEN = leerLocal('leg_eq_token') || '';
+  const cache = leerLocal('leg_eq_cfg', true);
+  if (cache && cache.config) { aplicar(cache); }
+  refrescar();
+})();
+
+async function refrescar() {
+  try {
+    const r = await api('equipo', { k: K }, '', 25000);
+    TOKEN = r.token;
+    guardarLocal('leg_eq_token', TOKEN);
+    guardarLocal('leg_eq_cfg', r);
+    aplicar(r, true);
+  } catch (e) {
+    if (e.code === 'LINK') { borrarLocal('leg_k'); borrarLocal('leg_eq_cfg'); borrarLocal('leg_eq_token'); return mensaje(e.message); }
+    if (!CFG) mensaje('No se pudo conectar. ' + e.message + '<br><br><button class="btn" style="max-width:220px" onclick="location.reload()">Reintentar</button>');
+  }
+}
+
+function mensaje(html) {
+  document.getElementById('pant-carga').hidden = true;
+  document.getElementById('app').hidden = true;
+  document.getElementById('pant-msg').hidden = false;
+  document.getElementById('msg-txt').innerHTML = html;
+}
+
+function aplicar(r, fresco) {
+  const primeraVez = !CFG;
+  CFG = r.config; CLIENTES = r.clientes || [];
+  bloqueado = !!(r.cuenta && r.cuenta.bloqueado);
+  if (bloqueado) return mensaje('La suscripción de ' + esc(CFG.negocio) + ' está vencida. Avísale al dueño del negocio para seguir registrando.');
+  document.getElementById('pant-carga').hidden = true;
+  document.getElementById('pant-msg').hidden = true;
+  document.getElementById('app').hidden = false;
+  document.getElementById('t-negocio').textContent = CFG.negocio;
+  document.getElementById('lbl-trab').textContent = 'Atendió (' + CFG.terminos.trabajador.toLowerCase() + ')';
+  document.getElementById('lbl-cli').textContent = CFG.terminos.cliente;
+  document.getElementById('lbl-estado').textContent = 'Es ' + CFG.terminos.cliente.toLowerCase();
+  document.getElementById('g-up').hidden = !CFG.upselling;
+  pintarTrabajadores();
+  if (primeraVez) { pintarCats(); }
+  pintarSedes(); pintarOps('metodos', CFG.metodos.map(m => m.nombre), 'metodo'); pintarOps('estados', CFG.estados, 'estado');
+  pintarCats(); pintarServicios();
+  avisoInstalar();
+  if (primeraVez || fresco) procesarCola();
+}
+
+function avisoInstalar() {
+  const el = document.getElementById('aviso-instalar');
+  if (esStandalone() || leerLocal('leg_eq_noinst')) { el.innerHTML = ''; return; }
+  el.innerHTML = '<div class="instalar"><span style="flex:1">Agrega esta app a tu pantalla de inicio para abrirla con un toque.</span><button onclick="abrirInstalar()">Cómo</button>' +
+    '<button style="background:none;color:#004f9e;padding:4px" onclick="guardarLocal(\'leg_eq_noinst\',\'1\');avisoInstalar()">×</button></div>';
+}
+async function abrirInstalar() {
+  if (puedeInstalarDirecto()) { await instalarDirecto(); return avisoInstalar(); }
+  document.getElementById('inst-body').innerHTML = htmlGuiaInstalar();
+  abrirModal('m-inst');
+}
+
+// ===================== FORMULARIO =====================
+function pintarTrabajadores() {
+  const s = document.getElementById('trab');
+  const guardado = leerLocal('leg_eq_yo') || '';
+  s.innerHTML = '<option value="" disabled' + (guardado ? '' : ' selected') + '>Elige tu nombre…</option>' +
+    CFG.equipo.map(e => '<option' + (e.nombre === guardado ? ' selected' : '') + '>' + esc(e.nombre) + '</option>').join('');
+  sel.trab = CFG.equipo.some(e => e.nombre === guardado) ? guardado : '';
+  if (!sel.sede) {
+    const sd = leerLocal('leg_eq_sede');
+    const yo = CFG.equipo.find(e => e.nombre === sel.trab);
+    sel.sede = CFG.sedes.indexOf(sd) !== -1 ? sd : (yo ? yo.sede : CFG.sedes[0]);
+  }
+}
+function elegirTrabajador() {
+  sel.trab = document.getElementById('trab').value;
+  guardarLocal('leg_eq_yo', sel.trab);
+  const yo = CFG.equipo.find(e => e.nombre === sel.trab);
+  if (yo && CFG.sedes.indexOf(yo.sede) !== -1 && !leerLocal('leg_eq_sede')) { sel.sede = yo.sede; pintarSedes(); }
+}
+function pintarSedes() {
+  if (CFG.sedes.indexOf(sel.sede) === -1) sel.sede = CFG.sedes[0];
+  document.getElementById('g-sede').hidden = CFG.sedes.length < 2;
+  pintarOps('sedes', CFG.sedes, 'sede');
+}
+function pintarOps(id, lista, campo) {
+  const c = document.getElementById(id);
+  c.innerHTML = lista.map(v => '<button class="op' + (sel[campo] === v ? ' on' : '') + '" data-v="' + esc(v) + '">' + esc(v) + '</button>').join('');
+  c.querySelectorAll('.op').forEach(b => b.onclick = () => {
+    sel[campo] = b.dataset.v;
+    c.querySelectorAll('.op').forEach(x => x.classList.toggle('on', x === b));
+    if (campo === 'sede') guardarLocal('leg_eq_sede', sel.sede);
+  });
+}
+
+// Cliente con sugerencias
+const inpCli = document.getElementById('cliente'), sug = document.getElementById('sug');
+inpCli.addEventListener('input', pintarSug);
+inpCli.addEventListener('focus', pintarSug);
+document.addEventListener('click', e => { if (!e.target.closest('.cli-box')) sug.hidden = true; });
+function pintarSug() {
+  const t = norm(inpCli.value);
+  if (!t) { sug.hidden = true; return; }
+  const lista = CLIENTES.filter(c => norm(c).includes(t)).slice(0, 8);
+  const exacto = lista.some(c => norm(c) === t);
+  sug.innerHTML = lista.map((c, i) => '<div class="sug" data-i="' + i + '">' + esc(c) + '</div>').join('') +
+    (exacto ? '' : '<div class="sug nueva" data-n="1">+ Nueva: ' + esc(inpCli.value.trim()) + '</div>');
+  sug.hidden = false;
+  sug.querySelectorAll('.sug').forEach(d => d.onclick = () => {
+    if (d.dataset.n) {
+      sel.estado = sel.estado || CFG.estados[0];
+      pintarOps('estados', CFG.estados, 'estado');
+    } else inpCli.value = lista[+d.dataset.i];
+    sug.hidden = true;
+  });
+}
+
+// Servicios
+function pintarCats() {
+  const cats = ['Todos'].concat([...new Set(CFG.servicios.map(s => s.categoria))]);
+  if (cats.indexOf(cat) === -1) cat = 'Todos';
+  const c = document.getElementById('cats');
+  c.hidden = cats.length < 3;
+  c.innerHTML = cats.map(x => '<button class="chip' + (x === cat ? ' on' : '') + '" data-c="' + esc(x) + '">' + esc(x) + '</button>').join('');
+  c.querySelectorAll('.chip').forEach(b => b.onclick = () => { cat = b.dataset.c; document.getElementById('buscar').value = ''; pintarCats(); pintarServicios(); });
+}
+document.getElementById('buscar').addEventListener('input', pintarServicios);
+function pintarServicios() {
+  const t = norm(document.getElementById('buscar').value);
+  const lista = CFG.servicios.filter(s => t ? norm(s.nombre).includes(t) : (cat === 'Todos' || s.categoria === cat));
+  const cont = document.getElementById('servs');
+  cont.innerHTML = lista.map(s => {
+    const on = servSel.some(x => x.nombre === s.nombre);
+    return '<div class="serv' + (on ? ' on' : '') + '" data-n="' + esc(s.nombre) + '"><span style="display:flex;gap:10px;align-items:center"><span class="chk">' + (on ? '✓' : '') + '</span>' + esc(s.nombre) + '</span><span class="pr">' + soles(s.precio) + '</span></div>';
+  }).join('') || '<div style="color:var(--ink3);padding:14px 2px">No hay servicios con ese nombre.</div>';
+  cont.querySelectorAll('.serv').forEach(d => d.onclick = () => {
+    const s = CFG.servicios.find(x => x.nombre === d.dataset.n);
+    const i = servSel.findIndex(x => x.nombre === s.nombre);
+    if (i === -1) servSel.push({ nombre: s.nombre, precio: s.precio }); else servSel.splice(i, 1);
+    pintarServicios();
+  });
+  const el = document.getElementById('elegidos');
+  el.innerHTML = servSel.length ? '<div class="elegidos">' + servSel.map(s => '<div class="eleg"><span>' + esc(s.nombre) + '</span><span>' + soles(s.precio) + '</span></div>').join('') +
+    '<div class="total"><span>Total</span><span>' + soles(totalSel()) + '</span></div></div>' : '';
+}
+const totalSel = () => servSel.reduce((a, s) => a + Number(s.precio), 0);
+
+// ===================== REVISAR Y GUARDAR =====================
+function uuid() {
+  if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => { const r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 3 | 8)).toString(16); });
+}
+function huella(cliente, servicios) {
+  return norm(cliente).replace(/[^a-z0-9ñ ]+/g, ' ').replace(/\s+/g, ' ').trim() + '|' + servicios.map(s => norm(s.nombre)).sort().join(',');
+}
+function hoyTxt(t) { const d = new Date(t || Date.now()); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+function historial() { return (leerLocal('leg_eq_hist', true) || []).filter(x => hoyTxt(x.t) === hoyTxt()); }
+
+function revisar() {
+  const btn = document.getElementById('btn-enviar');
+  const cliente = inpCli.value.trim();
+  const falta = !sel.trab ? 'Elige tu nombre' : !cliente ? 'Escribe el nombre' : !sel.metodo ? 'Elige el método de pago' : !sel.estado ? 'Elige si es nueva o recurrente' : !servSel.length ? 'Elige los servicios' : '';
+  if (falta) {
+    btn.textContent = falta; btn.classList.add('sacudir');
+    setTimeout(() => { btn.classList.remove('sacudir'); btn.textContent = 'Registrar'; }, 900);
+    return;
+  }
+  pendiente = { id: uuid(), trabajador: sel.trab, sede: sel.sede, cliente, metodo: sel.metodo, estado: sel.estado,
+    servicios: servSel.slice(), up: CFG.upselling && document.getElementById('up').checked, creado: Date.now() };
+  const h = huella(cliente, servSel), previo = historial().filter(x => x.h === h).pop();
+  esDupLocal = !!previo;
+  const conf = document.getElementById('btn-conf');
+  document.getElementById('rev-body').innerHTML = (previo ? '<div class="dup">⚠️ Ya registraste esta misma atención hoy (hace ' + Math.max(1, Math.round((Date.now() - previo.t) / 60000)) + ' min). Ya está guardada.</div>' : '') + resumenHtml(pendiente);
+  conf.textContent = previo ? 'No guardar (ya está)' : 'Confirmar y guardar';
+  conf.disabled = false;
+  document.getElementById('btn-forzar').hidden = !previo;
+  abrirModal('m-rev');
+}
+function resumenHtml(d) {
+  return '<b>' + esc(CFG.terminos.cliente) + ':</b> ' + esc(d.cliente) + '<br><b>Atendió:</b> ' + esc(d.trabajador) +
+    (CFG.sedes.length > 1 ? '<br><b>Sede:</b> ' + esc(d.sede) : '') + '<br><b>Pago:</b> ' + esc(d.metodo) + '<br><b>Es:</b> ' + esc(d.estado) +
+    (CFG.upselling ? '<br><b>Up selling:</b> ' + (d.up ? 'Sí' : 'No') : '') +
+    '<div style="margin-top:10px;color:var(--accent)">' + d.servicios.map(s => '• ' + esc(s.nombre) + ' · ' + soles(s.precio)).join('<br>') + '</div>' +
+    '<div class="total"><span>Total</span><span>' + soles(d.servicios.reduce((a, s) => a + Number(s.precio), 0)) + '</span></div>';
+}
+function forzar() {
+  if (!pendiente) return;
+  if (!confirm('¿Segura que es OTRA atención distinta?\nSi es la misma, toca Cancelar.')) return;
+  pendiente.forzar = true; esDupLocal = false; confirmar();
+}
+function confirmar() {
+  if (esDupLocal) { esDupLocal = false; pendiente = null; cerrarModal('m-rev'); limpiar(); return; }
+  const d = pendiente; if (!d) return;
+  pendiente = null;
+  document.getElementById('btn-conf').disabled = true;
+  cerrarModal('m-rev');
+  const cola = getCola();
+  if (!cola.some(x => x.id === d.id)) cola.push(d);
+  if (!guardarCola(cola)) {
+    alert('⚠️ No se pudo guardar en este celular. Abre la app desde el ícono de inicio (no en modo privado) o anota esta atención:\n\n' + d.cliente + ' · ' + d.servicios.map(s => s.nombre).join(', '));
+    return;
+  }
+  const h = historial(); h.push({ h: huella(d.cliente, d.servicios), t: Date.now() }); guardarLocal('leg_eq_hist', h);
+  if (CLIENTES.indexOf(d.cliente) === -1) CLIENTES.unshift(d.cliente);
+  document.getElementById('ok-body').innerHTML = resumenHtml(d);
+  abrirModal('m-ok');
+  procesarCola();
+}
+function limpiar() {
+  cerrarModal('m-ok');
+  inpCli.value = ''; sel.metodo = ''; sel.estado = ''; servSel = [];
+  document.getElementById('up').checked = false; document.getElementById('buscar').value = '';
+  pintarOps('metodos', CFG.metodos.map(m => m.nombre), 'metodo'); pintarOps('estados', CFG.estados, 'estado'); pintarServicios();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function abrirModal(id) { document.getElementById(id).classList.add('on'); }
+function cerrarModal(id) { document.getElementById(id).classList.remove('on'); }
+
+// ===================== COLA (funciona sin señal) =====================
+function getCola() { return leerLocal('leg_eq_cola', true) || []; }
+function guardarCola(c) { const ok = guardarLocal('leg_eq_cola', c); badge(); return ok; }
+function quitar(id) { guardarCola(getCola().filter(x => x.id !== id)); }
+
+function badge(msgVencido) {
+  let b = document.getElementById('badge');
+  if (!b) { b = document.createElement('div'); b.id = 'badge'; document.body.appendChild(b); }
+  const cola = getCola(), n = cola.length;
+  if (!n) { b.hidden = true; return; }
+  b.hidden = false;
+  const atascado = Math.max(0, ...cola.map(x => x._i || 0)) >= 6;
+  if (msgVencido) { b.style.background = 'var(--red)'; b.textContent = '⚠️ ' + n + ' sin enviar: la suscripción venció. Se enviarán cuando se renueve.'; }
+  else if (atascado) { b.style.background = 'var(--red)'; b.textContent = '⚠️ ' + n + ' sin confirmar. No cierres la app ni los vuelvas a registrar.'; }
+  else if (!navigator.onLine) { b.style.background = 'rgba(0,0,0,.85)'; b.textContent = '📶 Sin señal. ' + (n === 1 ? '1 registro guardado' : n + ' registros guardados') + ' en el celular; se enviarán solos.'; }
+  else if (esperandoTurno) { b.style.background = 'rgba(0,0,0,.85)'; b.textContent = '👯 Alguien está registrando ahora. Esperando turno… (' + n + ')'; }
+  else { b.style.background = 'rgba(0,0,0,.85)'; b.textContent = n === 1 ? 'Enviando 1 registro…' : 'Enviando ' + n + ' registros…'; }
+}
+
+async function procesarCola() {
+  if (procesando || !TOKEN) return;
+  const cola = getCola();
+  if (!cola.length) return;
+  procesando = true;
+  const item = cola[0], intento = item._i || 0;
+  const { _i, creado, ...payload } = item;
+  try {
+    const r = await api('registrarComanda', payload, TOKEN, 45000);
+    esperandoTurno = false;
+    quitar(item.id);
+    if (r.estado === 'duplicado') avisarDup(item, r);
+    else if (r.estado === 'invalido') alert('⚠️ No se guardó: ' + r.mensaje + '\n\n' + item.cliente + ' · ' + item.servicios.map(s => s.nombre).join(', ') + '\n\nVuelve a llenarla.');
+    procesando = false;
+    if (getCola().length) procesarCola();
+  } catch (e) {
+    procesando = false;
+    if (e.code === 'AUTH') { await refrescar(); }
+    if (e.code === 'VENCIDO') { badge(true); return; }
+    esperandoTurno = e.code === 'ESPERA';
+    const c = getCola(), i = c.findIndex(x => x.id === item.id);
+    if (i !== -1) c[i]._i = intento + 1;
+    guardarCola(c);
+    setTimeout(procesarCola, Math.min(2000 * Math.pow(1.5, intento), 15000) + Math.random() * 1500);
+  }
+}
+function avisarDup(item, r) {
+  setTimeout(() => {
+    if (norm(r.quien) === norm(item.trabajador)) {
+      alert('✅ Esta atención YA estaba registrada hoy a las ' + r.hora + '. No se duplicó.\n\n' + item.cliente);
+      return;
+    }
+    const ok = confirm('⚠️ ' + r.quien.toUpperCase() + ' ya registró a ' + item.cliente + ' con los mismos servicios hoy a las ' + r.hora + '.\nTu registro NO se guardó.\n\nCANCELAR = es la misma atención.\nACEPTAR = es OTRA atención distinta, guardarla.');
+    if (!ok) return;
+    const c = getCola(); c.push(Object.assign({}, item, { forzar: true, _i: 0 })); guardarCola(c); procesarCola();
+  }, 0);
+}
+window.addEventListener('online', procesarCola);
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') { procesarCola(); if (CFG) refrescar(); } });
+setInterval(procesarCola, 10000);
+
+// ===================== MIS REGISTROS =====================
+function abrirPanel() { document.getElementById('panel').classList.add('on'); cargarRegistros(); }
+function cerrarPanel() { document.getElementById('panel').classList.remove('on'); }
+async function cargarRegistros() {
+  const body = document.getElementById('panel-body');
+  if (!sel.trab) { body.innerHTML = '<div class="grupo" style="text-align:center;color:var(--ink3)">Primero elige tu nombre en la pantalla de registro.</div>'; return; }
+  body.innerHTML = '<div style="text-align:center;color:var(--ink3);padding:40px">Cargando…</div>';
+  try {
+    const d = await api('misRegistros', { trabajador: sel.trab }, TOKEN);
+    const ids = new Set(d.comandas.map(c => c.id));
+    const pend = getCola().filter(x => norm(x.trabajador) === norm(sel.trab) && !ids.has(x.id) && hoyTxt(x.creado) === hoyTxt()).map(x => ({
+      hora: new Date(x.creado).toTimeString().slice(0, 5), cliente: x.cliente, metodo: x.metodo, servicios: x.servicios.map(s => s.nombre).join(', '),
+      total: x.servicios.reduce((a, s) => a + Number(s.precio), 0), up: x.up, sede: x.sede, pend: true }));
+    const items = d.comandas.concat(pend);
+    const total = items.reduce((a, c) => a + Number(c.total), 0);
+    let h = '<div class="grupo"><div style="display:flex;justify-content:space-between;align-items:center"><div><span class="lbl" style="margin:0">Mis atenciones de hoy</span>' +
+      '<div style="color:var(--ink3);font-size:13px">' + esc(sel.trab) + ' · ' + esc(d.hoy) + '</div></div><div style="font-size:34px;font-weight:800;color:var(--accent)">' + items.length + '</div></div>';
+    h += items.length ? items.map(c => '<div class="r-item"><div class="r-top"><span class="r-hora">' + esc(c.hora) + '</span><span class="r-cli">' + esc(c.cliente) + '</span><b>' + soles(c.total) + '</b></div>' +
+      '<div class="r-sub">' + esc(String(c.servicios).replace(/\s*\([\d.,]+\)/g, '')) + '</div><div class="r-sub">' + esc(c.metodo) + (CFG.sedes.length > 1 ? ' · ' + esc(c.sede) : '') +
+      (c.up ? ' · <b style="color:var(--pink)">Up selling</b>' : '') + (c.pend ? ' · <b style="color:var(--orange)">⏳ Enviando</b>' : '') + '</div></div>').join('') +
+      '<div style="display:flex;justify-content:space-between;font-weight:800;font-size:18px;padding-top:12px"><span>Total del día</span><span>' + soles(total) + '</span></div>'
+      : '<div style="text-align:center;color:var(--ink3);padding:16px">Aún no tienes atenciones hoy.</div>';
+    h += '</div>';
+    if (CFG.upselling) {
+      const filas = d.upselling.slice().sort((a, b) => b.semana - a.semana || b.mes - a.mes);
+      h += '<div class="grupo"><span class="lbl">Up selling · semana ' + esc(d.semana.desde) + '–' + esc(d.semana.hasta) + '</span><table><thead><tr><th>Nombre</th><th class="c">Semana</th><th class="c">Mes</th></tr></thead><tbody>' +
+        filas.map(f => '<tr' + (norm(f.nombre) === norm(sel.trab) ? ' class="yo"' : '') + '><td>' + esc(f.nombre) + '</td><td class="c">' + f.semana + '</td><td class="c">' + f.mes + '</td></tr>').join('') + '</tbody></table></div>';
+    }
+    body.innerHTML = h;
+  } catch (e) {
+    body.innerHTML = '<div class="grupo" style="text-align:center;color:var(--ink3)">' + esc(e.message) + '<br><br><button class="btn" onclick="cargarRegistros()">Reintentar</button></div>';
+  }
+}
+
+if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+</script>
+</body>
+</html>
