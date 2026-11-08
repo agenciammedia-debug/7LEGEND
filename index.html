@@ -316,7 +316,7 @@
     background: rgba(29,29,31,.92); color: #fff; border-radius: 999px; padding: 10px 14px; font-size: 13px; font-weight: 600; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
     box-shadow: 0 10px 30px rgba(0,0,0,.25); opacity: 0; pointer-events: none; transform: translateY(20px); transition: all .45s cubic-bezier(.2,.8,.2,1); }
   .voz.visible { transform: none; opacity: 1; pointer-events: auto; }
-  @media (max-width: 880px) { .voz { bottom: calc(86px + env(safe-area-inset-bottom)); } }
+
   .eq { display: inline-flex; gap: 2px; align-items: flex-end; height: 14px; }
   .eq i { width: 3px; height: 4px; background: #fff; border-radius: 2px; }
   .voz.sonando .eq i { animation: eq .9s ease-in-out infinite; }
@@ -332,7 +332,16 @@
   .subt .pal { opacity: .35; transition: opacity .25s; }
   .subt .frase { display: none; }
   .subt .frase.actual { display: block; animation: aparecer .3s ease; }
-  @media (max-width: 880px) { .subt { font-size: 14px; padding: 10px 14px; bottom: calc(140px + env(safe-area-inset-bottom)); } }
+  @media (max-width: 880px) {
+    .subt { left: 8px; right: 8px; width: auto; bottom: calc(6px + env(safe-area-inset-bottom)); transform: translateY(12px); font-size: 14px; padding: 10px 14px; border-radius: 14px; }
+    .subt.on { transform: none; }
+    .voz { left: 8px; bottom: calc(6px + env(safe-area-inset-bottom) + var(--subt-h, 0px)); transition: bottom .35s cubic-bezier(.2,.8,.2,1), opacity .4s, transform .4s; }
+    .barra-cta { left: auto; right: 8px; padding: 0; background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; border-radius: 999px;
+      bottom: calc(6px + env(safe-area-inset-bottom) + var(--subt-h, 0px)); transition: bottom .35s cubic-bezier(.2,.8,.2,1), transform .5s cubic-bezier(.2,.8,.2,1); }
+    .barra-cta .t { display: none; }
+    .barra-cta .btn { padding: 11px 18px; font-size: 14.5px; box-shadow: 0 10px 26px rgba(0,113,227,.35); }
+    footer { padding-bottom: 150px; }
+  }
   .subt-aviso { display: none; margin: 9px auto 0; width: max-content; max-width: 100%; background: var(--accent); color: #fff; font-size: 13px; font-weight: 700; padding: 7px 14px; border-radius: 999px; animation: latidoAzul 1.6s infinite; }
   .subt.mudo .subt-aviso { display: block; }
   .subt.mudo .pal { opacity: .55; }
@@ -545,6 +554,9 @@
   .empuje p { margin: 0 0 18px; color: var(--ink2); }
   .empuje .cerrar { position: absolute; top: 12px; right: 14px; background: var(--bg2); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 16px; cursor: pointer; color: var(--ink2); }
 
+  .publico { display: flex; gap: 10px; align-items: flex-start; background: var(--bg2); border-radius: 14px; padding: 12px 14px; font-size: 14px; color: var(--ink2); cursor: pointer; margin-top: 4px; }
+  .publico input { width: 20px; height: 20px; accent-color: var(--accent); flex: none; margin: 1px 0 0; }
+  .publico b { color: var(--ink); }
   .hoja .logo { color: var(--ink); }
 </style>
 </head>
@@ -811,7 +823,7 @@
   <div class="wrap"><span><b style="color:var(--ink)">7LEGEND</b> · Los números de tu negocio en orden.</span><span>¿Ya tienes cuenta? <a href="app/">Entrar</a></span></div>
 </footer>
 
-<div class="barra-cta" id="barra-cta"><div class="t"><b>14 días gratis</b>Luego S/ <span class="precio-num">100</span>/mes · sin tarjeta</div><button class="btn btn-primary" onclick="abrirRegistro()">Probar gratis</button></div>
+<div class="barra-cta" id="barra-cta"><div class="t"><b>14 días gratis</b>Luego S/ <span class="precio-num">100</span>/mes · sin tarjeta</div><button class="btn btn-primary" onclick="abrirRegistro()">Probar 14 días gratis</button></div>
 
 
 <button class="voz" id="voz" aria-label="Narración"><span class="eq"><i></i><i></i><i></i><i></i></span><span id="voz-txt">Escuchar</span></button>
@@ -1104,7 +1116,8 @@ if (!REDUCIR) setInterval(() => {
       const reg = $('registro');
       if (reg && reg.classList.contains('on')) { setTimeout(mostrar, 15000); return; }
       const it = lista[i++], [em, nom] = RUB[it.r] || RUB.otro;
-      el.innerHTML = '<div class="em">' + em + '</div><div><b>' + nom + ' empezó su prueba gratis</b><span>' + hace(Date.now() - desfase - it.t) + ' · 7LEGEND</span></div><div class="ok">✓</div>';
+      const quien = it.n ? esc(it.n.length > 30 ? it.n.slice(0, 29) + '…' : it.n) : nom;
+      el.innerHTML = '<div class="em">' + em + '</div><div><b>' + quien + ' empezó su prueba gratis</b><span>' + hace(Date.now() - desfase - it.t) + ' · 7LEGEND</span></div><div class="ok">✓</div>';
       el.classList.add('on');
       setTimeout(() => el.classList.remove('on'), 5200);
       setTimeout(mostrar, 16000);
@@ -1278,6 +1291,14 @@ new MutationObserver(() => {
   if ($('registro').classList.contains('on')) { VOZ.audio.pause(); detenerSimulado(); VOZ.tour = false; subt.classList.remove('on'); pintarVoz(); }
 }).observe($('registro'), { attributes: true, attributeFilter: ['class'] });
 
+// Botón de voz y "Probar gratis" siempre justo encima de los subtítulos
+function ajustarSubt() {
+  const h = subt.classList.contains('on') ? subt.offsetHeight + 8 : 0;
+  document.documentElement.style.setProperty('--subt-h', h + 'px');
+}
+new MutationObserver(ajustarSubt).observe(subt, { attributes: true, attributeFilter: ['class'], childList: true, subtree: true });
+if (window.ResizeObserver) new ResizeObserver(ajustarSubt).observe(subt);
+
 // Arranque automático al entrar
 setTimeout(() => { if (!document.hidden && scrollY < innerHeight * .5) iniciarVoz(false); }, 1300);
 
@@ -1312,7 +1333,7 @@ const TRAB = { unas: 'manicuristas', peluqueria: 'estilistas', barberia: 'barber
 // ================== Estado del asistente ==================
 const st = {
   paso: 0, negocio: '', rubro: '', sedes: [''], equipo: [{ nombre: '', sede: 0 }], servicios: [],
-  metodos: ['Yape', 'Plin', 'Efectivo', 'Tarjeta'], comisionPct: 10, dueno: '', email: '', whatsapp: '', clave: '', rubroServ: ''
+  metodos: ['Yape', 'Plin', 'Efectivo', 'Tarjeta'], comisionPct: 10, dueno: '', email: '', whatsapp: '', clave: '', rubroServ: '', publico: true
 };
 const PASOS = ['negocio', 'sedes', 'equipo', 'servicios', 'cobros', 'cuenta'];
 
@@ -1455,12 +1476,14 @@ const VISTAS = {
       '<div class="campo"><label for="f-wa">WhatsApp</label><div class="tel"><input class="inp pref" value="+51" id="f-pref" maxlength="4" inputmode="tel"><input class="inp" id="f-wa" type="tel" autocomplete="tel-national" inputmode="tel" placeholder="987 654 321" maxlength="15" value="' + esc(st.whatsapp) + '"></div></div>' +
       '<div class="campo"><label for="f-clave">Contraseña</label><div class="ojo"><input class="inp" id="f-clave" type="password" autocomplete="new-password" minlength="8" placeholder="Mínimo 8 caracteres" value="' + esc(st.clave) + '"><button type="button" id="ver">Ver</button></div></div>' +
       '<input id="f-web" name="web" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true">' +
+      '<label class="publico"><input type="checkbox" id="f-pub"' + (st.publico ? ' checked' : '') + '><span>Mostrar el nombre de <b>' + esc(st.negocio || 'mi negocio') + '</b> en la web de 7LEGEND como negocio que la usa</span></label>' +
       '<p class="nota">Al crear tu cuenta empiezan tus ' + L.DIAS_PRUEBA + ' días gratis. No pedimos tarjeta.</p>';
   },
   cuentaDespues() {
     [['f-due', 'dueno'], ['f-email', 'email'], ['f-wa', 'whatsapp'], ['f-clave', 'clave']].forEach(([id, k]) => {
       const i = document.getElementById(id); i.oninput = () => st[k] = i.value;
     });
+    document.getElementById('f-pub').onchange = e => st.publico = e.target.checked;
     document.getElementById('ver').onclick = () => {
       const c = document.getElementById('f-clave'); const v = c.type === 'password';
       c.type = v ? 'text' : 'password'; document.getElementById('ver').textContent = v ? 'Ocultar' : 'Ver';
@@ -1521,7 +1544,7 @@ async function crearCuenta() {
   const dig = st.whatsapp.replace(/\D/g, '');
   const payload = {
     web: document.getElementById('f-web').value,
-    fuente: leerLocal('leg_fuente') || '', dueno: st.dueno.trim(), email: st.email.trim(), whatsapp: dig.length <= 9 ? pref + dig : dig, clave: st.clave,
+    fuente: leerLocal('leg_fuente') || '', publico: !!st.publico, dueno: st.dueno.trim(), email: st.email.trim(), whatsapp: dig.length <= 9 ? pref + dig : dig, clave: st.clave,
     config: {
       negocio: st.negocio, rubro: st.rubro,
       sedes: st.sedes.map(s => ({ nombre: s, meta: 0, posTope: 0 })),
