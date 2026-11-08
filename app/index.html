@@ -181,6 +181,92 @@
   .link-caja { background: var(--bg); border-radius: 10px; padding: 10px 12px; font-size: 13px; word-break: break-all; color: var(--ink2); margin: 10px 0; }
   .botones { display: flex; gap: 8px; margin-top: 4px; }
   .botones .btn { padding: 12px; font-size: 15px; }
+
+  /* ---------- Ajustes PRO ---------- */
+  .aj-cab { display: flex; align-items: center; gap: 14px; background: #fff; border-radius: 16px; padding: 16px; margin-top: 4px; }
+  .aj-cab b { display: block; font-size: 18px; letter-spacing: -0.02em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .aj-cab span { font-size: 13px; color: var(--ink2); }
+  .logo-neg { width: 52px; height: 52px; border-radius: 14px; background: linear-gradient(135deg, #1d1d1f, #48484a); color: #fff; display: grid; place-items: center; font-size: 24px; font-weight: 800; flex: none; }
+  .grupo-menu { padding: 0; overflow: hidden; }
+  .aj-fila { display: flex; align-items: center; gap: 12px; width: 100%; background: none; border: none; padding: 11px 14px; font-size: 16px; color: var(--ink); text-align: left; cursor: pointer; position: relative; }
+  .aj-fila + .aj-fila::before { content: ''; position: absolute; top: 0; left: 56px; right: 0; border-top: 1px solid var(--line); }
+  .aj-fila:active { background: var(--fill); }
+  .aj-fila .t { flex: 1; min-width: 0; }
+  .aj-fila .d { color: var(--ink3); font-size: 15px; white-space: nowrap; }
+  .flecha { color: #c7c7cc; font-size: 22px; line-height: 1; flex: none; }
+  .ic-cuad { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; flex: none; }
+  .der-t { text-align: right; }
+  .fila-f .w140 { width: 150px; flex: none; text-align: right; font-size: 14px; }
+  .tarjeta-ed { background: #fff; border-radius: 14px; padding: 4px 14px; margin-bottom: 10px; transition: opacity .2s; }
+  .tarjeta-ed.apagada { opacity: .55; }
+  .quitar-txt { background: none; border: none; color: var(--red); font-size: 14px; font-weight: 600; padding: 10px 0; cursor: pointer; }
+  .reglas { background: #fff; border-radius: 14px; overflow: hidden; }
+  .reglas > div { display: grid; grid-template-columns: 30px 1fr auto; grid-template-rows: auto auto; column-gap: 10px; padding: 12px 14px; align-items: center; }
+  .reglas > div + div { border-top: 1px solid var(--line); }
+  .reglas .n { grid-row: 1 / 3; width: 26px; height: 26px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-size: 13px; font-weight: 700; }
+  .reglas b { font-size: 15px; }
+  .reglas small { grid-column: 2; color: var(--ink2); font-size: 13px; }
+  .reglas button { grid-column: 3; grid-row: 1 / 3; background: none; border: none; color: var(--accent); font-weight: 600; font-size: 14px; cursor: pointer; }
+  .sv-herr { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
+  .sv-herr button { background: #fff; border: none; border-radius: 14px; padding: 12px 6px; font-size: 13px; font-weight: 600; color: var(--ink); cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .sv-herr button span { width: 30px; height: 30px; border-radius: 50%; background: rgba(0,113,227,.1); color: var(--accent); display: grid; place-items: center; font-size: 15px; font-weight: 700; }
+  .sv-herr button:active { transform: scale(.97); }
+  .chips-cat { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin: 2px -16px 0; padding: 2px 16px 4px; }
+  .chips-cat::-webkit-scrollbar { display: none; }
+  .chips-cat button { flex: none; border: none; background: #fff; border-radius: 18px; padding: 7px 13px; font-size: 13px; font-weight: 600; color: var(--ink); cursor: pointer; white-space: nowrap; }
+  .chips-cat button.on { background: var(--ink); color: #fff; }
+  .sv-fila { display: flex; align-items: center; gap: 10px; width: 100%; background: none; border: none; border-bottom: 1px solid var(--line); padding: 12px 0; text-align: left; cursor: pointer; color: var(--ink); font-size: 16px; }
+  .sv-fila:last-child { border-bottom: none; }
+  .sv-fila .n { flex: 1; min-width: 0; }
+  .sv-fila .p { font-weight: 600; white-space: nowrap; }
+  .sv-fila.apagada .n, .sv-fila.apagada .p { color: var(--ink3); }
+  .bad { display: flex; flex-wrap: wrap; gap: 4px; }
+  .bad:empty { display: none; }
+  .bad i { font-style: normal; font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 6px; background: var(--fill); color: var(--ink2); margin-top: 4px; }
+  .bad i.b-az { background: rgba(0,113,227,.1); color: var(--accent); }
+  .bad i.b-ro { background: rgba(255,45,85,.1); color: var(--pink); }
+  .sv-vacio { background: #fff; border-radius: 18px; padding: 26px 20px; text-align: center; margin-top: 14px; }
+  .sv-vacio b { display: block; font-size: 18px; margin-bottom: 6px; }
+  .sv-vacio span { display: block; color: var(--ink2); font-size: 14px; line-height: 1.45; margin-bottom: 16px; }
+  .fab-hoja { position: fixed; right: max(18px, calc(50% - 302px)); bottom: calc(22px + env(safe-area-inset-bottom)); width: 56px; height: 56px; border-radius: 28px; border: none; background: var(--accent); color: #fff; font-size: 30px; font-weight: 300; box-shadow: 0 8px 24px rgba(0,113,227,.35); cursor: pointer; z-index: 3; }
+  .seg-sel { display: flex; background: var(--fill); border-radius: 10px; padding: 2px; margin-bottom: 10px; }
+  .seg-sel button { flex: 1; border: none; background: none; padding: 9px 4px; border-radius: 8px; font-weight: 600; font-size: 13px; cursor: pointer; color: var(--ink); }
+  .seg-sel button.on { background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+  .lbl-fila small { display: block; font-size: 12px; color: var(--ink3); margin-top: 2px; line-height: 1.35; }
+  .inp:disabled { background: var(--fill); color: var(--ink3); }
+  .imp-intro { color: var(--ink2); font-size: 15px; line-height: 1.45; margin: 2px 4px 14px; }
+  .imp-op { background: #fff; border-radius: 16px; padding: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
+  .imp-op.col { display: block; }
+  .imp-op b { display: block; font-size: 15px; }
+  .imp-op small { color: var(--ink2); font-size: 13px; }
+  .imp-op > div:nth-child(2) { flex: 1; min-width: 0; }
+  .imp-ic { width: 40px; height: 40px; border-radius: 11px; color: #fff; font-weight: 800; display: grid; place-items: center; flex: none; font-size: 17px; }
+  .imp-btn { width: auto; padding: 10px 16px; font-size: 14px; flex: none; }
+  .imp-nota { display: block; margin-top: 8px; color: var(--ink3); font-size: 12px; line-height: 1.4; }
+  .imp-error { background: #fff2f2; color: #c4291f; border-radius: 12px; padding: 12px 14px; font-size: 14px; margin-top: 14px; line-height: 1.45; }
+  .imp-res { display: grid; grid-template-columns: repeat(4, 1fr); background: #fff; border-radius: 14px; padding: 12px 4px; text-align: center; font-size: 11px; color: var(--ink3); font-weight: 500; }
+  .imp-res b { display: block; font-size: 22px; color: var(--ink); }
+  .imp-map { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; }
+  .imp-map label { background: #fff; border-radius: 12px; padding: 8px 10px; font-size: 12px; color: var(--ink3); overflow: hidden; }
+  .imp-map label span { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+  .imp-map select { width: 100%; border: none; background: none; font-size: 15px; font-weight: 600; color: var(--accent); padding: 2px 0; outline: none; }
+  .imp-chk { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--ink2); margin: 10px 4px; }
+  .imp-tabla { background: #fff; border-radius: 14px; padding: 0 14px; max-height: 340px; overflow-y: auto; }
+  .imp-it { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .imp-it:last-child { border-bottom: none; }
+  .imp-it .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; background: var(--ink3); }
+  .imp-it.nuevo .dot { background: var(--green2); }
+  .imp-it.cambia .dot { background: var(--accent); }
+  .imp-it.e .dot { background: var(--red); }
+  .imp-it .tx { flex: 1; min-width: 0; }
+  .imp-it .tx b { display: block; font-size: 15px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .imp-it .tx small { color: var(--ink3); font-size: 12px; }
+  .imp-it .pr { font-weight: 600; white-space: nowrap; font-size: 15px; }
+  .imp-modo { display: grid; gap: 8px; }
+  .imp-modo label { display: flex; gap: 12px; align-items: flex-start; background: #fff; border-radius: 14px; padding: 13px 14px; cursor: pointer; }
+  .imp-modo input { margin-top: 3px; accent-color: var(--accent); width: 18px; height: 18px; flex: none; }
+  .imp-modo b { display: block; font-size: 15px; }
+  .imp-modo small { color: var(--ink2); font-size: 13px; }
 </style>
 </head>
 <body>
@@ -498,6 +584,26 @@ function asegurarDatos(desde) {
 // CÁLCULOS
 // =====================================================================
 const cfg = () => D.config;
+// Comisión de una atención: regla del servicio > % de la persona > % general
+let MAPA_SV = null, MAPA_EQ = null;
+function comisionFila(r) {
+  const c = cfg();
+  if (!MAPA_SV || MAPA_SV._c !== c) {
+    MAPA_SV = { _c: c }; MAPA_EQ = {};
+    (c.servicios || []).forEach(s => MAPA_SV[norm(s.nombre)] = s);
+    (c.equipo || []).forEach(e => MAPA_EQ[norm(e.nombre)] = e);
+  }
+  const p = MAPA_EQ[norm(r[I.TRAB])];
+  const base = p && p.comPct != null && p.comPct !== '' ? Number(p.comPct) : (Number(c.comisionPct) || 0);
+  const items = String(r[I.SERV] || '').split(/\s*,\s*/).map(t => { const m = t.match(/^(.*?)\s*\(([\d.]+)\)\s*$/); return m ? { n: m[1], p: Number(m[2]) || 0 } : null; }).filter(Boolean);
+  if (!items.length) return (Number(r[I.TOT]) || 0) * base / 100;
+  return items.reduce((a, it) => {
+    const sv = MAPA_SV[norm(it.n)];
+    if (sv && sv.comValor != null) return a + (sv.comTipo === 'S/' ? Number(sv.comValor) : it.p * sv.comValor / 100);
+    return a + it.p * base / 100;
+  }, 0);
+}
+function hayReglasCom() { const c = cfg(); return (c.servicios || []).some(s => s.comValor != null) || (c.equipo || []).some(e => e.comPct != null && e.comPct !== ''); }
 function enSede(s) { return sedeActual === 'todas' || s === sedeActual; }
 function tipoMet(nombre) {
   const m = cfg().metodos.find(x => norm(x.nombre) === norm(nombre));
@@ -685,13 +791,12 @@ async function cambiarPOS(sede, destino) {
 
 // ---------- Estado de resultados ----------
 function htmlResultados(desde, hasta) {
-  const pct = cfg().comisionPct / 100;
   const sedes = cfg().sedes.map(s => s.nombre);
   const r = {}; sedes.forEach(s => r[s] = { ing: 0, com: 0, gas: 0 });
   let generales = 0;
   comandasEn(desde, hasta, true).forEach(f => {
     const s = r[f[I.SEDE]] || (r[f[I.SEDE]] = { ing: 0, com: 0, gas: 0 });
-    s.com += f[I.TOT] * pct;
+    s.com += comisionFila(f);
     if (tipoMet(f[I.MET]) !== 'canje') s.ing += f[I.TOT];
   });
   D.gastos.forEach(g => {
@@ -710,7 +815,7 @@ function htmlResultados(desde, hasta) {
   r.Total = tot;
   let cols = sedeActual === 'todas' ? (claves.length > 1 && claves.length <= 3 ? claves.concat(['Total']) : ['Total']) : [sedeActual];
   const fmt = v => Math.round(v).toLocaleString('es-PE');
-  const filas = [['Ingresos', 'ing'], ['Comisiones (' + cfg().comisionPct + '%)', 'com', 1], ['Gastos de sede', 'gas', 1], ['Margen', 'mar', 0, 1], ['Gastos generales', 'gen', 1], ['Utilidad', 'uti', 0, 1, 1]];
+  const filas = [['Ingresos', 'ing'], [hayReglasCom() ? 'Comisiones' : 'Comisiones (' + cfg().comisionPct + '%)', 'com', 1], ['Gastos de sede', 'gas', 1], ['Margen', 'mar', 0, 1], ['Gastos generales', 'gen', 1], ['Utilidad', 'uti', 0, 1, 1]];
   let h = '<div class="pyl" style="grid-template-columns:1.5fr ' + cols.map(() => '1fr').join(' ') + '"><div></div>' +
     cols.map(c => '<div class="n" style="font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase">' + esc(c) + '</div>').join('');
   filas.forEach(([lbl, k, resta, linea, fin]) => {
@@ -896,23 +1001,22 @@ function pintarEquipo() {
   const [desde, hasta] = rango(document.getElementById('f-eq').value, 'eq');
   const cont = document.getElementById('eq-cont');
   if (!asegurarDatos(desde)) { cont.innerHTML = cargandoHtml(); return; }
-  const pctIn = document.getElementById('eq-pct');
-  const pct = pctIn ? Number(pctIn.value) || 0 : cfg().comisionPct;
+  const reglas = hayReglasCom(), pct = cfg().comisionPct;
   const eq = {};
-  equipoVisible().forEach(n => eq[n] = { v: 0, up: 0, n: 0 });
+  equipoVisible().forEach(n => eq[n] = { v: 0, up: 0, n: 0, c: 0 });
   comandasEn(desde, hasta).forEach(r => {
     const q = r[I.TRAB] || 'Sin asignar';
-    if (!eq[q]) eq[q] = { v: 0, up: 0, n: 0 };
-    eq[q].v += r[I.TOT]; eq[q].n++; if (r[I.UP]) eq[q].up++;
+    if (!eq[q]) eq[q] = { v: 0, up: 0, n: 0, c: 0 };
+    eq[q].v += r[I.TOT]; eq[q].n++; eq[q].c += comisionFila(r); if (r[I.UP]) eq[q].up++;
   });
   const nombres = Object.keys(eq).sort((a, b) => a.localeCompare(b));
   let total = 0, totUp = 0;
   const lineaSede = sedeActual === 'todas' ? '' : '📍 ' + sedeActual + '\n';
   const lineaF = '🗓️ Del ' + fechaCorta(desde) + ' al ' + fechaCorta(hasta === Infinity ? Date.now() : hasta - 1) + '\n\n';
-  txtCom = '💰 *COMISIONES (' + pct + '%)*\n' + lineaSede + lineaF;
+  txtCom = '💰 *COMISIONES' + (reglas ? '' : ' (' + pct + '%)') + '*\n' + lineaSede + lineaF;
   txtUp = '🚀 *UP SELLING*\n' + lineaSede + lineaF;
   const filasCom = nombres.map(n => {
-    const com = eq[n].v * pct / 100; total += com;
+    const com = Math.round(eq[n].c * 100) / 100; total += com;
     if (com > 0) txtCom += '👤 ' + n + ': *' + soles(com) + '* (facturó ' + soles(eq[n].v) + ')\n';
     return '<div class="item"><div><div class="p">' + esc(n) + '</div><div class="s">' + eq[n].n + ' atenciones · facturó ' + soles(eq[n].v) + '</div></div><div class="r num" style="color:' + (com ? 'var(--green)' : 'var(--ink3)') + '">' + soles(com) + '</div></div>';
   }).join('');
@@ -922,7 +1026,7 @@ function pintarEquipo() {
   txtUp += '\n🚀 *TOTAL: ' + totUp + '*';
   cont.innerHTML = '<div class="card"><div class="c-tit">Comisiones <span class="pill">' + fechaCorta(desde) + ' – ' + fechaCorta(hasta === Infinity ? Date.now() : hasta - 1) + '</span></div>' +
     '<div class="fila-sb" style="margin:4px 0 6px"><p class="grande verde num" style="font-size:30px">' + soles(total) + '</p>' +
-    '<label style="display:flex;align-items:center;gap:6px;font-weight:700;color:var(--accent)"><input id="eq-pct" type="number" min="0" max="100" value="' + pct + '" style="width:64px;border:none;background:rgba(0,113,227,.1);color:var(--accent);font-weight:700;font-size:16px;border-radius:8px;padding:6px;text-align:center" onchange="pintarVista()">%</label></div>' +
+    '<button class="pill" style="border:none;cursor:pointer;padding:7px 11px" onclick="abrirAjustes(\'comisiones\')">' + (reglas ? 'Según tus reglas' : pct + '% general') + ' ›</button></div>' +
     (filasCom || '<div class="vacio">Sin datos</div>') +
     '<button class="btn btn-gris" style="margin-top:12px;padding:12px" onclick="copiarTxt(txtCom)">Copiar para WhatsApp</button></div>' +
     (cfg().upselling ? '<div class="card"><div class="c-tit" style="color:var(--pink)">Up selling <b class="num" style="font-size:18px">' + totUp + '</b></div>' + filasUp +
@@ -959,109 +1063,562 @@ function abrirLinkEquipo() {
     '<div class="card"><div style="font-size:15px;color:var(--ink2)">Envía este link a tu equipo. Cada persona lo abre en su celular y lo agrega a su pantalla de inicio.</div>' +
     '<div class="link-caja">' + esc(url) + '</div><div class="botones"><a class="btn btn-primary" href="https://wa.me/?text=' + encodeURIComponent(msg) + '" target="_blank" rel="noopener">WhatsApp</a>' +
     '<button class="btn btn-gris" onclick="copiar(D.urlEquipo).then(()=>toast(\'Link copiado\'))">Copiar</button></div></div>' +
-    '<div class="card"><b>Cómo lo instalan</b><div style="margin-top:10px">' + htmlGuiaInstalar() + '</div></div>');
+    '<div class="card"><b>Cómo lo instalan</b><div style="margin-top:10px">' + htmlGuiaInstalar() + '</div></div>' +
+    '<button class="btn btn-rojo" onclick="regenerarLink()">Generar link nuevo</button><div class="grupo-pie" style="text-align:center">Si alguien deja el equipo, genera un link nuevo: el anterior deja de funcionar.</div>');
 }
 
 // =====================================================================
-// AJUSTES
+// AJUSTES (menú + páginas) · SERVICIOS · IMPORTAR · EXPORTAR
 // =====================================================================
-let A = null;
-function abrirAjustes(foco) {
-  A = JSON.parse(JSON.stringify(cfg()));
-  pintarAjustes();
-  if (foco) setTimeout(() => { const e = document.getElementById('aj-' + foco); if (e) e.scrollIntoView({ behavior: 'smooth' }); }, 350);
+let A = null, AJ = 'menu', SV_FILTRO = { txt: '', cat: '' }, SV_EDIT = -1, IMP = null;
+const clonar = o => JSON.parse(JSON.stringify(o));
+function numero(v) {
+  let t = String(v == null ? '' : v).replace(/[^\d.,-]/g, '');
+  if (!/\d/.test(t)) return NaN;
+  if (/^-?\d{1,3}(\.\d{3})+$/.test(t)) t = t.replace(/\./g, '');      // 1.200 → 1200
+  t = t.replace(/,(?=\d{3}\b)/g, '').replace(',', '.');                   // 1,200.50 → 1200.50 · 50,5 → 50.5
+  const n = Number(t); return isFinite(n) ? n : NaN;
 }
-function pintarAjustes() {
-  const c = D.cuenta || {};
-  const estadoTxt = DEMO ? 'Demo' : c.estado === 'activo' ? 'Plan activo · ' + c.dias + ' días' : c.estado === 'prueba' ? 'Prueba gratis · quedan ' + c.dias + ' días' : 'Vencido';
-  const filasLista = (arr, render, tipo) => arr.map((x, i) => '<div class="fila-f">' + render(x, i) + '<button class="quitar" onclick="quitarAj(\'' + tipo + '\',' + i + ')">−</button></div>').join('');
-  const sedesOpt = (sel) => A.sedes.map(s => '<option' + (s.nombre === sel ? ' selected' : '') + '>' + esc(s.nombre) + '</option>').join('');
-  const tipos = [['digital', 'Yape/Plin/Transf.'], ['efectivo', 'Efectivo'], ['tarjeta', 'Tarjeta'], ['canje', 'Canje (no suma)'], ['otro', 'Otro']];
-  abrirHoja('<div class="hoja-nav"><button class="izq" onclick="cerrarHoja()">Cancelar</button><b>Ajustes</b><button class="der" id="btn-aj" onclick="guardarAjustes()">Guardar</button></div>' +
-    '<div class="grupo-tit">Cuenta</div><div class="grupo"><div class="fila-f"><span class="lbl-fila">' + esc(estadoTxt) + '</span>' +
-    (!DEMO && c.estado !== 'activo' ? '<a class="pill" style="text-decoration:none;padding:6px 10px" href="' + linkPago() + '" target="_blank" rel="noopener">Activar · S/ ' + (c.precio || L.PRECIO) + '/mes</a>' : '') + '</div></div>' +
-
-    '<div class="grupo-tit">App del equipo</div><div class="grupo"><div class="fila-f" onclick="abrirLinkEquipo()" style="cursor:pointer"><span class="lbl-fila" style="color:var(--accent)">Enviar link a mi equipo</span><span class="mini">›</span></div>' +
-    '<div class="fila-f" onclick="regenerarLink()" style="cursor:pointer"><span class="lbl-fila" style="color:var(--red)">Generar link nuevo</span></div></div>' +
-    '<div class="grupo-pie">Si alguien deja el equipo, genera un link nuevo: el anterior deja de funcionar.</div>' +
-
-    '<div class="grupo-tit">Notificaciones</div><div class="grupo"><div class="fila-f"><span class="lbl-fila" id="push-txt">Cierre diario y alertas</span><button class="pill" style="border:none;padding:6px 10px;cursor:pointer" id="btn-push" onclick="activarPush()">Activar</button></div></div>' +
-    '<div class="grupo-pie">En iPhone, primero instala la app en tu pantalla de inicio y ábrela desde el ícono.</div>' +
-
-    '<div class="grupo-tit">Negocio</div><div class="grupo"><div class="fila-f"><span class="mini">Nombre</span><input class="f1" data-k="negocio" value="' + esc(A.negocio) + '" style="text-align:right"></div>' +
-    '<div class="fila-f"><span class="mini">Llamas a quien atiendes</span><input class="f1" data-t="cliente" value="' + esc(A.terminos.cliente) + '" style="text-align:right"></div>' +
-    '<div class="fila-f"><span class="mini">Tu equipo (singular)</span><input class="f1" data-t="trabajador" value="' + esc(A.terminos.trabajador) + '" style="text-align:right"></div>' +
-    '<div class="fila-f"><span class="mini">Tu equipo (plural)</span><input class="f1" data-t="trabajadores" value="' + esc(A.terminos.trabajadores) + '" style="text-align:right"></div></div>' +
-
-    '<div class="grupo-tit" id="aj-sedes">Sedes · meta mensual · tope de POS</div><div class="grupo">' +
-    filasLista(A.sedes, (s, i) => '<input class="f1" data-a="sedes" data-i="' + i + '" data-c="nombre" value="' + esc(s.nombre) + '" placeholder="Nombre"><input class="w80" data-a="sedes" data-i="' + i + '" data-c="meta" inputmode="decimal" value="' + (s.meta || '') + '" placeholder="Meta"><input class="w80" data-a="sedes" data-i="' + i + '" data-c="posTope" inputmode="decimal" value="' + (s.posTope || '') + '" placeholder="POS">', 'sedes') +
-    '</div><button class="agregar" onclick="agregarAj(\'sedes\')">+ Agregar sede</button><div class="grupo-pie">Meta y tope de POS en soles; déjalos vacíos si no los usas. El tope de POS avisa cuando un equipo POS se acerca a su límite mensual.</div>' +
-
-    '<div class="grupo-tit">' + esc(A.terminos.trabajadores) + '</div><div class="grupo">' +
-    filasLista(A.equipo, (e, i) => '<input class="f1" data-a="equipo" data-i="' + i + '" data-c="nombre" value="' + esc(e.nombre) + '" placeholder="Nombre">' + (A.sedes.length > 1 ? '<select class="w110" data-a="equipo" data-i="' + i + '" data-c="sede">' + sedesOpt(e.sede) + '</select>' : ''), 'equipo') +
-    '</div><button class="agregar" onclick="agregarAj(\'equipo\')">+ Agregar persona</button>' +
-
-    '<div class="grupo-tit">Servicios y precios</div><div class="grupo">' +
-    filasLista(A.servicios, (s, i) => '<input class="w80" data-a="servicios" data-i="' + i + '" data-c="categoria" value="' + esc(s.categoria) + '" placeholder="Categoría" style="text-align:left;color:var(--ink3);font-size:13px"><input class="f1" data-a="servicios" data-i="' + i + '" data-c="nombre" value="' + esc(s.nombre) + '" placeholder="Servicio"><input class="w80" data-a="servicios" data-i="' + i + '" data-c="precio" inputmode="decimal" value="' + s.precio + '" placeholder="S/">', 'servicios') +
-    '</div><button class="agregar" onclick="agregarAj(\'servicios\')">+ Agregar servicio</button>' +
-
-    '<div class="grupo-tit">Métodos de pago</div><div class="grupo">' +
-    filasLista(A.metodos, (m, i) => '<input class="f1" data-a="metodos" data-i="' + i + '" data-c="nombre" value="' + esc(m.nombre) + '" placeholder="Nombre"><select class="w110" data-a="metodos" data-i="' + i + '" data-c="tipo">' + tipos.map(t => '<option value="' + t[0] + '"' + (m.tipo === t[0] ? ' selected' : '') + '>' + t[1] + '</option>').join('') + '</select>', 'metodos') +
-    '</div><button class="agregar" onclick="agregarAj(\'metodos\')">+ Agregar método</button>' +
-
-    '<div class="grupo-tit">Comisiones</div><div class="grupo"><div class="fila-f"><span class="lbl-fila">Comisión sobre lo facturado</span><input class="w80" data-k="comisionPct" inputmode="decimal" value="' + A.comisionPct + '">%</div>' +
-    '<div class="fila-f"><span class="lbl-fila">Registrar up selling</span><label class="switch"><input type="checkbox" id="aj-up"' + (A.upselling ? ' checked' : '') + '><span></span></label></div></div>' +
-
-    '<div class="grupo-tit">Gastos</div><div class="grupo"><div class="fila-f"><span class="mini">Quiénes pagan</span><input class="f1" id="aj-pag" value="' + esc(A.pagadores.join(', ')) + '" style="text-align:right"></div>' +
-    '<div class="fila-f"><span class="mini">Cuentas</span><input class="f1" id="aj-cta" value="' + esc(A.cuentas.join(', ')) + '" style="text-align:right"></div></div><div class="grupo-pie">Separa con comas. “Caja” siempre está incluida.</div>' +
-
-    '<div class="grupo-tit">Mis datos</div><div class="grupo"><div class="fila-f" onclick="compartirHoja()" style="cursor:pointer"><span class="lbl-fila" style="color:var(--accent)">Ver mi hoja de Google</span><span class="mini">›</span></div>' +
-    '<div class="fila-f" onclick="cambiarClave()" style="cursor:pointer"><span class="lbl-fila" style="color:var(--accent)">Cambiar contraseña</span><span class="mini">›</span></div>' +
-    '<div class="fila-f" onclick="window.open(\'https://wa.me/' + (c.whatsapp || L.WHATSAPP) + '\')" style="cursor:pointer"><span class="lbl-fila" style="color:var(--accent)">Ayuda por WhatsApp</span><span class="mini">›</span></div></div>' +
-    '<button class="btn btn-rojo" style="margin:26px 0 8px" onclick="salir()">' + (DEMO ? 'Salir de la demo' : 'Cerrar sesión') + '</button>', true);
-  const h = document.getElementById('hoja');
-  h.querySelectorAll('[data-a]').forEach(el => el.oninput = el.onchange = () => { A[el.dataset.a][el.dataset.i][el.dataset.c] = el.value; });
-  h.querySelectorAll('[data-t]').forEach(el => el.oninput = () => A.terminos[el.dataset.t] = el.value);
-  h.querySelectorAll('[data-k]').forEach(el => el.oninput = () => A[el.dataset.k] = el.value);
-  actualizarBotonPush();
+const TIPOS_MET = [['digital', 'Yape / Plin / Transf.'], ['efectivo', 'Efectivo'], ['tarjeta', 'Tarjeta'], ['canje', 'Canje (no suma)'], ['otro', 'Otro']];
+const ICO = {
+  negocio: ['#0071e3', '<path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/>'],
+  sedes: ['#af52de', '<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>'],
+  equipo: ['#ff9500', '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.8c1.7.8 2.8 2.6 3 5.2"/>'],
+  servicios: ['#34c759', '<path d="M4 6h16M4 12h16M4 18h10"/>'],
+  metodos: ['#5856d6', '<rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M2.5 10h19"/>'],
+  comisiones: ['#ff2d55', '<path d="M19 5L5 19"/><circle cx="7" cy="7" r="2.5"/><circle cx="17" cy="17" r="2.5"/>'],
+  gastos: ['#ff3b30', '<path d="M12 2v20M17 6H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>'],
+  link: ['#00c7be', '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>'],
+  push: ['#ff3b30', '<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>'],
+  excel: ['#1d6f42', '<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8l8 8M16 8l-8 8"/>'],
+  hoja: ['#0f9d58', '<rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 3v18"/>'],
+  clave: ['#8e8e93', '<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>'],
+  ayuda: ['#25d366', '<path d="M20 12a8 8 0 0 1-11.8 7L4 20l1.1-4A8 8 0 1 1 20 12z"/>']
+};
+function ico(k) { const [c, p] = ICO[k]; return '<span class="ic-cuad" style="background:' + c + '"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">' + p + '</svg></span>'; }
+function filaMenu(k, titulo, detalle, accion) {
+  return '<button class="aj-fila" onclick="' + accion + '">' + ico(k) + '<span class="t">' + titulo + '</span><span class="d">' + (detalle || '') + '</span><span class="flecha">›</span></button>';
 }
-function leerTodoAj() {
-  A.upselling = document.getElementById('aj-up').checked;
-  A.pagadores = document.getElementById('aj-pag').value.split(',').map(x => x.trim()).filter(Boolean);
-  A.cuentas = document.getElementById('aj-cta').value.split(',').map(x => x.trim()).filter(Boolean);
+function navAj(titulo, atras, derecha) {
+  return '<div class="hoja-nav"><button class="izq" onclick="' + (atras || 'cerrarHoja()') + '">' + (atras ? '‹ Atrás' : 'Cerrar') + '</button><b>' + titulo + '</b>' +
+    (derecha ? derecha : '<span style="min-width:70px"></span>') + '</div>';
 }
-function agregarAj(t) {
-  leerTodoAj();
-  const nuevo = { sedes: { nombre: '', meta: 0, posTope: 0 }, equipo: { nombre: '', sede: A.sedes[0].nombre }, servicios: { categoria: (A.servicios[A.servicios.length - 1] || {}).categoria || 'General', nombre: '', precio: '' }, metodos: { nombre: '', tipo: 'digital' } }[t];
-  A[t].push(nuevo);
-  const y = document.getElementById('hoja').scrollTop;
-  pintarAjustes(); document.getElementById('hoja').scrollTop = y;
-  const ins = document.querySelectorAll('[data-a="' + t + '"][data-c="nombre"]'); ins[ins.length - 1].focus();
+function btnGuardar(fn) { return '<button class="der" id="btn-aj" onclick="' + fn + '">Guardar</button>'; }
+
+function abrirAjustes(pagina) {
+  A = clonar(cfg());
+  A.servicios = A.servicios || []; A.equipo = A.equipo || [];
+  irAj(pagina || 'menu');
 }
-function quitarAj(t, i) {
-  leerTodoAj();
-  if (t === 'sedes' && A.sedes.length === 1) return toast('Debe haber al menos una sede');
-  A[t].splice(i, 1);
-  const y = document.getElementById('hoja').scrollTop;
-  pintarAjustes(); document.getElementById('hoja').scrollTop = y;
+function irAj(p, mantenerScroll) {
+  AJ = p;
+  const h = document.getElementById('hoja'), y = h.scrollTop;
+  abrirHoja(PAG[p](), true);
+  if (mantenerScroll) h.scrollTop = y;
+  if (DESPUES[p]) DESPUES[p]();
 }
-async function guardarAjustes() {
-  leerTodoAj();
-  A.sedes.forEach(s => { s.meta = Number(String(s.meta).replace(',', '.')) || 0; s.posTope = Number(String(s.posTope).replace(',', '.')) || 0; });
-  A.servicios = A.servicios.filter(s => String(s.nombre).trim());
-  A.servicios.forEach(s => s.precio = Number(String(s.precio).replace(',', '.')) || 0);
-  A.equipo = A.equipo.filter(e => String(e.nombre).trim());
-  A.metodos = A.metodos.filter(m => String(m.nombre).trim());
-  A.sedes = A.sedes.filter(s => String(s.nombre).trim());
-  A.comisionPct = Number(String(A.comisionPct).replace(',', '.')) || 0;
-  const btn = document.getElementById('btn-aj'); btn.disabled = true; btn.textContent = 'Guardando…';
+function descartarYVolver(p) { A = clonar(cfg()); irAj(p || 'menu'); }
+
+async function guardarA(volverA, mensaje) {
+  const btn = document.getElementById('btn-aj');
+  if (btn) { btn.disabled = true; btn.textContent = 'Guardando…'; }
   try {
-    const r = await api('guardarConfig', { config: A }, TOKEN);
-    D.config = r.config;
-    if (!DEMO) guardarLocal('leg_datos', D);
-    cerrarHoja(); iniciarApp(); toast('Ajustes guardados. Tu equipo ya los ve.');
-  } catch (e) { toast(e.message, 4000); btn.disabled = false; btn.textContent = 'Guardar'; }
+    A.sedes.forEach(s => { s.meta = numero(s.meta) || 0; s.posTope = numero(s.posTope) || 0; });
+    A.sedes = A.sedes.filter(s => String(s.nombre).trim());
+    A.equipo = A.equipo.filter(e => String(e.nombre).trim());
+    A.metodos = A.metodos.filter(m => String(m.nombre).trim());
+    A.comisionPct = numero(A.comisionPct) || 0;
+    const r = await api('guardarConfig', { config: A }, TOKEN, 45000);
+    D.config = r.config; A = clonar(r.config); MAPA_SV = null;
+    if (!DEMO && !D.completo) guardarLocal('leg_datos', D);
+    iniciarApp();
+    toast(mensaje || 'Guardado. Tu equipo ya lo ve.');
+    if (volverA) irAj(volverA);
+    return true;
+  } catch (e) {
+    toast(e.code === 'DEMO' ? 'Es la demo: los cambios no se guardan. Crea tu cuenta gratis para guardarlos.' : e.message, 4500);
+    if (btn) { btn.disabled = false; btn.textContent = 'Guardar'; }
+    return false;
+  }
 }
+
+const DESPUES = {};
+const PAG = {};
+
+// ---------------- Menú ----------------
+PAG.menu = function () {
+  const c = D.cuenta || {}, cf = cfg();
+  const estado = DEMO ? 'Demo' : c.estado === 'activo' ? 'Plan activo · ' + c.dias + ' días' : c.estado === 'prueba' ? 'Prueba gratis · quedan ' + c.dias + ' días' : 'Vencido';
+  const activos = cf.servicios.filter(s => s.activo !== false).length;
+  return navAj('Ajustes') +
+    '<div class="aj-cab"><div class="logo-neg">' + esc((cf.negocio || '?').trim().charAt(0).toUpperCase()) + '</div><div style="flex:1;min-width:0"><b>' + esc(cf.negocio) + '</b><span>' + esc(estado) + '</span></div>' +
+    (!DEMO && c.estado !== 'activo' ? '<a class="pill" style="text-decoration:none;padding:7px 11px" href="' + linkPago() + '" target="_blank" rel="noopener">Activar</a>' : '') + '</div>' +
+    '<div class="grupo-tit">Tu negocio</div><div class="grupo grupo-menu">' +
+      filaMenu('servicios', 'Servicios y precios', activos + ' activos', "irAj('servicios')") +
+      filaMenu('equipo', esc(cf.terminos.trabajadores), cf.equipo.filter(e => e.activo !== false).length + ' activos', "irAj('equipo')") +
+      filaMenu('comisiones', 'Comisiones', cf.comisionPct + '% general', "irAj('comisiones')") +
+      filaMenu('sedes', 'Sedes, metas y POS', cf.sedes.length + (cf.sedes.length === 1 ? ' sede' : ' sedes'), "irAj('sedes')") +
+      filaMenu('metodos', 'Métodos de pago', cf.metodos.length, "irAj('metodos')") +
+      filaMenu('gastos', 'Gastos: quién paga y cuentas', '', "irAj('gastos')") +
+      filaMenu('negocio', 'Nombre y palabras', '', "irAj('negocio')") +
+    '</div>' +
+    '<div class="grupo-tit">App del equipo</div><div class="grupo grupo-menu">' +
+      filaMenu('link', 'Enviar link a mi equipo', '', 'abrirLinkEquipo()') +
+      filaMenu('push', 'Notificaciones', '<span id="push-txt"></span>', 'activarPush()') +
+    '</div>' +
+    '<div class="grupo-tit">Datos</div><div class="grupo grupo-menu">' +
+      filaMenu('excel', 'Exportar a Excel', '', 'exportarTodo()') +
+      filaMenu('hoja', 'Ver mi hoja de Google', '', 'compartirHoja()') +
+      filaMenu('clave', 'Cambiar contraseña', '', 'cambiarClave()') +
+      filaMenu('ayuda', 'Ayuda por WhatsApp', '', "window.open('https://wa.me/" + (c.whatsapp || L.WHATSAPP) + "')") +
+    '</div>' +
+    '<button class="btn btn-rojo" style="margin:22px 0 8px" onclick="salir()">' + (DEMO ? 'Salir de la demo' : 'Cerrar sesión') + '</button>' +
+    '<div class="grupo-pie" style="text-align:center;margin-bottom:10px">7LEGEND · Los números de tu negocio en orden.</div>';
+};
+DESPUES.menu = () => actualizarBotonPush();
+
+// ---------------- Negocio ----------------
+PAG.negocio = function () {
+  return navAj('Nombre y palabras', "descartarYVolver()", btnGuardar("guardarA('menu')")) +
+    '<div class="grupo"><div class="fila-f"><span class="mini">Nombre del negocio</span><input class="f1 der-t" oninput="A.negocio=this.value" value="' + esc(A.negocio) + '"></div></div>' +
+    '<div class="grupo-tit">Cómo llamas a…</div><div class="grupo">' +
+    '<div class="fila-f"><span class="mini">Quien atiendes</span><input class="f1 der-t" oninput="A.terminos.cliente=this.value" value="' + esc(A.terminos.cliente) + '" placeholder="Cliente, Paciente…"></div>' +
+    '<div class="fila-f"><span class="mini">Tu equipo (singular)</span><input class="f1 der-t" oninput="A.terminos.trabajador=this.value" value="' + esc(A.terminos.trabajador) + '"></div>' +
+    '<div class="fila-f"><span class="mini">Tu equipo (plural)</span><input class="f1 der-t" oninput="A.terminos.trabajadores=this.value" value="' + esc(A.terminos.trabajadores) + '"></div></div>' +
+    '<div class="grupo-pie">Estas palabras aparecen en tu app y en la de tu equipo. Ej.: “Paciente” y “Terapeuta” en un spa, “Cliente” y “Barbero” en una barbería.</div>';
+};
+
+// ---------------- Sedes ----------------
+PAG.sedes = function () {
+  return navAj('Sedes, metas y POS', "descartarYVolver()", btnGuardar("guardarA('menu')")) +
+    A.sedes.map((s, i) => '<div class="tarjeta-ed"><div class="fila-f"><span class="mini">Sede</span><input class="f1 der-t" oninput="A.sedes[' + i + '].nombre=this.value" value="' + esc(s.nombre) + '" placeholder="Nombre"></div>' +
+      '<div class="fila-f"><span class="mini">Meta del mes (S/)</span><input class="f1 der-t" inputmode="decimal" oninput="A.sedes[' + i + '].meta=this.value" value="' + (s.meta || '') + '" placeholder="Opcional"></div>' +
+      '<div class="fila-f"><span class="mini">Tope mensual del POS (S/)</span><input class="f1 der-t" inputmode="decimal" oninput="A.sedes[' + i + '].posTope=this.value" value="' + (s.posTope || '') + '" placeholder="Opcional"></div>' +
+      (A.sedes.length > 1 ? '<button class="quitar-txt" onclick="A.sedes.splice(' + i + ',1);irAj(\'sedes\',1)">Quitar sede</button>' : '') + '</div>').join('') +
+    '<button class="agregar" onclick="A.sedes.push({nombre:\'\',meta:0,posTope:0});irAj(\'sedes\',1)">+ Agregar sede</button>' +
+    '<div class="grupo-pie">La meta muestra tu avance del mes. El tope de POS te avisa cuando un equipo POS se acerca a su límite mensual.</div>';
+};
+
+// ---------------- Equipo ----------------
+PAG.equipo = function () {
+  const varias = A.sedes.length > 1;
+  return navAj(esc(A.terminos.trabajadores), "descartarYVolver()", btnGuardar("guardarA('menu')")) +
+    '<div class="grupo-pie" style="margin-top:0">Desactiva a quien ya no trabaja contigo: deja de aparecer en la app del equipo, pero su historial se conserva.</div>' +
+    A.equipo.map((e, i) => '<div class="tarjeta-ed' + (e.activo === false ? ' apagada' : '') + '">' +
+      '<div class="fila-f"><input class="f1" style="font-weight:600" oninput="A.equipo[' + i + '].nombre=this.value" value="' + esc(e.nombre) + '" placeholder="Nombre">' +
+      '<label class="switch" title="Activo"><input type="checkbox"' + (e.activo !== false ? ' checked' : '') + ' onchange="A.equipo[' + i + '].activo=this.checked;irAj(\'equipo\',1)"><span></span></label></div>' +
+      (varias ? '<div class="fila-f"><span class="mini">Sede</span><select class="f1 der-t" onchange="A.equipo[' + i + '].sede=this.value">' + A.sedes.map(s => '<option' + (s.nombre === e.sede ? ' selected' : '') + '>' + esc(s.nombre) + '</option>').join('') + '</select></div>' : '') +
+      '<div class="fila-f"><span class="mini">Comisión propia (%)</span><input class="f1 der-t" inputmode="decimal" oninput="A.equipo[' + i + '].comPct=this.value===\'\'?null:this.value" value="' + (e.comPct == null ? '' : e.comPct) + '" placeholder="General: ' + A.comisionPct + '%"></div>' +
+      '</div>').join('') +
+    '<button class="agregar" onclick="A.equipo.push({nombre:\'\',sede:A.sedes[0].nombre,comPct:null,activo:true});irAj(\'equipo\',1);setTimeout(()=>{const x=document.querySelectorAll(\'.tarjeta-ed input.f1\');x[x.length-2]&&x[x.length-2].focus()},50)">+ Agregar persona</button>';
+};
+
+// ---------------- Métodos ----------------
+PAG.metodos = function () {
+  return navAj('Métodos de pago', "descartarYVolver()", btnGuardar("guardarA('menu')")) +
+    '<div class="grupo">' + A.metodos.map((m, i) => '<div class="fila-f"><input class="f1" oninput="A.metodos[' + i + '].nombre=this.value" value="' + esc(m.nombre) + '" placeholder="Nombre">' +
+      '<select class="w140" onchange="A.metodos[' + i + '].tipo=this.value">' + TIPOS_MET.map(t => '<option value="' + t[0] + '"' + (m.tipo === t[0] ? ' selected' : '') + '>' + t[1] + '</option>').join('') + '</select>' +
+      '<button class="quitar" onclick="A.metodos.splice(' + i + ',1);irAj(\'metodos\',1)">−</button></div>').join('') + '</div>' +
+    '<button class="agregar" onclick="A.metodos.push({nombre:\'\',tipo:\'digital\'});irAj(\'metodos\',1)">+ Agregar método</button>' +
+    '<div class="grupo-pie">El tipo agrupa tus ingresos en el resumen. “Canje” cuenta la atención pero no suma a tus ingresos.</div>';
+};
+
+// ---------------- Comisiones ----------------
+PAG.comisiones = function () {
+  const espSv = A.servicios.filter(s => s.comValor != null).length, espEq = A.equipo.filter(e => e.comPct != null && e.comPct !== '').length;
+  return navAj('Comisiones', "descartarYVolver()", btnGuardar("guardarA('menu')")) +
+    '<div class="grupo"><div class="fila-f"><span class="lbl-fila">Comisión general</span><input class="w80" inputmode="decimal" oninput="A.comisionPct=this.value" value="' + A.comisionPct + '"><b>%</b></div>' +
+    '<div class="fila-f"><span class="lbl-fila">Registrar up selling</span><label class="switch"><input type="checkbox"' + (A.upselling ? ' checked' : '') + ' onchange="A.upselling=this.checked"><span></span></label></div></div>' +
+    '<div class="grupo-tit">Cómo se calcula</div><div class="reglas">' +
+      '<div><span class="n">1</span><b>Servicio con comisión especial</b><small>% o monto fijo por servicio. Tienes ' + espSv + '.</small><button onclick="irAj(\'servicios\')">Ver servicios ›</button></div>' +
+      '<div><span class="n">2</span><b>Comisión propia de la persona</b><small>Si alguien gana distinto. Tienes ' + espEq + '.</small><button onclick="irAj(\'equipo\')">Ver equipo ›</button></div>' +
+      '<div><span class="n">3</span><b>Comisión general</b><small>Para todo lo demás: ' + A.comisionPct + '% de lo facturado.</small></div>' +
+    '</div><div class="grupo-pie">Ejemplo: en una barbería el corte paga S/ 8 fijo, los tintes 30% y el resto el 40% general.</div>';
+};
+
+// ---------------- Gastos ----------------
+PAG.gastos = function () {
+  return navAj('Gastos', "descartarYVolver()", btnGuardar("A.pagadores=document.getElementById('aj-pag').value.split(',').map(x=>x.trim()).filter(Boolean);A.cuentas=document.getElementById('aj-cta').value.split(',').map(x=>x.trim()).filter(Boolean);guardarA('menu')")) +
+    '<div class="grupo"><div class="fila-f"><span class="mini">Quiénes pagan</span><input class="f1 der-t" id="aj-pag" value="' + esc(A.pagadores.join(', ')) + '"></div>' +
+    '<div class="fila-f"><span class="mini">Cuentas</span><input class="f1 der-t" id="aj-cta" value="' + esc(A.cuentas.join(', ')) + '"></div></div>' +
+    '<div class="grupo-pie">Separa con comas. Si un gasto lo paga un socio con su dinero, queda “por devolver” hasta que lo marques. “Caja” siempre está incluida.</div>';
+};
+
+// =====================================================================
+// SERVICIOS: lista, buscador, categorías, editor, ajuste masivo
+// =====================================================================
+function categorias(lista) { const c = []; (lista || A.servicios).forEach(s => { if (c.indexOf(s.categoria) === -1) c.push(s.categoria); }); return c; }
+function precioTxt(s) { return s.libre ? 'Precio libre' : soles(s.precio); }
+function comTxt(s) { return s.comValor == null ? '' : (s.comTipo === 'S/' ? 'S/ ' + s.comValor : s.comValor + '%'); }
+PAG.servicios = function () {
+  return navAj('Servicios y precios', "irAj('menu')") +
+    '<div class="sv-herr"><button onclick="IMP=null;irAj(\'importar\')"><span>⬆︎</span>Importar</button><button onclick="exportarServicios()"><span>⬇︎</span>Exportar</button><button onclick="irAj(\'masivo\')"><span>%</span>Ajustar precios</button></div>' +
+    '<input class="buscar" type="search" placeholder="Buscar entre ' + A.servicios.length + ' servicios" value="' + esc(SV_FILTRO.txt) + '" oninput="SV_FILTRO.txt=this.value;debounce(pintarListaSv,180)">' +
+    '<div id="sv-lista">' + htmlListaSv() + '</div>' +
+    '<div style="height:80px"></div><button class="fab-hoja" onclick="editarServicio(-1)" aria-label="Nuevo servicio">+</button>';
+};
+function pintarListaSv() { const el = document.getElementById('sv-lista'); if (el) el.innerHTML = htmlListaSv(); }
+function htmlListaSv() {
+  const cats = categorias(), t = norm(SV_FILTRO.txt);
+  if (SV_FILTRO.cat && cats.indexOf(SV_FILTRO.cat) === -1) SV_FILTRO.cat = '';
+  const vis = A.servicios.map((s, i) => [s, i]).filter(([s]) => (!SV_FILTRO.cat || s.categoria === SV_FILTRO.cat) && (!t || norm(s.nombre + ' ' + s.categoria).includes(t)));
+  let html = cats.length > 1 ? '<div class="chips-cat"><button class="' + (SV_FILTRO.cat ? '' : 'on') + '" onclick="SV_FILTRO.cat=\'\';pintarListaSv()">Todas · ' + A.servicios.length + '</button>' +
+    cats.map(c => '<button class="' + (SV_FILTRO.cat === c ? 'on' : '') + '" data-c="' + esc(c) + '" onclick="SV_FILTRO.cat=this.dataset.c;pintarListaSv()">' + esc(c) + ' · ' + A.servicios.filter(s => s.categoria === c).length + '</button>').join('') + '</div>' : '';
+  if (!vis.length) return html + (A.servicios.length ? '<div class="vacio">No hay servicios con ese filtro.</div>' :
+    '<div class="sv-vacio"><b>Aún no tienes servicios</b><span>Agrégalos uno por uno con el botón + o trae tu lista completa desde Excel o Google Sheets.</span><button class="btn btn-primary" onclick="IMP=null;irAj(\'importar\')">Importar mi lista</button></div>');
+  let cat = null;
+  vis.forEach(([s, i]) => {
+    if (s.categoria !== cat) { if (cat !== null) html += '</div>'; cat = s.categoria; html += '<div class="grupo-tit">' + esc(cat) + '</div><div class="grupo">'; }
+    html += '<button class="sv-fila' + (s.activo === false ? ' apagada' : '') + '" onclick="editarServicio(' + i + ')"><span class="n">' + esc(s.nombre) +
+      '<span class="bad">' + (s.libre ? '<i class="b-az">Precio libre</i>' : '') + (s.comValor != null ? '<i class="b-ro">Com. ' + esc(comTxt(s)) + '</i>' : '') + (s.activo === false ? '<i>Oculto</i>' : '') + '</span></span>' +
+      '<span class="p num">' + (s.libre ? '—' : soles(s.precio)) + '</span><span class="flecha">›</span></button>';
+  });
+  return html + (cat !== null ? '</div>' : '');
+}
+function editarServicio(i) {
+  SV_EDIT = i;
+  irAj('servicio');
+}
+PAG.servicio = function () {
+  const nuevo = SV_EDIT < 0;
+  const s = nuevo ? { categoria: SV_FILTRO.cat || (A.servicios[A.servicios.length - 1] || {}).categoria || 'General', nombre: '', precio: '', activo: true } : A.servicios[SV_EDIT];
+  const modo = s.comValor == null ? '' : (s.comTipo === 'S/' ? 'S/' : '%');
+  return navAj(nuevo ? 'Nuevo servicio' : 'Editar servicio', "irAj('servicios')", btnGuardar('guardarServicio()')) +
+    '<datalist id="dl-cat">' + categorias().map(c => '<option value="' + esc(c) + '">').join('') + '</datalist>' +
+    '<div class="campo"><label>Nombre</label><input class="inp" id="s-nom" maxlength="60" value="' + esc(s.nombre) + '" placeholder="Ej: Corte + barba"></div>' +
+    '<div class="botones"><div class="campo" style="flex:1.3"><label>Categoría</label><input class="inp" id="s-cat" list="dl-cat" maxlength="30" value="' + esc(s.categoria) + '"></div>' +
+    '<div class="campo" style="flex:1"><label>Precio (S/)</label><input class="inp" id="s-pre" inputmode="decimal" value="' + (s.libre ? '' : esc(s.precio)) + '"' + (s.libre ? ' disabled placeholder="Libre"' : '') + '></div></div>' +
+    '<div class="grupo"><div class="fila-f"><span class="lbl-fila">Precio variable<small>Tu equipo escribe el precio al registrar (tatuajes, tintes, paquetes…)</small></span><label class="switch"><input type="checkbox" id="s-lib"' + (s.libre ? ' checked' : '') + ' onchange="const p=document.getElementById(\'s-pre\');p.disabled=this.checked;p.placeholder=this.checked?\'Libre\':\'\';if(this.checked)p.value=\'\'"><span></span></label></div>' +
+    '<div class="fila-f"><span class="lbl-fila">Visible para el equipo</span><label class="switch"><input type="checkbox" id="s-act"' + (s.activo !== false ? ' checked' : '') + '><span></span></label></div></div>' +
+    '<div class="grupo-tit">Comisión de este servicio</div><div class="seg-sel" id="s-cm">' +
+      [['', 'General (' + A.comisionPct + '%)'], ['%', 'Porcentaje'], ['S/', 'Monto fijo']].map(([v, t]) => '<button data-v="' + v + '" class="' + (modo === v ? 'on' : '') + '" onclick="modoCom(this)">' + t + '</button>').join('') + '</div>' +
+    '<div class="campo" id="s-cv-c"' + (modo ? '' : ' hidden') + '><input class="inp" id="s-cv" inputmode="decimal" value="' + (s.comValor == null ? '' : s.comValor) + '" placeholder="' + (modo === 'S/' ? 'S/ por atención' : '% del precio') + '"></div>' +
+    '<div class="grupo-pie">Si la persona tiene comisión propia, esta regla del servicio tiene prioridad.</div>' +
+    (nuevo ? '' : '<div class="botones" style="margin-top:18px"><button class="btn btn-gris" onclick="duplicarServicio()">Duplicar</button><button class="btn btn-rojo" onclick="eliminarServicio()">Eliminar</button></div>');
+};
+DESPUES.servicio = function () { if (SV_EDIT < 0) setTimeout(() => document.getElementById('s-nom').focus(), 350); };
+function modoCom(b) {
+  document.querySelectorAll('#s-cm button').forEach(x => x.classList.toggle('on', x === b));
+  const v = b.dataset.v, c = document.getElementById('s-cv-c'), i = document.getElementById('s-cv');
+  c.hidden = !v; i.placeholder = v === 'S/' ? 'S/ por atención' : '% del precio'; if (v) i.focus();
+}
+function leerServicioForm() {
+  const nombre = document.getElementById('s-nom').value.trim().replace(/,/g, ' ');
+  const libre = document.getElementById('s-lib').checked;
+  const precio = libre ? 0 : numero(document.getElementById('s-pre').value);
+  const modo = (document.querySelector('#s-cm button.on') || {}).dataset.v || '';
+  const cv = numero(document.getElementById('s-cv').value);
+  if (!nombre) throw new Error('Escribe el nombre del servicio.');
+  if (!libre && !(precio >= 0)) throw new Error('Revisa el precio.');
+  if (modo && !(cv >= 0)) throw new Error('Escribe el valor de la comisión.');
+  if (modo === '%' && cv > 100) throw new Error('La comisión no puede pasar de 100%.');
+  const dup = A.servicios.findIndex((x, k) => k !== SV_EDIT && norm(x.nombre) === norm(nombre));
+  if (dup !== -1) throw new Error('Ya existe un servicio llamado “' + A.servicios[dup].nombre + '”.');
+  const o = { categoria: document.getElementById('s-cat').value.trim() || 'General', nombre, precio: libre ? 0 : precio };
+  if (libre) o.libre = true;
+  if (!document.getElementById('s-act').checked) o.activo = false;
+  if (modo) { o.comTipo = modo; o.comValor = cv; }
+  return o;
+}
+function ordenarPorCategoria() {
+  const orden = categorias();
+  A.servicios.sort((a, b) => orden.indexOf(a.categoria) - orden.indexOf(b.categoria));
+}
+async function guardarServicio() {
+  let o;
+  try { o = leerServicioForm(); } catch (e) { return toast(e.message, 3500); }
+  if (SV_EDIT < 0) A.servicios.push(o); else A.servicios[SV_EDIT] = o;
+  ordenarPorCategoria();
+  if (!(await guardarA('servicios', SV_EDIT < 0 ? 'Servicio agregado' : 'Servicio actualizado'))) A = clonar(cfg());
+}
+function duplicarServicio() {
+  const s = clonar(A.servicios[SV_EDIT]);
+  let n = s.nombre + ' (copia)', k = 2;
+  while (A.servicios.some(x => norm(x.nombre) === norm(n))) n = s.nombre + ' (copia ' + k++ + ')';
+  s.nombre = n; A.servicios.splice(SV_EDIT + 1, 0, s); SV_EDIT++;
+  irAj('servicio'); toast('Duplicado: cambia el nombre y guarda');
+}
+async function eliminarServicio() {
+  const s = A.servicios[SV_EDIT];
+  if (!confirm('¿Eliminar “' + s.nombre + '”? Los registros anteriores no se borran.')) return;
+  A.servicios.splice(SV_EDIT, 1);
+  if (!(await guardarA('servicios', 'Servicio eliminado'))) A = clonar(cfg());
+}
+
+// ---------------- Ajuste masivo de precios ----------------
+PAG.masivo = function () {
+  return navAj('Ajustar precios', "irAj('servicios')", btnGuardar('aplicarMasivo()')) +
+    '<div class="campo"><label>¿A qué servicios?</label><select class="inp" id="m-cat"><option value="">Todos (' + A.servicios.filter(s => !s.libre).length + ')</option>' +
+      categorias().map(c => '<option value="' + esc(c) + '">' + esc(c) + ' (' + A.servicios.filter(s => s.categoria === c && !s.libre).length + ')</option>').join('') + '</select></div>' +
+    '<div class="seg-sel" id="m-op"><button class="on" data-v="sube">Subir</button><button data-v="baja">Bajar</button></div>' +
+    '<div class="botones"><div class="campo" style="flex:1"><label>Porcentaje</label><input class="inp" id="m-pct" inputmode="decimal" placeholder="Ej: 10" oninput="previaMasivo()"></div>' +
+    '<div class="campo" style="flex:1"><label>Redondear a</label><select class="inp" id="m-red" onchange="previaMasivo()"><option value="0">Sin redondeo</option><option value="1" selected>S/ 1</option><option value="5">S/ 5</option><option value="10">S/ 10</option></select></div></div>' +
+    '<div class="card" id="m-prev" style="font-size:14px;color:var(--ink2)">Escribe un porcentaje para ver el cambio.</div>';
+};
+DESPUES.masivo = function () {
+  document.querySelectorAll('#m-op button').forEach(b => b.onclick = () => { document.querySelectorAll('#m-op button').forEach(x => x.classList.toggle('on', x === b)); previaMasivo(); });
+  document.getElementById('m-cat').onchange = previaMasivo;
+};
+function calcMasivo() {
+  const cat = document.getElementById('m-cat').value, pct = numero(document.getElementById('m-pct').value);
+  const baja = document.querySelector('#m-op button.on').dataset.v === 'baja', red = Number(document.getElementById('m-red').value);
+  if (!(pct > 0)) return null;
+  const f = baja ? 1 - pct / 100 : 1 + pct / 100;
+  return A.servicios.map((s, i) => [s, i]).filter(([s]) => !s.libre && (!cat || s.categoria === cat)).map(([s, i]) => {
+    let n = s.precio * f; n = red ? Math.round(n / red) * red : Math.round(n * 100) / 100;
+    return { i, nombre: s.nombre, antes: s.precio, despues: Math.max(0, n) };
+  });
+}
+function previaMasivo() {
+  const r = calcMasivo(), el = document.getElementById('m-prev');
+  if (!r) { el.innerHTML = 'Escribe un porcentaje para ver el cambio.'; return; }
+  el.innerHTML = '<b style="color:var(--ink)">' + r.length + ' servicios cambiarán</b>' + r.slice(0, 8).map(x => '<div class="fila-sb" style="margin-top:8px"><span>' + esc(x.nombre) + '</span><span class="num">' + soles(x.antes) + ' → <b style="color:var(--ink)">' + soles(x.despues) + '</b></span></div>').join('') + (r.length > 8 ? '<div style="margin-top:8px">…y ' + (r.length - 8) + ' más</div>' : '');
+}
+async function aplicarMasivo() {
+  const r = calcMasivo();
+  if (!r || !r.length) return toast('Escribe un porcentaje');
+  r.forEach(x => A.servicios[x.i].precio = x.despues);
+  if (!(await guardarA('servicios', r.length + ' precios actualizados'))) A = clonar(cfg());
+}
+
+// =====================================================================
+// IMPORTAR: Excel / CSV / Google Sheets / pegar
+// =====================================================================
+let xlsxCargando = null;
+function cargarXLSX() {
+  if (window.XLSX) return Promise.resolve();
+  if (!xlsxCargando) xlsxCargando = new Promise((ok, mal) => {
+    const s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js';
+    s.onload = ok; s.onerror = () => { xlsxCargando = null; mal(new Error('No se pudo cargar el lector de Excel. Revisa tu conexión.')); };
+    document.head.appendChild(s);
+  });
+  return xlsxCargando;
+}
+PAG.importar = function () {
+  return navAj('Importar servicios', "IMP=null;irAj('servicios')") +
+    '<p class="imp-intro">Trae tu lista de precios en segundos. Solo necesitas columnas con <b>servicio</b> y <b>precio</b>; la <b>categoría</b> y la <b>comisión</b> son opcionales.</p>' +
+    '<div class="imp-op"><div class="imp-ic" style="background:#1d6f42">X</div><div><b>Archivo Excel o CSV</b><small>.xlsx, .xls o .csv desde tu celular o computadora</small></div><label class="btn btn-gris imp-btn">Elegir<input type="file" accept=".xlsx,.xls,.csv,.tsv,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" hidden onchange="impArchivo(this.files[0])"></label></div>' +
+    '<div class="imp-op col"><div style="display:flex;gap:12px;align-items:center"><div class="imp-ic" style="background:#0f9d58">G</div><div><b>Google Sheets</b><small>Pega el link de tu hoja</small></div></div>' +
+      '<div class="botones" style="margin-top:10px"><input class="inp" id="imp-url" placeholder="https://docs.google.com/spreadsheets/d/…" inputmode="url"><button class="btn btn-gris" style="flex:none;width:auto;padding:12px 16px" onclick="impSheets()">Traer</button></div>' +
+      '<small class="imp-nota">La hoja debe estar en <b>Compartir → Cualquier persona con el enlace → Lector</b>. Se usa la pestaña que tengas abierta en el link.</small></div>' +
+    '<div class="imp-op col"><div style="display:flex;gap:12px;align-items:center"><div class="imp-ic" style="background:#8e8e93">⌘</div><div><b>Copiar y pegar</b><small>Selecciona las celdas en Excel o Sheets, cópialas y pégalas aquí</small></div></div>' +
+      '<textarea class="inp" id="imp-txt" rows="4" placeholder="Manos	Manicure gel	50&#10;Manos	Uñas acrílicas	90" style="margin-top:10px;font-size:14px"></textarea>' +
+      '<button class="btn btn-gris" style="margin-top:8px;padding:12px" onclick="impTexto(document.getElementById(\'imp-txt\').value)">Usar lo pegado</button></div>' +
+    '<button class="link" onclick="descargarPlantilla()">⬇︎ Descargar plantilla de ejemplo</button>' +
+    '<div id="imp-prev"></div>';
+};
+DESPUES.importar = function () { if (IMP) pintarPrevia(); };
+
+// --- Lectores ---
+function parsearDelimitado(txt) {
+  txt = String(txt || '').replace(/^﻿/, '').replace(/\r\n?/g, '\n');
+  const primera = txt.split('\n').find(l => l.trim()) || '';
+  const sep = primera.indexOf('\t') !== -1 ? '\t' : (primera.split(';').length > primera.split(',').length ? ';' : ',');
+  const filas = []; let fila = [], celda = '', comillas = false;
+  for (let i = 0; i < txt.length; i++) {
+    const ch = txt[i];
+    if (comillas) {
+      if (ch === '"' && txt[i + 1] === '"') { celda += '"'; i++; }
+      else if (ch === '"') comillas = false;
+      else celda += ch;
+    } else if (ch === '"' && celda === '') comillas = true;
+    else if (ch === sep) { fila.push(celda); celda = ''; }
+    else if (ch === '\n') { fila.push(celda); filas.push(fila); fila = []; celda = ''; }
+    else celda += ch;
+  }
+  if (celda !== '' || fila.length) { fila.push(celda); filas.push(fila); }
+  return filas;
+}
+async function impArchivo(f) {
+  if (!f) return;
+  const prev = document.getElementById('imp-prev');
+  prev.innerHTML = '<div class="cargando" style="padding:30px 0">Leyendo ' + esc(f.name) + '…</div>';
+  try {
+    let filas;
+    if (/\.(csv|tsv|txt)$/i.test(f.name)) filas = parsearDelimitado(await f.text());
+    else {
+      await cargarXLSX();
+      const wb = XLSX.read(await f.arrayBuffer(), { type: 'array' });
+      const hoja = wb.SheetNames.map(n => wb.Sheets[n]).find(h => XLSX.utils.sheet_to_json(h, { header: 1, blankrows: false }).length) || wb.Sheets[wb.SheetNames[0]];
+      filas = XLSX.utils.sheet_to_json(hoja, { header: 1, raw: false, defval: '', blankrows: false });
+    }
+    procesarFilas(filas, f.name);
+  } catch (e) { prev.innerHTML = '<div class="imp-error">' + esc(e.message || 'No se pudo leer el archivo.') + '</div>'; }
+}
+async function impSheets() {
+  const url = document.getElementById('imp-url').value.trim(), prev = document.getElementById('imp-prev');
+  if (!url) return toast('Pega el link de tu Google Sheets');
+  prev.innerHTML = '<div class="cargando" style="padding:30px 0">Trayendo tu hoja…</div>';
+  try { const r = await api('leerSheet', { url }, TOKEN, 45000); procesarFilas(parsearDelimitado(r.csv), 'Google Sheets'); }
+  catch (e) { prev.innerHTML = '<div class="imp-error">' + esc(e.message) + '</div>'; }
+}
+function impTexto(t) {
+  if (!String(t || '').trim()) return toast('Pega primero tus celdas');
+  procesarFilas(parsearDelimitado(t), 'Texto pegado');
+}
+
+// --- Detección de columnas ---
+const ROLES = [['', 'Ignorar'], ['cat', 'Categoría'], ['nom', 'Servicio'], ['pre', 'Precio'], ['com', 'Comisión']];
+const PISTAS = {
+  cat: /^(categor[ií]a|categ|tipo|grupo|secci[oó]n|familia|rubro|[aá]rea|area)$/,
+  nom: /(servicio|nombre|producto|descripci[oó]n|detalle|tratamiento|item|concepto)/,
+  pre: /(precio|monto|costo|valor|tarifa|importe|p\.?\s*v|s\/)/,
+  com: /(comisi[oó]n|com\.?$|%)/
+};
+function esNumero(v) { return String(v).trim() !== '' && isFinite(numero(v)); }
+function detectarColumnas(filas) {
+  for (let f = 0; f < Math.min(8, filas.length); f++) {
+    const fila = filas[f].map(c => norm(c));
+    const mapa = fila.map(c => {
+      if (!c) return '';
+      for (const r of ['com', 'pre', 'cat', 'nom']) if (PISTAS[r].test(c)) return r;
+      return '';
+    });
+    if (mapa.includes('nom') && (mapa.includes('pre') || mapa.includes('cat'))) {
+      // Evitar dos columnas con el mismo rol
+      const vistos = {}; mapa.forEach((r, i) => { if (r && vistos[r]) mapa[i] = ''; vistos[r] = 1; });
+      return { cab: f, mapa };
+    }
+  }
+  // Sin encabezados: adivinar por el contenido
+  const n = Math.max(...filas.slice(0, 30).map(r => r.length));
+  const cols = Array.from({ length: n }, (_, i) => filas.slice(0, 40).map(r => r[i] == null ? '' : String(r[i]).trim()).filter(Boolean));
+  const mapa = Array(n).fill('');
+  const numCols = cols.map((c, i) => [i, c.length ? c.filter(esNumero).length / c.length : 0]).filter(x => x[1] > .6).map(x => x[0]);
+  if (numCols.length) mapa[numCols[0]] = 'pre';
+  if (numCols.length > 1) mapa[numCols[1]] = 'com';
+  const txtCols = cols.map((c, i) => [i, c.length, new Set(c).size]).filter(x => mapa[x[0]] === '' && x[1]);
+  txtCols.sort((a, b) => b[2] - a[2]);
+  if (txtCols[0]) mapa[txtCols[0][0]] = 'nom';
+  if (txtCols[1] && txtCols[1][2] < txtCols[0][2]) mapa[txtCols[1][0]] = 'cat';
+  return { cab: -1, mapa };
+}
+function procesarFilas(filas, origen) {
+  filas = (filas || []).map(r => (r || []).map(c => c == null ? '' : String(c).trim())).filter(r => r.some(Boolean));
+  if (!filas.length) { document.getElementById('imp-prev').innerHTML = '<div class="imp-error">No encontramos datos en ' + esc(origen) + '.</div>'; return; }
+  const det = detectarColumnas(filas);
+  IMP = { filas, origen, cab: det.cab, mapa: det.mapa, modo: 'mezclar' };
+  pintarPrevia();
+  setTimeout(() => document.getElementById('imp-prev').scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+}
+function construirItems() {
+  const { filas, cab, mapa } = IMP, idx = r => mapa.indexOf(r);
+  const iN = idx('nom'), iP = idx('pre'), iC = idx('cat'), iM = idx('com');
+  const items = []; let catActual = 'General';
+  filas.slice(cab + 1).forEach((r, k) => {
+    const nom = iN >= 0 ? (r[iN] || '') : '', preT = iP >= 0 ? (r[iP] || '') : '', catT = iC >= 0 ? (r[iC] || '') : '';
+    // Fila de título de categoría: solo texto, sin precio (formato de muchas listas)
+    if (nom && !preT && iC < 0 && r.filter(Boolean).length === 1 && iP >= 0) { catActual = nom.slice(0, 30); return; }
+    if (!nom) { if (catT) catActual = catT.slice(0, 30); return; }
+    if (catT) catActual = catT.slice(0, 30);
+    const it = { fila: k + cab + 2, categoria: catActual, nombre: nom.replace(/,/g, ' ').replace(/\s+/g, ' ').slice(0, 60), precio: 0, err: '', aviso: '' };
+    if (/libre|variable|desde|consultar|cotizar|a evaluar/i.test(preT) || (iP >= 0 && !preT)) { it.libre = true; it.aviso = 'Precio libre'; }
+    else { const p = numero(preT); if (!(p >= 0)) it.err = 'Precio no válido: “' + preT + '”'; else it.precio = Math.round(p * 100) / 100; }
+    if (iM >= 0 && r[iM]) {
+      const t = r[iM], v = numero(t);
+      if (!(v >= 0)) it.aviso = (it.aviso ? it.aviso + ' · ' : '') + 'Comisión ignorada';
+      else if (/s\/|soles|fij/i.test(t) || (!/%/.test(t) && v > 100)) { it.comTipo = 'S/'; it.comValor = v; }
+      else { it.comTipo = '%'; it.comValor = v <= 1 && /\./.test(t) && !/%/.test(t) ? Math.round(v * 1000) / 10 : v; }
+    }
+    items.push(it);
+  });
+  // Duplicados dentro del archivo: queda el último
+  const vistos = {};
+  for (let i = items.length - 1; i >= 0; i--) {
+    const k = norm(items[i].nombre);
+    if (vistos[k]) { items[i].err = 'Repetido en el archivo (fila ' + vistos[k] + ')'; } else vistos[k] = items[i].fila;
+  }
+  const actuales = {}; A.servicios.forEach(s => actuales[norm(s.nombre)] = s);
+  items.forEach(it => { if (!it.err) it.estado = actuales[norm(it.nombre)] ? (actuales[norm(it.nombre)].precio !== it.precio || !!actuales[norm(it.nombre)].libre !== !!it.libre ? 'cambia' : 'igual') : 'nuevo'; });
+  return items;
+}
+function pintarPrevia() {
+  const el = document.getElementById('imp-prev'); if (!el || !IMP) return;
+  const items = construirItems(), ok = items.filter(i => !i.err);
+  const nuevos = ok.filter(i => i.estado === 'nuevo').length, cambian = ok.filter(i => i.estado === 'cambia').length, errores = items.length - ok.length;
+  const cab = IMP.cab >= 0 ? IMP.filas[IMP.cab] : IMP.filas[0].map((_, i) => 'Columna ' + (i + 1));
+  const n = Math.max(cab.length, ...IMP.filas.slice(0, 20).map(r => r.length));
+  const faltaNom = IMP.mapa.indexOf('nom') < 0;
+  el.innerHTML = '<div class="grupo-tit" style="margin-top:26px">Vista previa · ' + esc(IMP.origen) + '</div>' +
+    '<div class="imp-res"><div><b class="num">' + ok.length + '</b>listos</div><div><b class="num" style="color:var(--green)">' + nuevos + '</b>nuevos</div><div><b class="num" style="color:var(--accent)">' + cambian + '</b>cambian</div><div><b class="num" style="color:' + (errores ? 'var(--red)' : 'var(--ink3)') + '">' + errores + '</b>con error</div></div>' +
+    '<div class="grupo-tit">Columnas detectadas</div><div class="imp-map">' +
+      Array.from({ length: n }, (_, i) => '<label><span>' + esc(cab[i] || 'Columna ' + (i + 1)) + '</span><select onchange="IMP.mapa[' + i + ']=this.value;pintarPrevia()">' + ROLES.map(([v, t]) => '<option value="' + v + '"' + ((IMP.mapa[i] || '') === v ? ' selected' : '') + '>' + t + '</option>').join('') + '</select></label>').join('') +
+    '</div>' +
+    '<label class="imp-chk"><input type="checkbox"' + (IMP.cab >= 0 ? ' checked' : '') + ' onchange="IMP.cab=this.checked?0:-1;pintarPrevia()"> La primera fila son títulos</label>' +
+    (faltaNom ? '<div class="imp-error">Elige qué columna es el <b>Servicio</b>.</div>' :
+      '<div class="imp-tabla">' + items.slice(0, 60).map(it => '<div class="imp-it ' + (it.err ? 'e' : it.estado) + '"><span class="dot"></span><div class="tx"><b>' + esc(it.nombre) + '</b><small>' + esc(it.categoria) + (it.comValor != null ? ' · Com. ' + (it.comTipo === 'S/' ? 'S/ ' + it.comValor : it.comValor + '%') : '') + (it.err ? ' · <span style="color:var(--red)">' + esc(it.err) + '</span>' : it.aviso ? ' · ' + esc(it.aviso) : '') + '</small></div><span class="pr num">' + (it.err ? '' : it.libre ? 'Libre' : soles(it.precio)) + '</span></div>').join('') +
+      (items.length > 60 ? '<div class="vacio" style="padding:12px">…y ' + (items.length - 60) + ' más</div>' : '') + '</div>') +
+    '<div class="grupo-tit">¿Qué hacemos con tu lista actual de ' + A.servicios.length + '?</div>' +
+    '<div class="imp-modo"><label><input type="radio" name="imp-m" value="mezclar"' + (IMP.modo === 'mezclar' ? ' checked' : '') + ' onchange="IMP.modo=this.value"><span><b>Agregar y actualizar</b><small>Agrega los nuevos y actualiza el precio de los que ya existen. No borra nada.</small></span></label>' +
+    '<label><input type="radio" name="imp-m" value="reemplazar"' + (IMP.modo === 'reemplazar' ? ' checked' : '') + ' onchange="IMP.modo=this.value"><span><b>Reemplazar todo</b><small>Tu lista queda igual a la del archivo.</small></span></label></div>' +
+    '<button class="btn btn-primary" style="margin-top:16px" ' + (ok.length && !faltaNom ? '' : 'disabled') + ' onclick="aplicarImportacion()">Importar ' + ok.length + ' servicios</button>' +
+    '<div style="height:30px"></div>';
+}
+async function aplicarImportacion() {
+  const ok = construirItems().filter(i => !i.err);
+  if (!ok.length) return;
+  if (IMP.modo === 'reemplazar' && !confirm('Tu lista actual de ' + A.servicios.length + ' servicios será reemplazada por ' + ok.length + '. ¿Continuar?')) return;
+  const limpiar = it => { const o = { categoria: it.categoria || 'General', nombre: it.nombre, precio: it.libre ? 0 : it.precio }; if (it.libre) o.libre = true; if (it.comValor != null) { o.comTipo = it.comTipo; o.comValor = it.comValor; } return o; };
+  const respaldo = clonar(A.servicios);
+  if (IMP.modo === 'reemplazar') A.servicios = ok.map(limpiar);
+  else ok.forEach(it => {
+    const k = A.servicios.findIndex(s => norm(s.nombre) === norm(it.nombre)), o = limpiar(it);
+    if (k === -1) A.servicios.push(o);
+    else { const v = A.servicios[k]; v.precio = o.precio; v.categoria = o.categoria; if (o.libre) v.libre = true; else delete v.libre; if (o.comValor != null) { v.comTipo = o.comTipo; v.comValor = o.comValor; } }
+  });
+  ordenarPorCategoria();
+  if (A.servicios.length > 600) { A.servicios = respaldo; return toast('El máximo es 600 servicios.', 4000); }
+  const b = document.querySelector('#imp-prev .btn-primary'); if (b) { b.disabled = true; b.textContent = 'Importando…'; }
+  if (await guardarA(null, ok.length + ' servicios importados ✓')) { IMP = null; SV_FILTRO = { txt: '', cat: '' }; irAj('servicios'); }
+  else { A.servicios = respaldo; if (b) { b.disabled = false; b.textContent = 'Importar ' + ok.length + ' servicios'; } }
+}
+
+// =====================================================================
+// EXPORTAR A EXCEL
+// =====================================================================
+function nombreArchivo(base) { return base + ' · ' + cfg().negocio.replace(/[\\/:*?"<>|]/g, '') + ' · ' + new Date().toISOString().slice(0, 10) + '.xlsx'; }
+function filasServicios(lista) {
+  return [['Categoría', 'Servicio', 'Precio', 'Comisión', 'Visible']].concat((lista || cfg().servicios).map(s =>
+    [s.categoria, s.nombre, s.libre ? 'Libre' : s.precio, s.comValor == null ? '' : (s.comTipo === 'S/' ? 'S/ ' + s.comValor : s.comValor + '%'), s.activo === false ? 'No' : 'Sí']));
+}
+function libro(hojas) {
+  const wb = XLSX.utils.book_new();
+  hojas.forEach(([nombre, filas, anchos]) => {
+    const ws = XLSX.utils.aoa_to_sheet(filas);
+    ws['!cols'] = (anchos || []).map(w => ({ wch: w }));
+    XLSX.utils.book_append_sheet(wb, ws, nombre);
+  });
+  return wb;
+}
+async function exportarServicios() {
+  try { await cargarXLSX(); XLSX.writeFile(libro([['Servicios', filasServicios(A.servicios), [18, 36, 10, 12, 9]]]), nombreArchivo('Servicios')); toast('Descargando Excel…'); }
+  catch (e) { toast(e.message, 4000); }
+}
+async function descargarPlantilla() {
+  try {
+    await cargarXLSX();
+    const ej = [['Categoría', 'Servicio', 'Precio', 'Comisión'], ['Cortes', 'Corte clásico', 30, ''], ['Cortes', 'Corte + barba', 45, 'S/ 10'], ['Color', 'Tinte completo', 120, '30%'], ['Color', 'Balayage', 'Libre', '30%'], ['Productos', 'Cera para cabello', 25, '5%']];
+    XLSX.writeFile(libro([['Servicios', ej, [16, 30, 10, 12]]]), 'Plantilla servicios 7LEGEND.xlsx');
+  } catch (e) { toast(e.message, 4000); }
+}
+async function exportarTodo() {
+  toast('Preparando tu Excel…', 6000);
+  try {
+    await cargarXLSX();
+    if (!D.completo) await cargar(true);
+    const f = ms => { const d = new Date(ms); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0') + ' ' + String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0'); };
+    const at = [['Fecha', 'Sede', cfg().terminos.trabajador, cfg().terminos.cliente, 'Servicios', 'Método', 'Estado', 'Up selling', 'Total', 'Comisión']]
+      .concat(D.comandas.slice().sort((a, b) => a[I.TS] - b[I.TS]).map(r => [f(r[I.TS]), r[I.SEDE], r[I.TRAB], r[I.CLI], r[I.SERV].replace(/\s*\([\d.]+\)/g, ''), r[I.MET], r[I.EST], r[I.UP] ? 'Sí' : '', r[I.TOT], Math.round(comisionFila(r) * 100) / 100]));
+    const ga = [['Fecha', 'Descripción', 'Monto', 'Pagó', 'Cuenta', 'Devuelto', 'Sede']]
+      .concat(D.gastos.slice().sort((a, b) => a[G.TS] - b[G.TS]).map(g => [f(g[G.TS]).slice(0, 10), g[G.DESC], g[G.MONTO], g[G.PAG], g[G.CTA], g[G.REEM] ? 'Sí' : 'No', g[G.SEDE]]));
+    XLSX.writeFile(libro([['Atenciones', at, [17, 12, 14, 22, 40, 12, 12, 10, 10, 10]], ['Gastos', ga, [11, 30, 10, 12, 14, 9, 12]], ['Servicios', filasServicios(), [18, 36, 10, 12, 9]]]), nombreArchivo('7LEGEND'));
+    toast('Excel listo ✓');
+  } catch (e) { toast(e.message || 'No se pudo exportar', 4000); }
+}
+
+
+// ---------------- Cuenta ----------------
 async function regenerarLink() {
   if (!confirm('El link actual dejará de funcionar y tendrás que enviar el nuevo a todo tu equipo. ¿Continuar?')) return;
   try { const r = await api('linkEquipo', { regenerar: true }, TOKEN); D.urlEquipo = r.urlEquipo; abrirLinkEquipo(); }
@@ -1072,7 +1629,7 @@ async function compartirHoja() {
   catch (e) { toast(e.message, 4000); }
 }
 function cambiarClave() {
-  abrirHoja('<div class="hoja-nav"><button class="izq" onclick="abrirAjustes()">Atrás</button><b>Contraseña</b><button class="der" onclick="guardarClave()">Guardar</button></div>' +
+  abrirHoja('<div class="hoja-nav"><button class="izq" onclick="abrirAjustes()">‹ Atrás</button><b>Contraseña</b><button class="der" onclick="guardarClave()">Guardar</button></div>' +
     '<div class="campo"><label>Contraseña actual</label><input class="inp" id="c-act" type="password" autocomplete="current-password"></div>' +
     '<div class="campo"><label>Nueva contraseña</label><input class="inp" id="c-nva" type="password" autocomplete="new-password" placeholder="Mínimo 8 caracteres"></div>');
 }
@@ -1105,17 +1662,19 @@ function etiquetarPush() {
 }
 function activarPushSiCorresponde() { if (!DEMO) { cargarOneSignal(); etiquetarPush(); } }
 function actualizarBotonPush() {
-  const b = document.getElementById('btn-push'), t = document.getElementById('push-txt');
-  if (!b) return;
-  if (DEMO) { b.textContent = 'No disponible en la demo'; b.disabled = true; return; }
-  if (!L.ONESIGNAL_APP_ID) { b.textContent = 'Próximamente'; b.disabled = true; return; }
-  if (!osListo) { b.textContent = 'Cargando…'; return; }
-  if (!OneSignal.Notifications.isPushSupported()) { b.textContent = esIOS() ? 'Instala la app primero' : 'No compatible'; b.disabled = true; return; }
-  const on = OneSignal.Notifications.permission && OneSignal.User.PushSubscription.optedIn;
-  b.textContent = on ? 'Activadas ✓' : 'Activar'; b.disabled = !!on;
+  const t = document.getElementById('push-txt');
+  if (!t) return;
+  if (DEMO) t.textContent = 'No en la demo';
+  else if (!L.ONESIGNAL_APP_ID) t.textContent = 'Próximamente';
+  else if (!osListo) t.textContent = 'Cargando…';
+  else if (!OneSignal.Notifications.isPushSupported()) t.textContent = esIOS() ? 'Instala la app primero' : 'No compatible';
+  else t.textContent = OneSignal.Notifications.permission && OneSignal.User.PushSubscription.optedIn ? 'Activadas ✓' : 'Activar';
 }
 async function activarPush() {
+  if (DEMO) return toast('Las notificaciones se activan en tu cuenta real.');
+  if (!L.ONESIGNAL_APP_ID) return;
   if (!osListo) return toast('Un momento, cargando…');
+  if (!OneSignal.Notifications.isPushSupported()) return toast(esIOS() ? 'En iPhone: instala la app en tu pantalla de inicio y ábrela desde el ícono.' : 'Este navegador no permite notificaciones.', 4500);
   try {
     await OneSignal.Notifications.requestPermission();
     if (OneSignal.Notifications.permission && !OneSignal.User.PushSubscription.optedIn) await OneSignal.User.PushSubscription.optIn();
