@@ -4,328 +4,216 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>7LEGEND · Los números de tu negocio en orden</title>
-<meta name="description" content="Tu equipo registra cada atención en segundos. Tú ves ingresos, comisiones y gastos de todas tus sedes al instante, desde el celular. 14 días gratis.">
+<meta name="description" content="Sabe cuánto entró hoy, cuánto le toca a cada una y cuánto ganas, desde tu celular. 14 días gratis, luego S/ 100 al mes.">
 <meta name="theme-color" content="#ffffff">
 <meta property="og:title" content="7LEGEND · Los números de tu negocio en orden">
-<meta property="og:description" content="Ingresos, comisiones y gastos de tu salón, barbería o spa en tiempo real. 14 días gratis.">
+<meta property="og:description" content="Ingresos, comisiones y gastos de tu salón en tiempo real. 14 días gratis.">
 <meta property="og:image" content="img/og.png">
 <link rel="icon" href="img/icon-192.png">
 <link rel="apple-touch-icon" href="img/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="config.js"></script>
 <script src="comun.js"></script>
 <style>
-  :root {
-    --ink: #1d1d1f; --ink2: #6e6e73; --ink3: #86868b; --line: #e8e8ed;
-    --bg: #ffffff; --bg2: #f5f5f7; --accent: #0071e3; --accent-h: #0077ed; --green: #1a7f37; --green2: #34c759; --red: #ff3b30;
-    --r: 24px;
-  }
+  :root { --ink: #1d1d1f; --ink2: #6e6e73; --ink3: #86868b; --line: #e8e8ed; --bg: #fff; --bg2: #f5f5f7;
+    --accent: #0071e3; --accent-h: #0077ed; --green: #1a7f37; --green2: #34c759; --r: 24px; }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
-  body { margin: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: var(--ink); background: var(--bg);
-    -webkit-font-smoothing: antialiased; line-height: 1.5; overflow-x: hidden; }
+  body { margin: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; line-height: 1.5; overflow-x: hidden; }
   a { color: var(--accent); text-decoration: none; }
   button { font-family: inherit; }
-  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
   .num { font-variant-numeric: tabular-nums; }
+  [hidden] { display: none !important; }
 
-  /* ---------- Cabecera mínima (landing) ---------- */
-  #progreso-scroll { position: fixed; top: 0; left: 0; height: 3px; width: 100%; transform-origin: 0 50%; transform: scaleX(0); background: var(--accent); z-index: 60; }
-  header.top { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(255,255,255,.72); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
-    border-bottom: 1px solid transparent; transition: border-color .3s; }
-  header.top.borde { border-color: rgba(0,0,0,.07); }
-  header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 58px; }
-  .logo { font-weight: 900; letter-spacing: -0.04em; font-size: 20px; color: var(--ink); display: inline-flex; align-items: baseline; }
+  header.top { position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(255,255,255,.75); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid rgba(0,0,0,.06); }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; height: 54px; }
+  .logo { font-weight: 800; letter-spacing: -0.04em; font-size: 19px; color: var(--ink); display: inline-flex; align-items: baseline; }
   .logo i { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); display: inline-block; margin-left: 2px; }
-  .top-der { display: flex; align-items: center; gap: 14px; font-size: 14px; }
-  .top-der .oferta { color: var(--ink2); }
-  @media (max-width: 640px) { .top-der .oferta { display: none; } }
 
-  .btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: none; cursor: pointer; border-radius: 999px;
-    font-weight: 600; font-size: 16px; padding: 14px 26px; transition: transform .2s cubic-bezier(.2,.8,.2,1), background .2s, box-shadow .3s, opacity .2s; text-align: center; }
+  .btn { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; border: none; cursor: pointer; border-radius: 999px;
+    font-weight: 600; font-size: 17px; padding: 16px 30px; transition: transform .2s cubic-bezier(.2,.8,.2,1), background .2s, box-shadow .3s; text-align: center; }
   .btn:active { transform: scale(.96); }
-  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 6px 20px rgba(0,113,227,.25); }
-  .btn-primary:hover { background: var(--accent-h); box-shadow: 0 10px 30px rgba(0,113,227,.35); transform: translateY(-1px); }
-  .btn-primary::after { content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; background: linear-gradient(110deg, transparent, rgba(255,255,255,.45), transparent); transform: skewX(-20deg); animation: brillo 4.5s ease-in-out infinite; }
-  @keyframes brillo { 0%, 65% { left: -60%; } 100% { left: 130%; } }
-  .btn-light { background: var(--bg2); color: var(--ink); }
-  .btn-light:hover { background: #ebebf0; }
+  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 8px 24px rgba(0,113,227,.28); }
+  .btn-primary:hover { background: var(--accent-h); }
+  .btn-primary::after { content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%; background: linear-gradient(110deg, transparent, rgba(255,255,255,.45), transparent); transform: skewX(-20deg); animation: brillo 4s ease-in-out infinite; }
+  @keyframes brillo { 0%, 60% { left: -60%; } 100% { left: 130%; } }
   .btn-sm { font-size: 14px; padding: 8px 16px; box-shadow: none; }
-  .btn-xl { font-size: 18px; padding: 17px 34px; }
+  .btn-light { background: var(--bg2); color: var(--ink); }
+  .btn-full { width: 100%; }
   .btn[disabled] { opacity: .45; pointer-events: none; }
+  .bajo-btn { font-size: 13px; color: var(--ink3); margin-top: 12px; }
+  .bajo-btn b { color: var(--ink); font-weight: 600; }
 
-  /* ---------- HERO (claro) ---------- */
-  .hero { position: relative; padding: 116px 0 70px; overflow: hidden; isolation: isolate; }
+  /* ---------- HERO ---------- */
+  .hero { position: relative; padding: 92px 0 40px; overflow: hidden; isolation: isolate; }
   .burbujas { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
   .burbujas span { position: absolute; border-radius: 50%; filter: blur(70px); opacity: .55; animation: flotar 20s ease-in-out infinite alternate; }
-  .burbujas span:nth-child(1) { width: 520px; height: 520px; left: -120px; top: -80px; background: #cfe3ff; }
-  .burbujas span:nth-child(2) { width: 460px; height: 460px; right: -120px; top: 40px; background: #e6dcff; animation-duration: 24s; }
-  .burbujas span:nth-child(3) { width: 380px; height: 380px; left: 40%; top: 55%; background: #ffe0ec; animation-duration: 28s; }
-  @keyframes flotar { 0% { transform: translate(0,0) scale(1); } 50% { transform: translate(60px,-40px) scale(1.12); } 100% { transform: translate(-50px,50px) scale(.94); } }
-  .hero-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: 40px; align-items: center; }
-  @media (max-width: 920px) { .hero-grid { grid-template-columns: 1fr; text-align: center; } .hero { padding-top: 96px; } }
-  .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--accent); background: rgba(0,113,227,.08); padding: 7px 14px; border-radius: 999px; margin-bottom: 20px; }
+  .burbujas span:nth-child(1) { width: 480px; height: 480px; left: -140px; top: -100px; background: #cfe3ff; }
+  .burbujas span:nth-child(2) { width: 420px; height: 420px; right: -140px; top: 60px; background: #e6dcff; animation-duration: 25s; }
+  @keyframes flotar { 50% { transform: translate(50px,-30px) scale(1.1); } 100% { transform: translate(-40px,40px) scale(.95); } }
+  .hero-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 40px; align-items: center; }
+  @media (max-width: 880px) { .hero-grid { grid-template-columns: 1fr; gap: 26px; text-align: center; } .hero { padding-top: 78px; } }
+  .eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--accent); background: rgba(0,113,227,.08); padding: 6px 13px; border-radius: 999px; margin-bottom: 16px; }
   .vivo { width: 8px; height: 8px; border-radius: 50%; background: var(--green2); animation: latido 1.8s infinite; }
-  @keyframes latido { 0% { box-shadow: 0 0 0 0 rgba(52,199,89,.6); } 70% { box-shadow: 0 0 0 10px rgba(52,199,89,0); } 100% { box-shadow: 0 0 0 0 rgba(52,199,89,0); } }
-  h1 { font-size: clamp(42px, 7vw, 80px); line-height: 1.03; letter-spacing: -0.045em; font-weight: 800; margin: 0 0 20px; }
-  h1 .w { display: inline-block; opacity: 0; transform: translateY(36px); filter: blur(6px); animation: palabra .9s cubic-bezier(.2,.8,.2,1) forwards; }
+  @keyframes latido { 0% { box-shadow: 0 0 0 0 rgba(52,199,89,.6); } 70% { box-shadow: 0 0 0 9px rgba(52,199,89,0); } 100% { box-shadow: 0 0 0 0 rgba(52,199,89,0); } }
+  h1 { font-size: clamp(36px, 6.4vw, 70px); line-height: 1.04; letter-spacing: -0.045em; font-weight: 800; margin: 0 0 16px; }
+  h1 .w { display: inline-block; opacity: 0; transform: translateY(30px); filter: blur(6px); animation: palabra .85s cubic-bezier(.2,.8,.2,1) forwards; }
   @keyframes palabra { to { opacity: 1; transform: none; filter: none; } }
-  .gris { color: var(--ink3); background: linear-gradient(100deg, #86868b 40%, #c7c7cc 50%, #86868b 60%); background-size: 250% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: palabra .9s cubic-bezier(.2,.8,.2,1) forwards, reflejo 5s ease-in-out 2s infinite; }
-  @keyframes reflejo { 0% { background-position: 100% 0; } 50%, 100% { background-position: -150% 0; } }
-  .sub { font-size: clamp(18px, 2.2vw, 21px); color: var(--ink2); max-width: 560px; margin: 0 0 30px; letter-spacing: -0.01em; }
-  @media (max-width: 920px) { .sub { margin-left: auto; margin-right: auto; } }
-  .entra { opacity: 0; transform: translateY(20px); animation: entrar .9s cubic-bezier(.2,.8,.2,1) forwards; }
+  h1 .azul { color: var(--accent); }
+  .sub { font-size: clamp(17px, 2.1vw, 20px); color: var(--ink2); max-width: 520px; margin: 0 0 26px; }
+  @media (max-width: 880px) { .sub { margin-left: auto; margin-right: auto; } }
+  .entra { opacity: 0; transform: translateY(18px); animation: entrar .85s cubic-bezier(.2,.8,.2,1) forwards; }
   @keyframes entrar { to { opacity: 1; transform: none; } }
-  .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
-  @media (max-width: 920px) { .ctas { justify-content: center; } }
-  .micro { font-size: 13px; color: var(--ink3); margin-top: 16px; display: flex; gap: 16px; flex-wrap: wrap; }
-  @media (max-width: 920px) { .micro { justify-content: center; } }
-  .micro span::before { content: '✓ '; color: var(--green2); font-weight: 700; }
+  .checks { display: flex; gap: 14px; flex-wrap: wrap; font-size: 13px; color: var(--ink2); margin-top: 14px; }
+  .checks span::before { content: '✓ '; color: var(--green2); font-weight: 800; }
+  @media (max-width: 880px) { .checks { justify-content: center; } }
 
-  /* Teléfono del hero */
-  .escena { position: relative; height: 590px; perspective: 1400px; display: flex; justify-content: center; }
-  .telefono { position: relative; width: 296px; height: 590px; border-radius: 50px; background: #f2f2f7; border: 10px solid #1d1d1f; color: var(--ink);
-    box-shadow: 0 50px 100px rgba(0,0,0,.16), 0 0 0 1px rgba(0,0,0,.04); overflow: hidden; transform: rotateY(-10deg) rotateX(4deg); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
-  @media (max-width: 920px) { .telefono { transform: none; width: 280px; height: 560px; } .escena { height: 560px; margin-top: 8px; } }
-  .isla { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 92px; height: 26px; background: #1d1d1f; border-radius: 20px; z-index: 3; }
-  .pantalla { padding: 50px 14px 14px; font-size: 12px; text-align: left; }
-  .p-h { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
-  .p-h b { font-size: 24px; letter-spacing: -0.035em; }
+  /* Teléfono */
+  .escena { position: relative; display: flex; justify-content: center; perspective: 1400px; }
+  .telefono { position: relative; width: 280px; height: 560px; border-radius: 48px; background: #f2f2f7; border: 10px solid #1d1d1f; box-shadow: 0 50px 100px rgba(0,0,0,.16);
+    overflow: hidden; transform: rotateY(-10deg) rotateX(4deg); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+  @media (max-width: 880px) { .telefono { transform: none; width: 250px; height: 470px; border-radius: 42px; } }
+  .isla { position: absolute; top: 9px; left: 50%; transform: translateX(-50%); width: 88px; height: 25px; background: #1d1d1f; border-radius: 20px; z-index: 3; }
+  .pantalla { padding: 46px 13px 13px; font-size: 12px; text-align: left; }
+  .p-h { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 9px; }
+  .p-h b { font-size: 22px; letter-spacing: -0.035em; }
   .p-live { font-size: 10px; font-weight: 700; color: var(--green); background: rgba(52,199,89,.14); padding: 3px 8px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; }
   .p-live i { width: 6px; height: 6px; border-radius: 50%; background: var(--green2); animation: latido 1.6s infinite; }
-  .p-card { background: #fff; border-radius: 16px; padding: 13px; margin-bottom: 9px; }
+  .p-card { background: #fff; border-radius: 16px; padding: 12px; margin-bottom: 9px; }
   .p-lbl { font-size: 10px; font-weight: 700; color: var(--ink3); text-transform: uppercase; letter-spacing: .05em; }
   .p-big { font-size: 30px; font-weight: 800; letter-spacing: -0.045em; color: var(--green); margin: 2px 0 8px; display: inline-block; }
-  .p-big.pulso { animation: pulso .6s ease; }
+  .pulso { animation: pulso .6s ease; }
   @keyframes pulso { 40% { transform: scale(1.07); } }
   .metodo { display: grid; grid-template-columns: 58px 1fr 54px; align-items: center; gap: 8px; padding: 3px 0; color: var(--ink2); font-size: 11px; }
   .metodo b { color: var(--ink); text-align: right; }
   .m-bar { height: 6px; background: #eef0f3; border-radius: 6px; overflow: hidden; }
   .m-bar i { display: block; height: 100%; border-radius: 6px; width: 0; transition: width .9s cubic-bezier(.2,.8,.2,1); }
-  .feed { height: 196px; overflow: hidden; }
+  .feed { height: 178px; overflow: hidden; }
+  @media (max-width: 880px) { .feed { height: 120px; } }
   .f-item { display: flex; align-items: center; gap: 9px; padding: 7px 0; border-bottom: 1px solid #f2f2f7; animation: caer .6s cubic-bezier(.2,.8,.2,1); }
-  @keyframes caer { from { opacity: 0; transform: translateY(-22px); } to { opacity: 1; transform: none; } }
+  @keyframes caer { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: none; } }
   .av { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 11px; flex: none; }
   .f-item .t { flex: 1; min-width: 0; }
   .f-item .t b { display: block; font-size: 12px; }
   .f-item .t span { color: var(--ink3); font-size: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
   .f-item .m { font-weight: 800; font-size: 12px; }
-  .flot { position: absolute; z-index: 6; background: rgba(255,255,255,.92); color: var(--ink); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-radius: 18px;
-    padding: 11px 13px; box-shadow: 0 20px 50px rgba(0,0,0,.16), 0 0 0 1px rgba(0,0,0,.04); display: flex; gap: 10px; text-align: left; width: 262px;
-    opacity: 0; transform: translateY(12px) scale(.96); transition: all .7s cubic-bezier(.2,.8,.2,1); pointer-events: none; }
+  .flot { position: absolute; z-index: 6; background: rgba(255,255,255,.94); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-radius: 18px; padding: 11px 13px;
+    box-shadow: 0 18px 44px rgba(0,0,0,.15), 0 0 0 1px rgba(0,0,0,.04); display: flex; gap: 10px; text-align: left; width: 262px; opacity: 0; transform: translateY(12px) scale(.96);
+    transition: all .7s cubic-bezier(.2,.8,.2,1); pointer-events: none; }
   .flot.on { opacity: 1; transform: none; }
   .flot .ic { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; flex: none; font-weight: 900; color: #fff; }
   .flot .t1 { font-weight: 700; font-size: 13px; display: flex; justify-content: space-between; gap: 8px; }
   .flot .t1 span { color: var(--ink3); font-weight: 500; font-size: 11px; }
   .flot .t2 { font-size: 12px; color: var(--ink2); line-height: 1.4; }
-  #flot1 { top: 80px; left: -30px; }
-  #flot2 { bottom: 80px; right: -40px; }
-  @media (max-width: 920px) { #flot1 { left: 50%; margin-left: -150px; top: 26px; } #flot2 { right: 50%; margin-right: -150px; bottom: 16px; } .flot { width: 300px; } }
-
-  /* ---------- Cinta ---------- */
-  .cinta { padding: 10px 0 30px; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent); }
-  .cinta-in { display: flex; gap: 12px; width: max-content; animation: cinta 40s linear infinite; }
-  .cinta-in span { white-space: nowrap; padding: 10px 18px; border-radius: 999px; background: var(--bg2); font-weight: 500; font-size: 15px; }
-  @keyframes cinta { to { transform: translateX(-50%); } }
+  #flot1 { top: 70px; left: -40px; }
+  #flot2 { bottom: 60px; right: -40px; }
+  @media (max-width: 880px) { #flot1 { left: 50%; margin-left: -140px; top: 18px; width: 280px; } #flot2 { right: 50%; margin-right: -140px; bottom: 10px; width: 280px; } }
 
   /* ---------- Secciones ---------- */
-  section { padding: 100px 0; position: relative; }
-  .gris-bg { background: var(--bg2); }
-  .kicker { text-align: center; font-size: 15px; font-weight: 700; color: var(--accent); margin-bottom: 10px; }
-  .titulo { font-size: clamp(32px, 5.4vw, 56px); letter-spacing: -0.04em; line-height: 1.06; font-weight: 800; margin: 0 0 14px; text-align: center; }
-  .bajada { text-align: center; color: var(--ink2); font-size: 19px; max-width: 640px; margin: 0 auto 50px; }
-  .rev { opacity: 0; transform: translateY(36px); transition: opacity .9s ease, transform .9s cubic-bezier(.2,.8,.2,1); transition-delay: var(--d, 0s); }
+  section { padding: 76px 0; }
+  .gris { background: var(--bg2); }
+  .titulo { font-size: clamp(30px, 5vw, 50px); letter-spacing: -0.04em; line-height: 1.07; font-weight: 800; margin: 0 0 12px; text-align: center; }
+  .bajada { text-align: center; color: var(--ink2); font-size: 18px; max-width: 580px; margin: 0 auto 40px; }
+  .rev { opacity: 0; transform: translateY(32px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1); transition-delay: var(--d, 0s); }
   .rev.on { opacity: 1; transform: none; }
-  .cta-centro { text-align: center; margin-top: 44px; }
-  .cta-centro .nota { font-size: 13px; color: var(--ink3); margin-top: 10px; }
+  .cta-centro { text-align: center; margin-top: 36px; }
 
-  /* Antes / después */
-  .toggle { display: flex; width: max-content; margin: 0 auto 36px; background: #fff; border-radius: 999px; padding: 4px; position: relative; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
-  .toggle button { position: relative; z-index: 1; border: none; background: none; padding: 11px 22px; font-size: 15px; font-weight: 700; cursor: pointer; color: var(--ink2); transition: color .3s; border-radius: 999px; }
-  .toggle button.on { color: #fff; }
-  .toggle .pastilla { position: absolute; top: 4px; bottom: 4px; left: 4px; border-radius: 999px; background: var(--ink); transition: all .45s cubic-bezier(.2,.8,.2,1); }
-  .toggle.despues .pastilla { background: var(--accent); }
-  .comparar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; perspective: 1200px; }
-  @media (max-width: 860px) { .comparar { grid-template-columns: 1fr; } }
-  .flip { position: relative; height: 220px; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.2,.8,.2,1); transition-delay: var(--fd, 0s); }
-  .comparar.despues .flip { transform: rotateY(180deg); }
-  .cara { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: var(--r); padding: 26px; background: #fff; }
-  .cara.b { transform: rotateY(180deg); }
-  .cara .em { font-size: 32px; margin-bottom: 10px; }
-  .cara h3 { margin: 0 0 8px; font-size: 21px; letter-spacing: -0.02em; }
-  .cara p { margin: 0; color: var(--ink2); }
-  .cara.a h3 { color: #c4291f; }
-  .cara.b h3 { color: var(--accent); }
+  /* Dolor */
+  .dolor { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 900px; margin: 0 auto; }
+  @media (max-width: 760px) { .dolor { grid-template-columns: 1fr; } }
+  .d-item { background: #fff; border-radius: 20px; padding: 20px 22px; display: flex; gap: 14px; align-items: flex-start; }
+  .d-item .x { width: 28px; height: 28px; border-radius: 50%; background: #fff0f0; color: #e5484d; font-weight: 800; display: grid; place-items: center; flex: none; font-size: 14px; }
+  .d-item b { display: block; font-size: 17px; letter-spacing: -0.01em; }
+  .d-item span { color: var(--ink2); font-size: 15px; }
+  .giro { text-align: center; font-size: clamp(22px, 3.4vw, 32px); font-weight: 800; letter-spacing: -0.03em; margin: 40px auto 0; max-width: 720px; }
+  .giro em { font-style: normal; color: var(--accent); }
 
-  /* ---------- Beneficios: teléfono fijo ---------- */
-  .historia { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
-  @media (max-width: 860px) { .historia { grid-template-columns: 1fr; gap: 0; } }
-  .paso { min-height: 78vh; display: flex; flex-direction: column; justify-content: center; opacity: .2; transition: opacity .5s; }
-  .paso.on { opacity: 1; }
-  @media (max-width: 860px) { .paso { min-height: 64vh; justify-content: flex-start; padding-top: 10px; } }
-  .paso .n { font-size: 14px; font-weight: 800; color: var(--accent); margin-bottom: 10px; letter-spacing: .02em; }
-  .paso h3 { font-size: clamp(28px, 3.8vw, 42px); letter-spacing: -0.035em; line-height: 1.1; margin: 0 0 14px; font-weight: 800; }
-  .paso p { color: var(--ink2); font-size: 18px; margin: 0; max-width: 450px; }
-  .paso ul { list-style: none; padding: 0; margin: 16px 0 0; color: var(--ink); font-size: 16px; }
-  .paso li { padding: 4px 0 4px 26px; position: relative; }
-  .paso li::before { content: ''; position: absolute; left: 4px; top: 11px; width: 10px; height: 6px; border-left: 2.5px solid var(--green2); border-bottom: 2.5px solid var(--green2); transform: rotate(-45deg); }
-  .fijo { position: sticky; top: 80px; height: calc(100vh - 100px); display: flex; align-items: center; justify-content: center; }
-  @media (max-width: 860px) { .fijo { top: 58px; height: 410px; align-items: flex-start; z-index: 2; background: linear-gradient(var(--bg) 88%, rgba(255,255,255,0)); order: -1; } }
-  .mini-tel { position: relative; width: 270px; height: 540px; border-radius: 46px; border: 10px solid #1d1d1f; background: #f2f2f7; overflow: hidden; box-shadow: 0 40px 90px rgba(0,0,0,.15); flex: none; }
-  @media (max-width: 860px) { .mini-tel { transform: scale(.72); transform-origin: center top; margin-top: 14px; } }
-  .puntos { position: absolute; right: -28px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 8px; }
-  .puntos i { width: 6px; height: 6px; border-radius: 3px; background: #d2d2d7; transition: all .4s; }
-  .puntos i.on { height: 22px; background: var(--accent); }
-  @media (max-width: 860px) { .puntos { display: none; } }
-  .vt { position: absolute; inset: 0; padding: 48px 13px 13px; opacity: 0; transform: scale(.96) translateY(10px); transition: opacity .55s, transform .6s cubic-bezier(.2,.8,.2,1); font-size: 12px; overflow: hidden; }
-  .vt.on { opacity: 1; transform: none; }
-  .vt-tit { font-size: 21px; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 9px; }
-  .vt-g { background: #fff; border-radius: 13px; padding: 10px 12px; margin-bottom: 8px; }
-  .vt-g .p-lbl { margin-bottom: 6px; }
-  .vt-ops { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
-  .vt-op { background: #e5e5ea; border-radius: 9px; padding: 8px 2px; text-align: center; font-weight: 700; font-size: 10.5px; transition: all .3s; }
-  .vt-op.on { background: var(--accent); color: #fff; transform: scale(.96); }
-  .vt-fila { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid #f2f2f7; transition: color .3s, opacity .5s, transform .5s; }
-  .vt-fila:last-child { border: none; }
-  .vt-fila.on { color: var(--accent); font-weight: 700; }
-  .vt-btn { background: var(--accent); color: #fff; text-align: center; padding: 11px; border-radius: 12px; font-weight: 700; transition: transform .2s, background .3s; }
-  .vt-btn.tap { transform: scale(.93); }
-  .dedo { position: absolute; width: 32px; height: 32px; border-radius: 50%; background: rgba(0,113,227,.22); border: 2px solid rgba(0,113,227,.6); z-index: 8; pointer-events: none;
-    transition: top .6s cubic-bezier(.2,.8,.2,1), left .6s cubic-bezier(.2,.8,.2,1), transform .15s, opacity .3s; transform: translate(-50%,-50%); opacity: 0; }
-  .dedo.on { opacity: 1; }
-  .dedo.click { transform: translate(-50%,-50%) scale(.7); }
-  .seg { display: flex; background: #e3e3e8; border-radius: 8px; padding: 2px; margin-bottom: 9px; position: relative; }
-  .seg span { flex: 1; text-align: center; padding: 5px 0; font-weight: 700; font-size: 10.5px; border-radius: 6px; position: relative; z-index: 1; transition: color .3s; }
-  .seg .past { position: absolute; top: 2px; bottom: 2px; width: calc(33.33% - 1.3px); left: 2px; background: #fff; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,.1); transition: transform .45s cubic-bezier(.2,.8,.2,1); }
-  .wa { position: absolute; left: 12px; right: 12px; bottom: 14px; background: #dcf8c6; color: #111; border-radius: 14px 14px 4px 14px; padding: 10px 12px; font-size: 11px; line-height: 1.45;
-    box-shadow: 0 10px 30px rgba(0,0,0,.15); transform: translateY(140%); transition: transform .7s cubic-bezier(.2,.9,.3,1.1); }
+  /* Beneficios */
+  .benef { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 880px) { .benef { grid-template-columns: 1fr; } }
+  .b-card { background: var(--bg2); border-radius: 28px; padding: 26px 24px 0; display: flex; flex-direction: column; overflow: hidden; }
+  .b-card .n { font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 6px; }
+  .b-card h3 { margin: 0 0 6px; font-size: 24px; letter-spacing: -0.03em; line-height: 1.15; }
+  .b-card p { margin: 0 0 20px; color: var(--ink2); font-size: 16px; }
+  .vis { margin-top: auto; background: #fff; border-radius: 20px 20px 0 0; padding: 16px 16px 10px; min-height: 196px; font-size: 13px; position: relative; overflow: hidden; }
+  .v-total { font-size: 32px; font-weight: 800; letter-spacing: -0.04em; color: var(--green); display: inline-block; }
+  .v-fila { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f2f2f7; }
+  .v-fila:last-child { border: none; }
+  .v-fila b { font-variant-numeric: tabular-nums; }
+  .v-fila.verde b { color: var(--green); }
+  .wa { position: absolute; left: 12px; right: 12px; bottom: 12px; background: #dcf8c6; border-radius: 14px 14px 4px 14px; padding: 10px 12px; font-size: 12px; line-height: 1.45;
+    box-shadow: 0 10px 26px rgba(0,0,0,.14); transform: translateY(150%); transition: transform .7s cubic-bezier(.2,.9,.3,1.1); }
   .wa.on { transform: none; }
-  .wa .de { font-size: 10px; font-weight: 700; color: #075e54; margin-bottom: 2px; }
-  .aro { position: relative; width: 170px; height: 170px; margin: 6px auto 10px; }
-  .aro svg { transform: rotate(-90deg); }
-  .aro .c-fondo { stroke: #e5e5ea; }
-  .aro .c-valor { stroke: var(--accent); stroke-linecap: round; transition: stroke-dashoffset 1.6s cubic-bezier(.2,.8,.2,1); }
-  .aro .centro { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
-  .aro .centro b { font-size: 34px; letter-spacing: -0.04em; display: block; line-height: 1; }
-  .alerta-dup { background: #fff2f1; color: #c4291f; border-radius: 11px; padding: 9px 11px; font-weight: 700; font-size: 11px; margin-bottom: 8px; transform: scale(.9); opacity: 0; transition: all .5s cubic-bezier(.2,1.4,.4,1); }
-  .alerta-dup.on { transform: none; opacity: 1; }
-  .badge-red { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); background: rgba(29,29,31,.92); color: #fff; padding: 8px 14px; border-radius: 999px; font-size: 11px; font-weight: 600; white-space: nowrap; transition: background .4s; }
-  .badge-red.ok { background: var(--green2); }
-  .bloqueo { position: absolute; inset: 0; background: linear-gradient(170deg, #c7d2fe, #e9d5ff 55%, #fbcfe8); color: #1d1d1f; text-align: center; padding-top: 64px; }
-  .bloqueo .hora { font-size: 62px; font-weight: 300; letter-spacing: -0.03em; line-height: 1; }
-  .bloqueo .fecha { font-size: 13px; opacity: .7; margin-top: 4px; }
-  .bloqueo .flot { position: absolute; left: 10px; right: 10px; width: auto; }
+  .wa .de { font-size: 10px; font-weight: 700; color: #075e54; }
+  .noti { background: rgba(245,245,247,.9); border-radius: 16px; padding: 11px 12px; display: flex; gap: 10px; margin-bottom: 8px; box-shadow: 0 6px 20px rgba(0,0,0,.08);
+    opacity: 0; transform: translateY(-14px) scale(.97); transition: all .7s cubic-bezier(.2,.8,.2,1); }
+  .noti.on { opacity: 1; transform: none; }
+  .noti .ic { width: 32px; height: 32px; border-radius: 8px; background: #1d1d1f; color: #fff; font-weight: 900; display: grid; place-items: center; flex: none; }
+  .noti .t1 { font-weight: 700; font-size: 12.5px; display: flex; justify-content: space-between; }
+  .noti .t1 span { color: var(--ink3); font-weight: 500; font-size: 10.5px; }
+  .noti .t2 { font-size: 11.5px; color: var(--ink2); line-height: 1.4; }
+  .hora-bloq { text-align: center; font-size: 44px; font-weight: 300; letter-spacing: -0.03em; color: var(--ink); line-height: 1; margin: 2px 0 12px; }
 
-  /* ---------- Instalación ---------- */
-  .tres { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-  @media (max-width: 860px) { .tres { grid-template-columns: 1fr; } }
-  .inst { background: #fff; border-radius: var(--r); padding: 28px; position: relative; overflow: hidden; }
-  .inst .n { width: 36px; height: 36px; border-radius: 50%; background: var(--ink); color: #fff; font-weight: 800; display: grid; place-items: center; margin-bottom: 16px; }
-  .inst h3 { margin: 0 0 6px; font-size: 21px; letter-spacing: -0.02em; }
-  .inst p { margin: 0 0 18px; color: var(--ink2); }
-  .ilus { height: 150px; border-radius: 18px; background: var(--bg2); position: relative; overflow: hidden; display: grid; place-items: center; }
-  .il-form { width: 70%; }
-  .il-form div { height: 12px; border-radius: 6px; background: #fff; margin: 8px 0; position: relative; overflow: hidden; }
-  .il-form div::after { content: ''; position: absolute; inset: 0; width: 0; background: rgba(0,113,227,.25); animation: llenar 3s ease-in-out infinite; animation-delay: var(--d, 0s); }
-  @keyframes llenar { 0%, 15% { width: 0; } 60%, 100% { width: 100%; } }
-  .il-form .ok { width: 34px; height: 34px; border-radius: 50%; background: var(--green2); color: #fff; margin: 10px auto 0; display: grid; place-items: center; font-weight: 800; animation: aparecer 3s ease infinite; }
-  @keyframes aparecer { 0%, 55% { transform: scale(0); } 70%, 100% { transform: scale(1); } }
-  .il-wa { width: 80%; }
-  .il-wa div { background: #dcf8c6; border-radius: 12px 12px 4px 12px; padding: 8px 10px; font-size: 11px; margin: 6px 0 6px auto; width: 82%; animation: burbuja 4s ease infinite; opacity: 0; }
-  .il-wa div:nth-child(2) { background: #fff; border-radius: 12px 12px 12px 4px; margin-left: 0; animation-delay: .8s; }
-  @keyframes burbuja { 0% { opacity: 0; transform: translateY(10px); } 15%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; } }
-  .il-home { display: grid; grid-template-columns: repeat(4, 34px); gap: 10px; }
-  .il-home i { width: 34px; height: 34px; border-radius: 9px; background: #d9d9de; }
-  .il-home i.app { background: #1d1d1f url('img/icon-192.png') center/cover; animation: rebote 3s cubic-bezier(.2,1.6,.4,1) infinite; }
-  @keyframes rebote { 0%, 20% { transform: scale(0); } 45%, 100% { transform: scale(1); } }
+  .extras { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 30px; }
+  .extras span { background: var(--bg2); padding: 9px 15px; border-radius: 999px; font-size: 14px; font-weight: 500; }
+  .extras span::before { content: '✓ '; color: var(--green2); font-weight: 800; }
 
-  /* ---------- Simulador ---------- */
-  .sim { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; max-width: 960px; margin: 0 auto; }
-  @media (max-width: 860px) { .sim { grid-template-columns: 1fr; } }
-  .panel { background: #fff; border-radius: 26px; padding: 24px; position: relative; overflow: hidden; box-shadow: 0 2px 30px rgba(0,0,0,.05); }
-  .panel-tit { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
-  .panel-tit b { font-size: 17px; }
-  .etq { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--bg2); color: var(--ink2); }
-  .s-lbl { font-size: 11px; font-weight: 700; color: var(--ink3); text-transform: uppercase; letter-spacing: .06em; margin: 14px 0 8px; }
-  .s-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-  .s-chip { border: none; background: var(--bg2); color: var(--ink); padding: 10px 14px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; transition: all .2s; }
-  .s-chip:hover { background: #ebebf0; }
-  .s-chip.on { background: var(--accent); color: #fff; box-shadow: 0 6px 18px rgba(0,113,227,.3); }
-  .s-chip small { opacity: .65; font-weight: 500; margin-left: 4px; }
-  .s-total { display: flex; justify-content: space-between; align-items: baseline; margin: 18px 0 14px; padding-top: 14px; border-top: 1px solid var(--line); }
-  .s-total b { font-size: 26px; letter-spacing: -0.03em; }
-  .s-reg { width: 100%; }
-  .s-ok { position: absolute; inset: 0; background: rgba(255,255,255,.95); display: grid; place-items: center; text-align: center; opacity: 0; pointer-events: none; transition: opacity .3s; }
-  .s-ok.on { opacity: 1; }
-  .s-ok .c { width: 64px; height: 64px; border-radius: 50%; background: var(--green2); color: #fff; display: grid; place-items: center; font-size: 32px; margin: 0 auto 10px; transform: scale(.4); transition: transform .5s cubic-bezier(.2,1.5,.4,1); }
-  .s-ok.on .c { transform: none; }
-  @media (max-width: 860px) { .s-ok .flecha { display: inline-block; transform: rotate(90deg); } }
-  .d-total { font-size: 46px; font-weight: 800; letter-spacing: -0.05em; color: var(--green); line-height: 1; margin: 6px 0 4px; display: inline-block; }
-  .d-sub { color: var(--ink3); font-size: 13px; }
-  .d-met { margin-top: 14px; }
-  .d-met .metodo { grid-template-columns: 70px 1fr 70px; font-size: 13px; padding: 5px 0; }
-  .d-met .m-bar { height: 8px; }
-  .d-com div { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
-  .d-com div b { color: var(--green); }
-  .d-com div.flash { animation: flash 1s ease; }
-  @keyframes flash { 0% { background: rgba(0,113,227,.12); } 100% { background: transparent; } }
-  .reiniciar { background: none; border: none; color: var(--ink3); font-size: 13px; cursor: pointer; text-decoration: underline; }
-  .chispa { position: fixed; width: 8px; height: 8px; border-radius: 50%; pointer-events: none; z-index: 200; }
+  /* Pasos */
+  .pasos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 900px; margin: 0 auto; counter-reset: p; }
+  @media (max-width: 760px) { .pasos { grid-template-columns: 1fr; } }
+  .paso { background: #fff; border-radius: 22px; padding: 22px; display: flex; gap: 14px; align-items: flex-start; }
+  .paso .n { width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: #fff; font-weight: 800; display: grid; place-items: center; flex: none; }
+  .paso b { display: block; font-size: 17px; letter-spacing: -0.01em; }
+  .paso span { color: var(--ink2); font-size: 15px; }
 
-  /* ---------- Calculadora ---------- */
-  .calc { max-width: 860px; margin: 0 auto; background: #fff; border-radius: 30px; padding: 38px; display: grid; grid-template-columns: 1fr 1fr; gap: 38px; box-shadow: 0 2px 30px rgba(0,0,0,.05); }
-  @media (max-width: 760px) { .calc { grid-template-columns: 1fr; padding: 24px; gap: 22px; } }
-  .slider-g { margin-bottom: 26px; }
-  .slider-g label { display: flex; justify-content: space-between; gap: 12px; font-weight: 600; font-size: 15px; margin-bottom: 10px; }
-  .slider-g label b { color: var(--accent); white-space: nowrap; }
-  input[type=range].rango { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 6px; background: linear-gradient(90deg, var(--accent) var(--p, 50%), #e5e5ea var(--p, 50%)); outline: none; }
-  input[type=range].rango::-webkit-slider-thumb { -webkit-appearance: none; width: 26px; height: 26px; border-radius: 50%; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.25); cursor: pointer; }
-  input[type=range].rango::-moz-range-thumb { width: 26px; height: 26px; border-radius: 50%; background: #fff; border: none; box-shadow: 0 2px 10px rgba(0,0,0,.25); cursor: pointer; }
-  .res-calc { background: var(--bg2); border-radius: 22px; padding: 26px; display: flex; flex-direction: column; justify-content: center; }
-  .res-calc .l { color: var(--ink2); font-size: 14px; }
-  .res-calc .v { font-size: clamp(38px, 6vw, 52px); font-weight: 800; letter-spacing: -0.05em; line-height: 1.05; margin: 4px 0 16px; }
-  .res-calc .v.rojo { color: #e5484d; }
-  .res-calc .v.verde { color: var(--green); }
-  .res-calc .x { font-size: 15px; color: var(--ink); }
-
-  /* ---------- Precio ---------- */
-  .precio-wrap { position: relative; max-width: 470px; margin: 0 auto; border-radius: 32px; padding: 2px; background: conic-gradient(from var(--ang, 0deg), #0071e3, #a5c8ff, #e8e8ed, #a5c8ff, #0071e3); animation: girarBorde 6s linear infinite; box-shadow: 0 30px 80px rgba(0,113,227,.12); }
+  /* Precio */
+  .precio-wrap { max-width: 440px; margin: 0 auto; border-radius: 32px; padding: 2px; background: conic-gradient(from var(--ang, 0deg), #0071e3, #a5c8ff, #e8e8ed, #a5c8ff, #0071e3);
+    animation: girarBorde 6s linear infinite; box-shadow: 0 30px 70px rgba(0,113,227,.12); }
   @property --ang { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
   @keyframes girarBorde { to { --ang: 360deg; } }
-  .precio { background: #fff; border-radius: 30px; padding: 38px 32px; text-align: center; }
-  .precio .monto { font-size: 72px; font-weight: 800; letter-spacing: -0.05em; line-height: 1; margin: 12px 0 4px; }
-  .precio .monto small { font-size: 20px; color: var(--ink3); font-weight: 600; letter-spacing: 0; }
-  .precio ul { list-style: none; padding: 0; margin: 24px 0 28px; text-align: left; }
-  .precio li { padding: 10px 0 10px 32px; position: relative; border-bottom: 1px solid var(--line); font-size: 15px; }
+  .precio { background: #fff; border-radius: 30px; padding: 32px 28px; text-align: center; }
+  .linea-tiempo { display: flex; align-items: stretch; gap: 8px; margin: 4px 0 22px; }
+  .lt { flex: 1; border-radius: 16px; padding: 14px 10px; }
+  .lt.a { background: rgba(52,199,89,.1); }
+  .lt.b { background: var(--bg2); }
+  .lt .l { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--ink3); }
+  .lt .v { font-size: 30px; font-weight: 800; letter-spacing: -0.04em; line-height: 1.1; margin-top: 4px; }
+  .lt.a .v { color: var(--green); }
+  .lt .s { font-size: 13px; color: var(--ink2); }
+  .flecha-lt { align-self: center; color: var(--ink3); font-size: 20px; }
+  .precio ul { list-style: none; padding: 0; margin: 0 0 24px; text-align: left; }
+  .precio li { padding: 8px 0 8px 30px; position: relative; font-size: 15px; border-bottom: 1px solid var(--line); }
   .precio li:last-child { border: none; }
-  .precio li::before { content: ''; position: absolute; left: 4px; top: 16px; width: 12px; height: 7px; border-left: 2.5px solid var(--green2); border-bottom: 2.5px solid var(--green2); transform: rotate(-45deg); }
-  .p-lbl2 { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: .08em; }
+  .precio li::before { content: ''; position: absolute; left: 4px; top: 14px; width: 12px; height: 7px; border-left: 2.5px solid var(--green2); border-bottom: 2.5px solid var(--green2); transform: rotate(-45deg); }
+  .garantia { display: flex; gap: 10px; align-items: center; justify-content: center; font-size: 13px; color: var(--ink2); margin-top: 14px; }
 
-  /* ---------- FAQ ---------- */
-  .faq { max-width: 760px; margin: 0 auto; }
+  /* FAQ */
+  .faq { max-width: 720px; margin: 0 auto; }
   .q { border-bottom: 1px solid var(--line); }
-  .q button { width: 100%; background: none; border: none; text-align: left; padding: 22px 0; font-size: 18px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; gap: 16px; color: var(--ink); }
-  .q button::after { content: '+'; color: var(--ink3); font-weight: 400; font-size: 26px; line-height: 1; transition: transform .35s cubic-bezier(.2,.8,.2,1); }
+  .q button { width: 100%; background: none; border: none; text-align: left; padding: 19px 0; font-size: 17px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; gap: 16px; color: var(--ink); }
+  .q button::after { content: '+'; color: var(--ink3); font-weight: 400; font-size: 24px; line-height: 1; transition: transform .35s; }
   .q.on button::after { transform: rotate(45deg); }
-  .q .r { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .45s cubic-bezier(.2,.8,.2,1); }
+  .q .r { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s cubic-bezier(.2,.8,.2,1); }
   .q.on .r { grid-template-rows: 1fr; }
   .q .r > div { overflow: hidden; }
-  .q .r p { margin: 0 0 22px; color: var(--ink2); }
+  .q .r p { margin: 0 0 19px; color: var(--ink2); }
 
-  /* ---------- Cierre y barra fija ---------- */
-  .final { text-align: center; padding: 130px 0 140px; overflow: hidden; isolation: isolate; }
-  .final .titulo { font-size: clamp(38px, 6.5vw, 72px); }
-  footer { border-top: 1px solid var(--line); padding: 26px 0 40px; color: var(--ink3); font-size: 13px; }
+  .final { text-align: center; padding: 90px 0 110px; position: relative; overflow: hidden; isolation: isolate; }
+  footer { border-top: 1px solid var(--line); padding: 22px 0 110px; color: var(--ink3); font-size: 13px; }
   footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-  .barra-cta { position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 45; background: rgba(255,255,255,.9); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
-    border-radius: 20px; padding: 10px 10px 10px 16px; display: none; align-items: center; gap: 10px; box-shadow: 0 12px 40px rgba(0,0,0,.15), 0 0 0 1px rgba(0,0,0,.05);
-    transform: translateY(140%); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
+  @media (min-width: 881px) { footer { padding-bottom: 36px; } }
+
+  /* Barra fija (celular) */
+  .barra-cta { position: fixed; left: 10px; right: 10px; bottom: calc(10px + env(safe-area-inset-bottom)); z-index: 45; background: rgba(255,255,255,.92); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px);
+    border-radius: 20px; padding: 9px 9px 9px 16px; display: none; align-items: center; gap: 10px; box-shadow: 0 12px 40px rgba(0,0,0,.16), 0 0 0 1px rgba(0,0,0,.05);
+    transform: translateY(150%); transition: transform .5s cubic-bezier(.2,.8,.2,1); }
   .barra-cta.on { transform: none; }
-  .barra-cta .t { flex: 1; font-size: 13px; line-height: 1.3; }
-  .barra-cta .t b { display: block; font-size: 14px; }
+  .barra-cta .t { flex: 1; font-size: 12px; line-height: 1.3; color: var(--ink2); }
+  .barra-cta .t b { display: block; font-size: 14px; color: var(--ink); }
   .barra-cta .btn { padding: 12px 18px; font-size: 15px; }
-  @media (max-width: 860px) { .barra-cta { display: flex; } }
+  @media (max-width: 880px) { .barra-cta { display: flex; } }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
@@ -408,34 +296,32 @@
 </head>
 <body>
 
-<div id="progreso-scroll"></div>
-<header class="top" id="top">
+<header class="top">
   <div class="wrap">
     <span class="logo">7LEGEND<i></i></span>
-    <div class="top-der"><span class="oferta">14 días gratis · sin tarjeta</span><button class="btn btn-primary btn-sm" onclick="abrirRegistro()">Probar gratis</button></div>
+    <button class="btn btn-primary btn-sm" onclick="abrirRegistro()">Probar gratis</button>
   </div>
 </header>
 
-<!-- ================= HERO ================= -->
-<section class="hero" id="hero">
-  <div class="burbujas" aria-hidden="true"><span></span><span></span><span></span></div>
+<!-- ============ 1. PROMESA (lo que viste en el video) ============ -->
+<section class="hero">
+  <div class="burbujas" aria-hidden="true"><span></span><span></span></div>
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow entra" style="animation-delay:.1s"><span class="vivo"></span>Para salones, barberías, spas y estudios</div>
-      <h1 aria-label="Los números de tu negocio en orden.">
-        <span class="w" style="animation-delay:.15s">Los</span> <span class="w" style="animation-delay:.25s">números</span> <span class="w" style="animation-delay:.35s">de</span> <span class="w" style="animation-delay:.45s">tu</span> <span class="w" style="animation-delay:.55s">negocio</span>
-        <span class="w gris" style="animation-delay:.75s">en orden.</span>
+      <div class="eyebrow entra" style="animation-delay:.05s"><span class="vivo"></span>Para salones, barberías y spas</div>
+      <h1 aria-label="Sabe cuánto ganó tu salón hoy, sin estar ahí.">
+        <span class="w" style="animation-delay:.1s">Sabe</span> <span class="w" style="animation-delay:.18s">cuánto</span> <span class="w" style="animation-delay:.26s">ganó</span> <span class="w" style="animation-delay:.34s">tu</span> <span class="w" style="animation-delay:.42s">salón</span> <span class="w" style="animation-delay:.5s">hoy,</span>
+        <span class="w azul" style="animation-delay:.64s">sin</span> <span class="w azul" style="animation-delay:.72s">estar</span> <span class="w azul" style="animation-delay:.8s">ahí.</span>
       </h1>
-      <p class="sub entra" style="animation-delay:.9s">Tu equipo registra cada atención en segundos. Tú ves ingresos, comisiones y gastos de todas tus sedes al instante, desde tu celular.</p>
-      <div class="ctas entra" style="animation-delay:1.05s">
-        <button class="btn btn-primary btn-xl" onclick="abrirRegistro()">Prueba 14 días gratis</button>
-        <a class="btn btn-light btn-xl" href="#beneficios">Ver cómo funciona</a>
+      <p class="sub entra" style="animation-delay:.9s">Tu equipo registra cada atención desde su celular. Tú ves al instante cuánto entró, por Yape, tarjeta o efectivo, y cuánto le toca a cada una.</p>
+      <div class="entra" style="animation-delay:1.02s">
+        <button class="btn btn-primary" onclick="abrirRegistro()">Empezar mis 14 días gratis</button>
+        <div class="bajo-btn">Luego <b>S/ <span class="precio-num">100</span> al mes</b> · Sin tarjeta · Cancelas cuando quieras</div>
       </div>
-      <div class="micro entra" style="animation-delay:1.2s"><span>Sin tarjeta</span><span>Listo en 3 minutos</span><span>iPhone y Android</span></div>
     </div>
-    <div class="escena entra" style="animation-delay:.5s" aria-hidden="true">
+    <div class="escena entra" style="animation-delay:.4s" aria-hidden="true">
       <div class="flot" id="flot1"><div class="ic" style="background:var(--accent)">+</div><div style="flex:1"><div class="t1">Nueva atención <span>ahora</span></div><div class="t2" id="flot1-txt"></div></div></div>
-      <div class="flot" id="flot2"><div class="ic" style="background:#1d1d1f">7</div><div style="flex:1"><div class="t1">Cierre del día <span>23:30</span></div><div class="t2" id="flot2-txt">Total: S/ 3,180 · 46 atenciones</div></div></div>
+      <div class="flot" id="flot2"><div class="ic" style="background:#1d1d1f">7</div><div style="flex:1"><div class="t1">Cierre del día <span>23:30</span></div><div class="t2" id="flot2-txt"></div></div></div>
       <div class="telefono" id="telefono">
         <div class="isla"></div>
         <div class="pantalla">
@@ -454,279 +340,120 @@
   </div>
 </section>
 
-<div class="cinta" aria-hidden="true"><div class="cinta-in" id="cinta"></div></div>
-
-<!-- ================= PROBLEMA ================= -->
-<section class="gris-bg">
+<!-- ============ 2. EL DOLOR ============ -->
+<section class="gris">
   <div class="wrap">
-    <div class="kicker rev">El problema</div>
-    <h2 class="titulo rev">¿Te suena familiar?</h2>
-    <p class="bajada rev">Cuaderno, capturas de Yape y comisiones a mano. Toca el botón y mira la diferencia.</p>
-    <div class="toggle rev" id="toggle"><div class="pastilla" id="pastilla"></div><button class="on" data-m="0">Sin 7LEGEND</button><button data-m="1">Con 7LEGEND</button></div>
-    <div class="comparar" id="comparar">
-      <div class="flip rev"><div class="cara a"><div class="em">📓</div><h3>¿Cuánto entró hoy?</h3><p>Esperas la foto del cuaderno, sumas capturas de Yape y la cuenta nunca cuadra.</p></div>
-        <div class="cara b"><div class="em">📲</div><h3>Lo sabes al instante</h3><p>Cada atención aparece en tu celular apenas tu equipo la registra.</p></div></div>
-      <div class="flip rev" style="--d:.1s;--fd:.12s"><div class="cara a"><div class="em">🧮</div><h3>Comisiones a mano</h3><p>Horas con la calculadora cada semana, y siempre termina en discusión.</p></div>
-        <div class="cara b"><div class="em">⚡</div><h3>Comisiones automáticas</h3><p>Calculadas solas por persona, listas para enviar por WhatsApp.</p></div></div>
-      <div class="flip rev" style="--d:.2s;--fd:.24s"><div class="cara a"><div class="em">🤷</div><h3>¿Cuánto ganaste?</h3><p>Vendes mucho, pero no sabes cuánto queda después de comisiones y gastos.</p></div>
-        <div class="cara b"><div class="em">📈</div><h3>Tu utilidad real</h3><p>Ingresos − comisiones − gastos. Por sede y por mes, sin hojas de cálculo.</p></div></div>
+    <h2 class="titulo rev">Si hoy llevas tu salón así…</h2>
+    <div class="dolor" style="margin-top:30px">
+      <div class="d-item rev"><div class="x">✕</div><div><b>Cuaderno y capturas</b><span>Y aun así la caja no cuadra.</span></div></div>
+      <div class="d-item rev" style="--d:.1s"><div class="x">✕</div><div><b>Comisiones a mano</b><span>Horas cada semana, y discusiones.</span></div></div>
+      <div class="d-item rev" style="--d:.2s"><div class="x">✕</div><div><b>No sabes cuánto ganas</b><span>Solo cuánto vendes.</span></div></div>
     </div>
+    <p class="giro rev">…7LEGEND lo resuelve <em>desde tu celular</em>, en 3 minutos.</p>
   </div>
 </section>
 
-<!-- ================= BENEFICIOS (scroll) ================= -->
-<section id="beneficios" style="padding-bottom:40px">
+<!-- ============ 3. CÓMO TE AYUDA ============ -->
+<section>
   <div class="wrap">
-    <div class="kicker rev">Todo lo que hace por ti</div>
-    <h2 class="titulo rev">Baja y descubre cómo funciona.</h2>
-    <p class="bajada rev" style="margin-bottom:0">9 razones por las que vas a dejar el cuaderno para siempre.</p>
-    <div class="historia">
-      <div class="pasos-txt">
-        <div class="paso" data-p="0"><div class="n">01 · REGISTRO EN 10 SEGUNDOS</div><h3>Tu equipo registra cada atención en segundos.</h3><p>Eligen su nombre, los servicios y cómo pagó el cliente. El total se calcula solo.</p><ul><li>Sin cuadernos ni capturas</li><li>Botones grandes, fácil para todos</li></ul></div>
-        <div class="paso" data-p="1"><div class="n">02 · EN TIEMPO REAL</div><h3>Tú lo ves al instante, estés donde estés.</h3><p>Cada atención aparece en tu celular apenas se registra. Sabes cuánto entró hoy sin llamar a nadie.</p><ul><li>Ingresos del día y del mes</li><li>Quién atendió a quién</li></ul></div>
-        <div class="paso" data-p="2"><div class="n">03 · SEDES Y MÉTODOS DE PAGO</div><h3>Sabes dónde está tu dinero.</h3><p>Mira todas tus sedes juntas o una por una. Separa lo que entró por Yape, Plin, tarjeta y efectivo.</p><ul><li>Una o varias sedes</li><li>Cuadre de caja en segundos</li></ul></div>
-        <div class="paso" data-p="3"><div class="n">04 · COMISIONES AUTOMÁTICAS</div><h3>Las comisiones se calculan solas.</h3><p>Pones el porcentaje una vez. Al final de la semana copias el resumen y lo envías por WhatsApp en un toque.</p><ul><li>Se acabaron las discusiones</li><li>Ranking de up selling para motivar</li></ul></div>
-        <div class="paso" data-p="4"><div class="n">05 · UTILIDAD REAL</div><h3>Sabes cuánto ganas, no solo cuánto vendes.</h3><p>Registra alquiler, insumos y sueldos. 7LEGEND resta comisiones y gastos y te muestra tu utilidad, por sede.</p><ul><li>Estado de resultados automático</li><li>Gastos por devolver a cada socio</li></ul></div>
-        <div class="paso" data-p="5"><div class="n">06 · METAS</div><h3>Ponte una meta y mira tu avance cada día.</h3><p>Define cuánto quieres vender al mes en cada sede y sigue el progreso con los días que faltan.</p><ul><li>Meta por sede</li><li>Clientes nuevos vs. recurrentes</li></ul></div>
-        <div class="paso" data-p="6"><div class="n">07 · CERO DUPLICADOS</div><h3>Si alguien registra dos veces, la app lo detecta.</h3><p>Incluso si dos personas registran al mismo cliente con los mismos servicios. Tu caja no se infla con errores.</p></div>
-        <div class="paso" data-p="7"><div class="n">08 · SIN SEÑAL, SIN PROBLEMA</div><h3>Funciona aunque se caiga el internet.</h3><p>Los registros se guardan en el celular y se envían solos cuando vuelve la señal. No se pierde ninguno.</p></div>
-        <div class="paso" data-p="8"><div class="n">09 · ALERTAS AL CELULAR</div><h3>El cierre del día llega solo cada noche.</h3><p>A las 11:30 p. m. recibes el total del día. Si tu POS se acerca a su tope mensual, te avisa. Y cada lunes, el reporte de la semana a tu correo.</p>
-          <div style="margin-top:26px"><button class="btn btn-primary" onclick="abrirRegistro()">Quiero esto en mi negocio</button></div></div>
+    <h2 class="titulo rev">Así te ayuda cada día.</h2>
+    <p class="bajada rev">Tres cosas. Sin complicaciones.</p>
+    <div class="benef">
+      <div class="b-card rev" id="b1">
+        <div class="n">01</div><h3>Ves cada sol que entra</h3><p>Cada atención llega a tu celular apenas tu equipo la registra.</p>
+        <div class="vis">
+          <div class="p-lbl">Hoy · Miraflores</div>
+          <div class="v-total num" id="b1-total">S/ 0</div>
+          <div class="v-fila"><span>Yape / Plin</span><b id="b1-a">S/ 0</b></div>
+          <div class="v-fila"><span>Tarjeta</span><b id="b1-b">S/ 0</b></div>
+          <div class="v-fila"><span>Efectivo</span><b id="b1-c">S/ 0</b></div>
+        </div>
       </div>
-      <div class="fijo">
-        <div style="position:relative">
-          <div class="mini-tel" id="mini-tel">
-            <div class="isla" style="width:84px;height:24px"></div>
-            <div class="dedo" id="dedo"></div>
-
-            <!-- 0: registro -->
-            <div class="vt on" id="vt0">
-              <div style="font-size:10px;color:var(--ink3);font-weight:600">Studio Bella</div>
-              <div class="vt-tit">Registrar</div>
-              <div class="vt-g"><div class="p-lbl">Atendió</div><b style="font-size:14px">Lucía</b></div>
-              <div class="vt-g"><div class="p-lbl">Método de pago</div><div class="vt-ops"><div class="vt-op" id="op-yape">Yape</div><div class="vt-op">Plin</div><div class="vt-op">Efectivo</div><div class="vt-op">Tarjeta</div><div class="vt-op">Canje</div></div></div>
-              <div class="vt-g"><div class="p-lbl">Servicios</div>
-                <div class="vt-fila" id="sv1"><span>Manicure gel</span><span>S/ 50</span></div>
-                <div class="vt-fila"><span>Uñas acrílicas</span><span>S/ 90</span></div>
-                <div class="vt-fila" id="sv2"><span>Pedicure spa</span><span>S/ 60</span></div>
-                <div style="display:flex;justify-content:space-between;font-weight:800;font-size:15px;margin-top:8px"><span>Total</span><span id="vt-total">S/ 0</span></div></div>
-              <div class="vt-btn" id="vt-btn">Registrar</div>
-            </div>
-
-            <!-- 1: en vivo -->
-            <div class="vt" id="vt1">
-              <div class="p-h"><b style="font-size:21px">Hoy</b><span class="p-live"><i></i>EN VIVO</span></div>
-              <div class="vt-g"><div class="p-lbl">Ingresos del día</div><div class="p-big num" id="vt1-total">S/ 2,840</div><div style="color:var(--ink3);font-size:11px" id="vt1-n">38 atenciones</div></div>
-              <div class="vt-g"><div class="p-lbl" style="margin-bottom:2px">Últimas atenciones</div><div class="feed" id="vt1-feed" style="height:230px"></div></div>
-            </div>
-
-            <!-- 2: sedes y métodos -->
-            <div class="vt" id="vt2">
-              <div class="vt-tit">Resumen</div>
-              <div class="seg"><div class="past" id="vt2-past"></div><span>Todas</span><span>Miraflores</span><span>Surco</span></div>
-              <div class="vt-g"><div class="p-lbl">Ingresos · Hoy</div><div class="p-big num" id="vt2-total">S/ 3,180</div>
-                <div class="metodo"><span>Yape/Plin</span><div class="m-bar"><i class="vt2-b" style="background:#8b5cf6"></i></div><b class="num vt2-v"></b></div>
-                <div class="metodo"><span>Tarjeta</span><div class="m-bar"><i class="vt2-b" style="background:#0071e3"></i></div><b class="num vt2-v"></b></div>
-                <div class="metodo"><span>Efectivo</span><div class="m-bar"><i class="vt2-b" style="background:#34c759"></i></div><b class="num vt2-v"></b></div>
-                <div class="metodo"><span>Canje</span><div class="m-bar"><i class="vt2-b" style="background:#ff9500"></i></div><b class="num vt2-v"></b></div></div>
-              <div class="vt-g"><div class="p-lbl">Atenciones</div><b style="font-size:24px" class="num" id="vt2-n">46</b></div>
-            </div>
-
-            <!-- 3: comisiones -->
-            <div class="vt" id="vt3">
-              <div class="vt-tit">Equipo</div>
-              <div class="vt-g"><div class="p-lbl">Comisiones · esta semana</div><div class="p-big num">S/ 412</div>
-                <div class="vt-fila"><span>Ana</span><b>S/ 128</b></div><div class="vt-fila"><span>Lucía</span><b>S/ 96</b></div>
-                <div class="vt-fila"><span>Carla</span><b>S/ 94</b></div><div class="vt-fila"><span>Rosa</span><b>S/ 94</b></div></div>
-              <div class="vt-btn" id="vt3-btn" style="background:#e5e5ea;color:var(--ink)">Copiar para WhatsApp</div>
-              <div class="wa" id="vt3-wa"><div class="de">Grupo · Equipo Studio Bella</div>💰 <b>COMISIONES (10%)</b><br>👤 Ana: <b>S/ 128</b><br>👤 Lucía: <b>S/ 96</b><br>👤 Carla: <b>S/ 94</b> · Rosa: <b>S/ 94</b><br>💵 <b>TOTAL: S/ 412</b></div>
-            </div>
-
-            <!-- 4: utilidad -->
-            <div class="vt" id="vt4">
-              <div class="vt-tit">Resultados</div>
-              <div class="vt-g"><div class="p-lbl" style="margin-bottom:4px">Noviembre · en S/</div>
-                <div class="vt-fila vt4-f"><span>Ingresos</span><b>32,000</b></div>
-                <div class="vt-fila vt4-f"><span>Comisiones</span><span>− 3,200</span></div>
-                <div class="vt-fila vt4-f"><span>Alquiler</span><span>− 7,700</span></div>
-                <div class="vt-fila vt4-f"><span>Insumos</span><span>− 3,700</span></div>
-                <div class="vt-fila vt4-f"><span>Sueldos y otros</span><span>− 7,400</span></div>
-                <div class="vt-fila vt4-f" style="border-top:1px solid #e5e5ea;font-size:14px"><b>Utilidad</b><b style="color:var(--green)" class="num" id="vt4-u">S/ 10,000</b></div></div>
-              <div class="vt-g"><div class="p-lbl">Por devolver</div><div class="vt-fila"><span>Socia 1</span><b style="color:#ff9500">S/ 1,850</b></div></div>
-            </div>
-
-            <!-- 5: meta -->
-            <div class="vt" id="vt5">
-              <div class="vt-tit">Meta del mes</div>
-              <div class="vt-g" style="text-align:center">
-                <div class="aro"><svg width="170" height="170" viewBox="0 0 170 170"><circle class="c-fondo" cx="85" cy="85" r="72" fill="none" stroke-width="14"/><circle class="c-valor" id="vt5-c" cx="85" cy="85" r="72" fill="none" stroke-width="14" stroke-dasharray="452.4" stroke-dashoffset="452.4"/></svg>
-                  <div class="centro"><div><b class="num" id="vt5-p">0%</b><span style="color:var(--ink3);font-size:11px">de S/ 32,000</span></div></div></div>
-                <div style="font-weight:700">S/ 21,450 vendidos</div><div style="color:var(--accent);font-weight:700;font-size:11px;margin-top:4px">Faltan 22 días</div></div>
-              <div class="vt-g" style="display:flex;justify-content:space-around;text-align:center"><div><b style="font-size:18px">62%</b><div style="color:var(--ink3);font-size:10px">Recurrentes</div></div><div><b style="font-size:18px">31%</b><div style="color:var(--ink3);font-size:10px">Nuevas</div></div><div><b style="font-size:18px">7%</b><div style="color:var(--ink3);font-size:10px">Referidas</div></div></div>
-            </div>
-
-            <!-- 6: duplicado -->
-            <div class="vt" id="vt6" style="background:rgba(0,0,0,.35)">
-              <div class="vt-g" style="margin-top:70px;padding:16px;border-radius:18px">
-                <div style="font-weight:800;font-size:15px;margin-bottom:10px">Revisa antes de guardar</div>
-                <div class="alerta-dup" id="vt6-al">⚠️ Lucía ya registró a Mariana S. con los mismos servicios hoy a las 15:42. Tu registro NO se duplicó.</div>
-                <div style="line-height:1.7"><b>Clienta:</b> Mariana S.<br><b>Pago:</b> Yape<br><span style="color:var(--accent)">• Manicure gel · S/ 50<br>• Pedicure spa · S/ 60</span></div>
-                <div class="vt-btn" style="margin-top:12px">No guardar (ya está)</div>
-              </div>
-            </div>
-
-            <!-- 7: sin señal -->
-            <div class="vt" id="vt7">
-              <div style="display:flex;justify-content:space-between;align-items:center"><div class="vt-tit" style="margin:0">Registrar</div><span id="vt7-wifi" style="font-size:16px">📶</span></div>
-              <div class="vt-g" style="margin-top:9px"><div class="p-lbl">Guardados en el celular</div>
-                <div class="vt-fila"><span>Camila R. · Yape</span><b>S/ 90</b></div><div class="vt-fila"><span>Daniela T. · Efectivo</span><b>S/ 30</b></div><div class="vt-fila"><span>Paola G. · Tarjeta</span><b>S/ 60</b></div></div>
-              <div class="badge-red" id="vt7-b">📶 Sin señal · 3 registros guardados</div>
-            </div>
-
-            <!-- 8: notificaciones -->
-            <div class="vt" id="vt8" style="padding:0">
-              <div class="bloqueo"><div class="hora">23:30</div><div class="fecha">domingo, 8 de noviembre</div>
-                <div class="flot" id="vt8-n1" style="position:relative;left:auto;right:auto;margin:36px 10px 0"><div class="ic" style="background:#ff9500">!</div><div style="flex:1"><div class="t1">POS Miraflores al 80% <span>18:02</span></div><div class="t2">S/ 6,320 de S/ 7,900 · Quedan S/ 1,580</div></div></div>
-                <div class="flot" id="vt8-n2" style="position:relative;left:auto;right:auto;margin:8px 10px 0"><div class="ic" style="background:#1d1d1f">7</div><div style="flex:1"><div class="t1">Cierre del día <span>ahora</span></div><div class="t2">Total: S/ 3,180 · 46 atenciones<br>Yape/Plin S/ 1,420 · Tarjeta S/ 1,120</div></div></div>
-              </div>
-            </div>
-          </div>
-          <div class="puntos" id="puntos"></div>
+      <div class="b-card rev" style="--d:.1s" id="b2">
+        <div class="n">02</div><h3>Comisiones calculadas solas</h3><p>Cópialas y envíalas por WhatsApp en un toque. Cero discusiones.</p>
+        <div class="vis">
+          <div class="p-lbl">Comisiones · esta semana</div>
+          <div class="v-fila verde"><span>Ana</span><b>S/ 128</b></div>
+          <div class="v-fila verde"><span>Lucía</span><b>S/ 96</b></div>
+          <div class="v-fila verde"><span>Carla</span><b>S/ 94</b></div>
+          <div class="wa" id="b2-wa"><div class="de">Grupo · Equipo</div>💰 <b>COMISIONES</b> · Ana S/ 128 · Lucía S/ 96 · Carla S/ 94 · <b>Total S/ 318</b></div>
+        </div>
+      </div>
+      <div class="b-card rev" style="--d:.2s" id="b3">
+        <div class="n">03</div><h3>El cierre llega solo cada noche</h3><p>Total del día, utilidad del mes y alertas. Sin pedírselo a nadie.</p>
+        <div class="vis" style="background:linear-gradient(170deg,#e0e7ff,#f3e8ff 60%,#fde7f1)">
+          <div class="hora-bloq">23:30</div>
+          <div class="noti" id="b3-n1"><div class="ic">7</div><div style="flex:1"><div class="t1">Cierre del día <span>ahora</span></div><div class="t2">Total: S/ 3,180 · 46 atenciones</div></div></div>
+          <div class="noti" id="b3-n2"><div class="ic" style="background:var(--green2)">↑</div><div style="flex:1"><div class="t1">Utilidad del mes <span>ahora</span></div><div class="t2">S/ 10,300 · meta al 67%</div></div></div>
         </div>
       </div>
     </div>
+    <div class="extras rev"><span>Varias sedes</span><span>Gastos y utilidad</span><span>Meta del mes</span><span>Cero duplicados</span><span>Funciona sin señal</span></div>
+    <div class="cta-centro rev"><button class="btn btn-primary" onclick="abrirRegistro()">Lo quiero en mi salón</button><div class="bajo-btn">14 días gratis · Sin tarjeta</div></div>
   </div>
 </section>
 
-<!-- ================= INSTALAR ================= -->
-<section class="gris-bg" id="instalar">
+<!-- ============ 4. EMPEZAR ES FÁCIL ============ -->
+<section class="gris">
   <div class="wrap">
-    <div class="kicker rev">Empieza hoy</div>
-    <h2 class="titulo rev">Funcionando en 3 minutos.</h2>
-    <p class="bajada rev">Sin descargar nada de la tienda, sin técnicos, sin capacitaciones.</p>
-    <div class="tres">
-      <div class="inst rev"><div class="n">1</div><h3>Crea tu cuenta</h3><p>Respondes 6 preguntas: tus sedes, tu equipo, tus servicios y precios. Todo queda configurado.</p>
-        <div class="ilus"><div class="il-form"><div></div><div style="--d:.4s"></div><div style="--d:.8s"></div><div class="ok">✓</div></div></div></div>
-      <div class="inst rev" style="--d:.1s"><div class="n">2</div><h3>Envía el link a tu equipo</h3><p>Un solo link por WhatsApp. Cada persona lo abre y empieza a registrar.</p>
-        <div class="ilus"><div class="il-wa"><div>Hola equipo 👋 desde hoy registramos aquí: 7legend…/equipo</div><div>¡Listo! Ya registré a mi primera clienta 💅</div></div></div></div>
-      <div class="inst rev" style="--d:.2s"><div class="n">3</div><h3>Agrégala a tu inicio</h3><p>Queda como un ícono más en el celular, en iPhone y Android. Ahí recibes tu cierre cada noche.</p>
-        <div class="ilus"><div class="il-home"><i></i><i></i><i></i><i></i><i></i><i class="app"></i><i></i><i></i></div></div></div>
+    <h2 class="titulo rev">Listo en 3 minutos.</h2>
+    <p class="bajada rev">No descargas nada de la tienda. No necesitas saber de tecnología.</p>
+    <div class="pasos">
+      <div class="paso rev"><div class="n">1</div><div><b>Responde 6 preguntas</b><span>Tus sedes, tu equipo y tus precios.</span></div></div>
+      <div class="paso rev" style="--d:.1s"><div class="n">2</div><div><b>Envía un link a tu equipo</b><span>Por WhatsApp. Lo abren y registran.</span></div></div>
+      <div class="paso rev" style="--d:.2s"><div class="n">3</div><div><b>Mira tus números</b><span>Desde el ícono en tu celular.</span></div></div>
     </div>
-    <div class="cta-centro rev"><button class="btn btn-primary btn-xl" onclick="abrirRegistro()">Crear mi cuenta gratis</button><div class="nota">14 días gratis · Sin tarjeta · Cancelas cuando quieras</div></div>
   </div>
 </section>
 
-<!-- ================= SIMULADOR ================= -->
-<section id="prueba">
+<!-- ============ 5. PRECIO CLARO ============ -->
+<section id="precio">
   <div class="wrap">
-    <div class="kicker rev">Demo interactiva</div>
-    <h2 class="titulo rev">Pruébalo ahora mismo.</h2>
-    <p class="bajada rev">A la izquierda eres alguien de tu equipo. A la derecha, el dueño. Registra una atención y mira qué pasa.</p>
-    <div class="sim">
-      <div class="panel rev" id="s-panel">
-        <div class="panel-tit"><b>App del equipo</b><span class="etq">Así registra tu equipo</span></div>
-        <div class="s-lbl">¿Quién atendió?</div><div class="s-chips" id="s-trab"></div>
-        <div class="s-lbl">Servicios</div><div class="s-chips" id="s-serv"></div>
-        <div class="s-lbl">Método de pago</div><div class="s-chips" id="s-met"></div>
-        <div class="s-total"><span style="color:var(--ink2)">Total</span><b class="num" id="s-total">S/ 0</b></div>
-        <button class="btn btn-primary s-reg" id="s-reg">Registrar atención</button>
-        <div class="s-ok" id="s-ok"><div><div class="c">✓</div><b style="font-size:18px">¡Registrado!</b><div style="color:var(--ink2);font-size:14px;margin-top:4px">Mira el panel del dueño <span class="flecha">→</span></div></div></div>
-      </div>
-      <div class="panel rev" style="--d:.15s">
-        <div class="panel-tit"><b>Tu app</b><span class="etq" style="color:var(--green);background:rgba(52,199,89,.12)">● En vivo</span></div>
-        <div class="s-lbl" style="margin-top:0">Ingresos de hoy</div>
-        <div class="d-total num" id="d-total">S/ 0</div>
-        <div class="d-sub" id="d-sub">0 atenciones</div>
-        <div class="d-met" id="d-met"></div>
-        <div class="s-lbl">Comisiones (10%)</div>
-        <div class="d-com" id="d-com"></div>
-        <div style="text-align:right;margin-top:12px"><button class="reiniciar" id="s-reset">Reiniciar demo</button></div>
-      </div>
-    </div>
-    <p class="rev" style="text-align:center;margin-top:30px;color:var(--ink2)">¿Quieres ver la app completa con un mes de datos? <a href="app/?demo=1">Abre la demo completa →</a></p>
-  </div>
-</section>
-
-<!-- ================= CALCULADORA ================= -->
-<section class="gris-bg">
-  <div class="wrap">
-    <div class="kicker rev">Haz la cuenta</div>
-    <h2 class="titulo rev">¿Cuánto vale tener tus números en orden?</h2>
-    <p class="bajada rev">Mueve los controles con los datos de tu negocio.</p>
-    <div class="calc rev">
-      <div>
-        <div class="slider-g"><label>Ventas al mes <b class="num" id="c-v-txt"></b></label><input type="range" class="rango" id="c-v" min="5000" max="150000" step="1000" value="30000"></div>
-        <div class="slider-g"><label>Dinero que no cuadra al mes <b class="num" id="c-p-txt"></b></label><input type="range" class="rango" id="c-p" min="0.5" max="5" step="0.5" value="1"></div>
-        <div class="slider-g" style="margin-bottom:0"><label>Horas a la semana cuadrando caja y comisiones <b class="num" id="c-h-txt"></b></label><input type="range" class="rango" id="c-h" min="1" max="15" step="1" value="4"></div>
-      </div>
-      <div class="res-calc">
-        <div class="l">Se te puede escapar cada mes</div>
-        <div class="v rojo num" id="c-perdida">S/ 0</div>
-        <div class="l">Tiempo que podrías recuperar al mes</div>
-        <div class="v verde num" id="c-horas">0 h</div>
-        <div class="x" id="c-x"></div>
-      </div>
-    </div>
-    <div class="cta-centro rev"><button class="btn btn-primary btn-xl" onclick="abrirRegistro()">Dejar de perder dinero</button></div>
-  </div>
-</section>
-
-<!-- ================= ORIGEN ================= -->
-<section style="text-align:center;padding:90px 0">
-  <div class="wrap">
-    <!-- Cuando tengas el testimonio real de tu esposa (con su permiso), reemplaza este texto por su frase y su nombre. -->
-    <h2 class="titulo rev" style="max-width:860px;margin:0 auto 14px;font-size:clamp(26px,4vw,40px)">Nació dentro de un salón de Lima con 2 sedes, para dejar de cuadrar la caja a mano.</h2>
-    <p class="rev" style="color:var(--ink3);margin:0">Hoy lo usa todos los días, con todo su equipo.</p>
-  </div>
-</section>
-
-<!-- ================= PRECIO ================= -->
-<section class="gris-bg" id="precio">
-  <div class="wrap">
-    <div class="kicker rev">Precio</div>
-    <h2 class="titulo rev">Un precio. Todo incluido.</h2>
+    <h2 class="titulo rev">Pruébalo gratis. Decide después.</h2>
     <p class="bajada rev">Menos de lo que pierdes en un solo error de caja.</p>
     <div class="precio-wrap rev">
       <div class="precio">
-        <div class="p-lbl2">Plan único</div>
-        <div class="monto">S/ <span class="precio-num">100</span><small> /mes</small></div>
-        <div style="color:var(--ink3)">Paga por Yape, Plin o transferencia</div>
+        <div class="linea-tiempo">
+          <div class="lt a"><div class="l">Hoy</div><div class="v">S/ 0</div><div class="s">14 días gratis</div></div>
+          <div class="flecha-lt">→</div>
+          <div class="lt b"><div class="l">Si te gusta</div><div class="v">S/ <span class="precio-num">100</span></div><div class="s">al mes</div></div>
+        </div>
         <ul>
-          <li>Sedes y personas ilimitadas</li><li>App para ti y app para tu equipo</li><li>Comisiones, gastos y estado de resultados</li>
-          <li>Cierre diario y reporte semanal</li><li>Tus datos en tu propia hoja de Google</li><li>Soporte por WhatsApp</li>
+          <li>Sedes y personas ilimitadas</li>
+          <li>Tu app + la app de tu equipo</li>
+          <li>Te lo dejamos configurado</li>
+          <li>Soporte por WhatsApp</li>
         </ul>
-        <button class="btn btn-primary btn-xl" style="width:100%" onclick="abrirRegistro()">Empezar 14 días gratis</button>
-        <div style="font-size:13px;color:var(--ink3);margin-top:12px">Sin tarjeta. Si no te convence, simplemente no pagas.</div>
+        <button class="btn btn-primary btn-full" onclick="abrirRegistro()">Empezar mis 14 días gratis</button>
+        <div class="garantia">🔒 Sin tarjeta. Si no te convence, no pagas nada.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ================= FAQ ================= -->
-<section>
+<!-- ============ 6. DUDAS ============ -->
+<section class="gris">
   <div class="wrap">
-    <h2 class="titulo rev">Preguntas frecuentes</h2>
-    <div class="faq" style="margin-top:32px">
-      <div class="q"><button>¿Necesito saber de tecnología?</button><div class="r"><div><p>No. Te registras respondiendo 6 preguntas y el sistema se configura solo: tus sedes, tu equipo, tus servicios y tus precios. Tu equipo solo abre un link.</p></div></div></div>
-      <div class="q"><button>¿Tengo que descargar algo de la tienda?</button><div class="r"><div><p>No. 7LEGEND se instala desde el navegador: en iPhone con “Agregar a inicio” y en Android con “Instalar app”. Queda como un ícono en la pantalla de inicio, igual que cualquier app.</p></div></div></div>
-      <div class="q"><button>¿Qué pasa cuando termina la prueba?</button><div class="r"><div><p>Te avisamos 3 días antes. Si quieres seguir, pagas S/ <span class="precio-num">100</span> al mes por Yape, Plin o transferencia. Si no, no se cobra nada.</p></div></div></div>
-      <div class="q"><button>¿Mis datos son míos?</button><div class="r"><div><p>Sí. Todo se guarda en una hoja de Google exclusiva de tu negocio. Desde Ajustes puedes pedir acceso para verla o descargarla cuando quieras.</p></div></div></div>
-      <div class="q"><button>¿Y si se cae el internet en el local?</button><div class="r"><div><p>La app de tu equipo guarda las atenciones en el celular y las envía sola cuando vuelve la señal. No se pierde nada.</p></div></div></div>
-      <div class="q"><button>¿Puedo cambiar servicios, precios o personas después?</button><div class="r"><div><p>Sí, cuando quieras, desde Ajustes. Los cambios le llegan a todo tu equipo al instante.</p></div></div></div>
+    <h2 class="titulo rev">¿Dudas?</h2>
+    <div class="faq" style="margin-top:22px">
+      <div class="q"><button>No sé de tecnología. ¿Podré usarla?</button><div class="r"><div><p>Sí. Si usas WhatsApp, puedes usar 7LEGEND. Respondes 6 preguntas y todo queda configurado. Y si prefieres, te ayudamos por WhatsApp.</p></div></div></div>
+      <div class="q"><button>¿Tengo que pagar algo para probar?</button><div class="r"><div><p>No. Son 14 días gratis y no pedimos tarjeta. Te avisamos antes de que terminen. Si quieres seguir, pagas S/ <span class="precio-num">100</span> al mes por Yape, Plin o transferencia.</p></div></div></div>
+      <div class="q"><button>¿Mi equipo tiene que descargar algo?</button><div class="r"><div><p>No. Les envías un link por WhatsApp, lo abren y lo agregan a su pantalla de inicio. Funciona en iPhone y Android, incluso si se cae la señal.</p></div></div></div>
+      <div class="q"><button>¿Mis datos están seguros?</button><div class="r"><div><p>Sí. Cada negocio tiene su propia hoja privada. Nadie más ve tus números, y tú puedes descargarlos cuando quieras.</p></div></div></div>
     </div>
   </div>
 </section>
 
-<!-- ================= CIERRE ================= -->
-<section class="final gris-bg" id="final">
-  <div class="burbujas" aria-hidden="true"><span></span><span></span><span></span></div>
+<!-- ============ 7. CIERRE ============ -->
+<section class="final" id="final">
+  <div class="burbujas" aria-hidden="true"><span></span><span></span></div>
   <div class="wrap">
-    <h2 class="titulo rev">Empieza hoy.<br><span style="color:var(--ink3)">Mañana ya sabrás tus números.</span></h2>
-    <div class="ctas rev" style="margin-top:32px;justify-content:center">
-      <button class="btn btn-primary btn-xl" onclick="abrirRegistro()">Crear mi cuenta gratis</button>
-      <a class="btn btn-light btn-xl" id="btn-wa" href="#" target="_blank" rel="noopener" style="background:#fff">Hablar por WhatsApp</a>
+    <h2 class="titulo rev">Esta noche ya podrías saber cuánto ganaste.</h2>
+    <div class="rev" style="margin-top:26px">
+      <button class="btn btn-primary" onclick="abrirRegistro()">Empezar mis 14 días gratis</button>
+      <div class="bajo-btn">Luego S/ <span class="precio-num">100</span> al mes · Sin tarjeta</div>
+      <div style="margin-top:22px"><a id="btn-wa" href="#" target="_blank" rel="noopener" style="font-weight:600">¿Prefieres que te lo configuremos? Escríbenos por WhatsApp →</a></div>
     </div>
-    <div class="micro rev" style="justify-content:center"><span>Sin tarjeta</span><span>Listo en 3 minutos</span><span>Soporte por WhatsApp</span></div>
   </div>
 </section>
 
@@ -734,7 +461,7 @@
   <div class="wrap"><span><b style="color:var(--ink)">7LEGEND</b> · Los números de tu negocio en orden.</span><span>¿Ya tienes cuenta? <a href="app/">Entrar</a></span></div>
 </footer>
 
-<div class="barra-cta" id="barra-cta"><div class="t"><b>14 días gratis</b>Sin tarjeta · listo en 3 min</div><button class="btn btn-primary" onclick="abrirRegistro()">Probar gratis</button></div>
+<div class="barra-cta" id="barra-cta"><div class="t"><b>14 días gratis</b>Luego S/ <span class="precio-num">100</span>/mes · sin tarjeta</div><button class="btn btn-primary" onclick="abrirRegistro()">Probar gratis</button></div>
 
 
 <!-- ================== ASISTENTE DE REGISTRO ================== -->
@@ -751,307 +478,116 @@
 
 
 <script>
-// ================== Landing: animaciones e interacción ==================
-const L = window.LEGEND;
+// ================== Landing: animaciones ==================
+const L = window.LEGEND || { PRECIO: 100, WHATSAPP: '', DIAS_PRUEBA: 14 };
 const REDUCIR = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.querySelectorAll('.precio-num').forEach(e => e.textContent = L.PRECIO);
-document.getElementById('btn-wa').href = 'https://wa.me/' + L.WHATSAPP + '?text=' + encodeURIComponent('Hola, quiero saber más de 7LEGEND');
+document.getElementById('btn-wa').href = 'https://wa.me/' + L.WHATSAPP + '?text=' + encodeURIComponent('Hola, vi el video de 7LEGEND y quiero que me ayuden a configurarlo');
 const fmt = n => 'S/ ' + Math.round(n).toLocaleString('es-PE');
 
-function contar(el, desde, hasta, ms, render) {
-  if (REDUCIR) { el.textContent = render(hasta); return; }
-  const ini = performance.now(), id = (el._anim = (el._anim || 0) + 1);
+// De dónde viene la visita (anuncio, Instagram, etc.): se guarda con el registro
+(function () {
+  const q = new URLSearchParams(location.search);
+  const f = q.get('utm_source') || q.get('ref') || q.get('fuente') || (document.referrer.includes('instagram') ? 'instagram' : '');
+  const c = q.get('utm_campaign') || '';
+  if (f || c) guardarLocal('leg_fuente', [f, c].filter(Boolean).join(' · '));
+})();
+
+function contar(el, desde, hasta, ms) {
+  if (REDUCIR) { el.textContent = fmt(hasta); return; }
+  const ini = performance.now(), id = (el._a = (el._a || 0) + 1);
   (function paso(t) {
-    if (el._anim !== id) return;
-    const p = Math.min(1, (t - ini) / ms), e = 1 - Math.pow(1 - p, 3);
-    el.textContent = render(desde + (hasta - desde) * e);
+    if (el._a !== id) return;
+    const p = Math.min(1, (t - ini) / ms);
+    el.textContent = fmt(desde + (hasta - desde) * (1 - Math.pow(1 - p, 3)));
     if (p < 1) requestAnimationFrame(paso);
   })(ini);
 }
 function pulsar(el) { el.classList.remove('pulso'); void el.offsetWidth; el.classList.add('pulso'); }
 
-// ---------- Cabecera, progreso y barra fija de CTA ----------
-const top_ = document.getElementById('top'), barraP = document.getElementById('progreso-scroll'), barraCta = document.getElementById('barra-cta');
+// Barra fija en celular
+const barra = document.getElementById('barra-cta');
 let finalVisible = false;
 new IntersectionObserver(es => { finalVisible = es[0].isIntersecting; alScroll(); }).observe(document.getElementById('final'));
 function alScroll() {
-  const y = window.scrollY, h = document.documentElement.scrollHeight - innerHeight;
-  top_.classList.toggle('borde', y > 10);
-  barraP.style.transform = 'scaleX(' + (h > 0 ? y / h : 0) + ')';
-  const regAbierto = document.getElementById('registro').classList.contains('on');
-  barraCta.classList.toggle('on', y > innerHeight * 0.9 && !finalVisible && !regAbierto);
+  const reg = document.getElementById('registro');
+  barra.classList.toggle('on', scrollY > innerHeight * 0.6 && !finalVisible && !(reg && reg.classList.contains('on')));
 }
-window.addEventListener('scroll', alScroll, { passive: true });
+addEventListener('scroll', alScroll, { passive: true });
 
-// ---------- Aparición al hacer scroll ----------
+// Aparición al hacer scroll + animaciones de cada beneficio
+const acciones = {
+  b1() {
+    const t = document.getElementById('b1-total');
+    contar(t, 0, 1960, 1400);
+    contar(document.getElementById('b1-a'), 0, 880, 1400);
+    contar(document.getElementById('b1-b'), 0, 720, 1400);
+    contar(document.getElementById('b1-c'), 0, 360, 1400);
+    let total = 1960;
+    if (!REDUCIR) setInterval(() => { if (document.hidden) return; const v = [50, 90, 110, 60][Math.floor(Math.random() * 4)]; contar(t, total, total + v, 700); total += v; pulsar(t); }, 3500);
+  },
+  b2() { setTimeout(() => document.getElementById('b2-wa').classList.add('on'), 900); },
+  b3() { setTimeout(() => document.getElementById('b3-n1').classList.add('on'), 500); setTimeout(() => document.getElementById('b3-n2').classList.add('on'), 1400); }
+};
 const io = new IntersectionObserver(es => es.forEach(e => {
   if (!e.isIntersecting) return;
   e.target.classList.add('on'); io.unobserve(e.target);
-}), { threshold: .15, rootMargin: '0px 0px -40px 0px' });
+  if (acciones[e.target.id]) acciones[e.target.id]();
+}), { threshold: .2, rootMargin: '0px 0px -30px 0px' });
 document.querySelectorAll('.rev').forEach(e => io.observe(e));
 
-// ---------- Cinta de rubros ----------
-(function () {
-  const r = ['💅 Salones de uñas', '✂️ Peluquerías', '💈 Barberías', '👁️ Pestañas y cejas', '💆 Spas y masajes', '✨ Centros de estética', '🖋️ Estudios de tatuaje', '🧖 Faciales', '💇 Estilistas'];
-  const html = r.map(x => '<span>' + x + '</span>').join('');
-  document.getElementById('cinta').innerHTML = html + html;
-})();
-
-// ---------- HERO: teléfono 3D con actividad en vivo ----------
-const tel = document.getElementById('telefono'), hero = document.getElementById('hero');
+// Teléfono del hero con actividad en vivo
+const tel = document.getElementById('telefono'), hero = document.querySelector('.hero');
 if (!REDUCIR && matchMedia('(pointer:fine)').matches) {
   hero.addEventListener('pointermove', e => {
     const r = hero.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-    tel.style.transform = 'rotateY(' + (-10 + x * 18) + 'deg) rotateX(' + (4 - y * 10) + 'deg)';
+    tel.style.transform = 'rotateY(' + (-10 + ((e.clientX - r.left) / r.width - .5) * 18) + 'deg) rotateX(' + (4 - ((e.clientY - r.top) / r.height - .5) * 10) + 'deg)';
   });
   hero.addEventListener('pointerleave', () => tel.style.transform = '');
 }
-const EQ_COL = { Ana: '#ff2d78', Lucía: '#8b5cf6', Carla: '#0071e3', Rosa: '#f59e0b' };
+const COL = { Ana: '#ff2d78', Lucía: '#8b5cf6', Carla: '#0071e3', Rosa: '#f59e0b' };
 const DATOS = [
   ['Ana', 'Mariana S.', 'Manicure gel + Pedicure spa', 'Yape', 110], ['Lucía', 'Camila R.', 'Uñas acrílicas', 'Tarjeta', 90],
   ['Carla', 'Daniela T.', 'Manicure clásica', 'Efectivo', 30], ['Rosa', 'Fiorella M.', 'Pedicure spa + Parafina', 'Plin', 80],
   ['Ana', 'Jimena V.', 'Manicure gel', 'Tarjeta', 50], ['Lucía', 'Sofía P.', 'Acrílicas + Diseño', 'Yape', 115],
   ['Carla', 'Paola G.', 'Pedicure clásica', 'Yape', 40], ['Rosa', 'Ximena C.', 'Manicure gel + Retiro', 'Efectivo', 65]
 ];
-function itemFeed(d) {
-  const [q, c, s, , v] = d;
-  const item = document.createElement('div');
-  item.className = 'f-item';
-  item.innerHTML = '<div class="av" style="background:' + EQ_COL[q] + '">' + q[0] + '</div><div class="t"><b>' + c + '</b><span>' + s + ' · ' + q + '</span></div><div class="m num">' + fmt(v) + '</div>';
-  return item;
-}
-function meterFeed(feed, d, max) { feed.prepend(itemFeed(d)); while (feed.children.length > max) feed.lastChild.remove(); }
-const hEst = { total: 2840, dig: 1360, tar: 1020, efe: 460 };
-let hIdx = 0, hTick = 0, heroVisible = true;
+const est = { total: 2840, dig: 1360, tar: 1020, efe: 460 };
+let idx = 0, tick = 0, heroVisible = true;
 new IntersectionObserver(es => heroVisible = es[0].isIntersecting).observe(hero);
-function barrasHero() {
-  const max = Math.max(hEst.dig, hEst.tar, hEst.efe);
-  [['dig', hEst.dig], ['tar', hEst.tar], ['efe', hEst.efe]].forEach(([k, v]) => {
+function meterFeed(d) {
+  const [q, c, s, , v] = d, feed = document.getElementById('feed'), it = document.createElement('div');
+  it.className = 'f-item';
+  it.innerHTML = '<div class="av" style="background:' + COL[q] + '">' + q[0] + '</div><div class="t"><b>' + c + '</b><span>' + s + ' · ' + q + '</span></div><div class="m num">' + fmt(v) + '</div>';
+  feed.prepend(it); while (feed.children.length > 5) feed.lastChild.remove();
+}
+function barras() {
+  const max = Math.max(est.dig, est.tar, est.efe);
+  [['dig', est.dig], ['tar', est.tar], ['efe', est.efe]].forEach(([k, v]) => {
     document.getElementById('hb-' + k).style.width = (v / max * 100) + '%';
     document.getElementById('hv-' + k).textContent = fmt(v);
   });
 }
-function atencionHero() {
-  const d = DATOS[hIdx++ % DATOS.length], [q, c, , m, v] = d;
-  meterFeed(document.getElementById('feed'), d, 5);
-  const antes = hEst.total; hEst.total += v;
-  if (m === 'Tarjeta') hEst.tar += v; else if (m === 'Efectivo') hEst.efe += v; else hEst.dig += v;
-  const tot = document.getElementById('h-total');
-  contar(tot, antes, hEst.total, 900, fmt); pulsar(tot); barrasHero();
+function atencion() {
+  const d = DATOS[idx++ % DATOS.length], [q, c, , m, v] = d;
+  meterFeed(d);
+  const antes = est.total; est.total += v;
+  if (m === 'Tarjeta') est.tar += v; else if (m === 'Efectivo') est.efe += v; else est.dig += v;
+  const t = document.getElementById('h-total'); contar(t, antes, est.total, 900); pulsar(t); barras();
   document.getElementById('flot1-txt').innerHTML = '<b>' + q + '</b> atendió a ' + c + ' · <b>' + fmt(v) + '</b> por ' + m;
-  const f1 = document.getElementById('flot1'); f1.classList.add('on'); setTimeout(() => f1.classList.remove('on'), 2200);
+  const f = document.getElementById('flot1'); f.classList.add('on'); setTimeout(() => f.classList.remove('on'), 2200);
 }
-for (let i = 0; i < 4; i++) meterFeed(document.getElementById('feed'), DATOS[hIdx++], 5);
-setTimeout(() => { contar(document.getElementById('h-total'), 0, hEst.total, 1600, fmt); barrasHero(); }, 900);
+for (let i = 0; i < 4; i++) meterFeed(DATOS[idx++]);
+setTimeout(() => { contar(document.getElementById('h-total'), 0, est.total, 1500); barras(); }, 800);
 if (!REDUCIR) setInterval(() => {
   if (!heroVisible || document.hidden) return;
-  if (++hTick % 4 === 0) {
-    document.getElementById('flot2-txt').textContent = 'Total: ' + fmt(hEst.total) + ' · día cerrado ✔';
-    const f2 = document.getElementById('flot2'); f2.classList.add('on'); setTimeout(() => f2.classList.remove('on'), 2600);
-  } else atencionHero();
-}, 3000);
+  if (++tick % 4 === 0) {
+    document.getElementById('flot2-txt').textContent = 'Total: ' + fmt(est.total) + ' · día cerrado ✔';
+    const f = document.getElementById('flot2'); f.classList.add('on'); setTimeout(() => f.classList.remove('on'), 2600);
+  } else atencion();
+}, 2800);
 
-// ---------- Antes / después ----------
-(function () {
-  const t = document.getElementById('toggle'), comp = document.getElementById('comparar'), pas = document.getElementById('pastilla');
-  const btns = t.querySelectorAll('button');
-  let auto = true;
-  function poner(m) {
-    btns.forEach(b => b.classList.toggle('on', b.dataset.m == m));
-    pas.style.width = btns[m].offsetWidth + 'px'; pas.style.left = btns[m].offsetLeft + 'px';
-    t.classList.toggle('despues', m == 1); comp.classList.toggle('despues', m == 1);
-  }
-  btns.forEach(b => b.onclick = () => { auto = false; poner(+b.dataset.m); });
-  requestAnimationFrame(() => poner(0));
-  window.addEventListener('resize', () => poner(comp.classList.contains('despues') ? 1 : 0));
-  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { o.disconnect(); setTimeout(() => { if (auto) poner(1); }, 2000); } }, { threshold: .5 }).observe(comp);
-})();
-
-// ---------- Beneficios: teléfono fijo que cambia con el scroll ----------
-(function () {
-  const pasos = document.querySelectorAll('.paso'), N = pasos.length;
-  const dedo = document.getElementById('dedo'), mini = document.getElementById('mini-tel');
-  const puntos = document.getElementById('puntos');
-  puntos.innerHTML = '<i></i>'.repeat(N);
-  let actual = -1, timers = [], intervalos = [];
-  const T = (fn, ms) => timers.push(setTimeout(fn, ms));
-  const $ = id => document.getElementById(id);
-  function limpiar() { timers.forEach(clearTimeout); intervalos.forEach(clearInterval); timers = []; intervalos = []; dedo.classList.remove('on', 'click'); }
-  function tocar(el, t, accion) {
-    T(() => {
-      const r = el.getBoundingClientRect(), m = mini.getBoundingClientRect(), esc = m.width / mini.offsetWidth || 1;
-      dedo.style.left = ((r.left + r.width / 2 - m.left) / esc) + 'px';
-      dedo.style.top = ((r.top + r.height / 2 - m.top) / esc) + 'px';
-      dedo.classList.add('on');
-      T(() => { dedo.classList.add('click'); accion(); T(() => dedo.classList.remove('click'), 160); }, 650);
-    }, t);
-  }
-  const ANIM = [
-    function registro() {
-      const y = $('op-yape'), s1 = $('sv1'), s2 = $('sv2'), b = $('vt-btn'), tot = $('vt-total');
-      [y, s1, s2].forEach(e => e.classList.remove('on')); tot.textContent = 'S/ 0'; b.textContent = 'Registrar'; b.style.background = '';
-      tocar(y, 300, () => y.classList.add('on'));
-      tocar(s1, 1300, () => { s1.classList.add('on'); tot.textContent = 'S/ 50'; });
-      tocar(s2, 2300, () => { s2.classList.add('on'); tot.textContent = 'S/ 110'; });
-      tocar(b, 3300, () => { b.classList.add('tap'); T(() => { b.classList.remove('tap'); b.textContent = '✓ Guardado'; b.style.background = '#34c759'; }, 200); });
-      T(() => dedo.classList.remove('on'), 4300);
-      T(() => { if (actual === 0) ANIM[0](); }, 6200);
-    },
-    function enVivo() {
-      const feed = $('vt1-feed'), tot = $('vt1-total'), n = $('vt1-n');
-      feed.innerHTML = ''; let total = 2840, k = 38, i = 0;
-      for (let j = 0; j < 4; j++) meterFeed(feed, DATOS[(j + 4) % DATOS.length], 7);
-      tot.textContent = fmt(total);
-      intervalos.push(setInterval(() => {
-        const d = DATOS[i++ % DATOS.length];
-        meterFeed(feed, d, 7); contar(tot, total, total + d[4], 700, fmt); total += d[4]; pulsar(tot);
-        n.textContent = (++k) + ' atenciones';
-      }, 1400));
-    },
-    function sedes() {
-      const vistas = [[3180, [1420, 1120, 640, 2], 46], [1960, [880, 720, 360, 1], 28], [1220, [540, 400, 280, 1], 18]];
-      const past = $('vt2-past'), tot = $('vt2-total'), bs = document.querySelectorAll('.vt2-b'), vs = document.querySelectorAll('.vt2-v');
-      let i = 0, prev = 0;
-      function poner() {
-        const [t, met, n] = vistas[i];
-        past.style.transform = 'translateX(' + (i * 100) + '%)';
-        contar(tot, prev, t, 700, fmt); prev = t;
-        const max = Math.max(met[0], met[1], met[2]);
-        bs.forEach((b, k) => b.style.width = (k < 3 ? met[k] / max * 100 : 12) + '%');
-        vs.forEach((v, k) => v.textContent = k < 3 ? fmt(met[k]) : met[3] + ' pers.');
-        $('vt2-n').textContent = n;
-        i = (i + 1) % vistas.length;
-      }
-      poner(); intervalos.push(setInterval(poner, 1900));
-    },
-    function comisiones() {
-      const b = $('vt3-btn'), wa = $('vt3-wa');
-      wa.classList.remove('on'); b.textContent = 'Copiar para WhatsApp';
-      tocar(b, 700, () => { b.textContent = '¡Copiado! ✓'; T(() => wa.classList.add('on'), 500); });
-      T(() => dedo.classList.remove('on'), 1700);
-      T(() => { if (actual === 3) ANIM[3](); }, 5500);
-    },
-    function utilidad() {
-      const fs = document.querySelectorAll('.vt4-f');
-      fs.forEach(f => { f.style.opacity = 0; f.style.transform = 'translateX(-10px)'; });
-      fs.forEach((f, k) => T(() => { f.style.opacity = 1; f.style.transform = 'none'; }, 250 + k * 320));
-      T(() => contar($('vt4-u'), 0, 10000, 900, fmt), 250 + fs.length * 320 - 300);
-    },
-    function meta() {
-      const c = $('vt5-c'); c.style.transition = 'none'; c.style.strokeDashoffset = 452.4; void c.getBoundingClientRect();
-      c.style.transition = ''; T(() => c.style.strokeDashoffset = 452.4 * (1 - .67), 100);
-      contar($('vt5-p'), 0, 67, 1600, v => Math.round(v) + '%');
-    },
-    function duplicado() { const a = $('vt6-al'); a.classList.remove('on'); T(() => a.classList.add('on'), 600); },
-    function sinSenal() {
-      const b = $('vt7-b'), w = $('vt7-wifi');
-      b.classList.remove('ok'); b.textContent = '📵 Sin señal · 3 registros guardados'; w.textContent = '📵';
-      T(() => { w.textContent = '📶'; b.textContent = 'Enviando…'; }, 2000);
-      T(() => { b.classList.add('ok'); b.textContent = '✓ Señal de vuelta · 3 enviados'; }, 3000);
-      T(() => { if (actual === 7) ANIM[7](); }, 6000);
-    },
-    function alertas() {
-      const n1 = $('vt8-n1'), n2 = $('vt8-n2'); n1.classList.remove('on'); n2.classList.remove('on');
-      T(() => n1.classList.add('on'), 500); T(() => n2.classList.add('on'), 1500);
-    }
-  ];
-  function mostrar(i) {
-    if (i === actual) return;
-    actual = i; limpiar();
-    pasos.forEach(p => p.classList.toggle('on', +p.dataset.p === i));
-    for (let k = 0; k < N; k++) $('vt' + k).classList.toggle('on', k === i);
-    puntos.querySelectorAll('i').forEach((p, k) => p.classList.toggle('on', k === i));
-    ANIM[i]();
-  }
-  const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) mostrar(+e.target.dataset.p); }),
-    { rootMargin: innerWidth < 860 ? '-60% 0px -30% 0px' : '-45% 0px -45% 0px' });
-  pasos.forEach(p => obs.observe(p));
-  mostrar(0);
-})();
-
-// ---------- Simulador interactivo ----------
-(function () {
-  const EQ = [['Ana', '#ff2d78'], ['Lucía', '#8b5cf6'], ['Carla', '#0071e3']];
-  const SERV = [['Manicure gel', 50], ['Pedicure spa', 60], ['Uñas acrílicas', 90], ['Diseño', 15]];
-  const MET = ['Yape', 'Plin', 'Efectivo', 'Tarjeta'];
-  const COL = { Yape: '#8b5cf6', Plin: '#22d3ee', Efectivo: '#34c759', Tarjeta: '#0071e3' };
-  const INI = () => [{ q: 'Ana', v: 110, m: 'Yape' }, { q: 'Lucía', v: 90, m: 'Tarjeta' }, { q: 'Carla', v: 60, m: 'Efectivo' }];
-  let reg = INI(), sel = { q: 'Ana', s: [0], m: 'Yape' }, mostrado = 0;
-  const $ = id => document.getElementById(id);
-  function chips(id, items, activo, onClick) {
-    $(id).innerHTML = items.map((x, i) => '<button class="s-chip' + (activo(x, i) ? ' on' : '') + '" data-i="' + i + '">' + x + '</button>').join('');
-    $(id).querySelectorAll('.s-chip').forEach(b => b.onclick = () => { onClick(+b.dataset.i); pintarForm(); });
-  }
-  function pintarForm() {
-    chips('s-trab', EQ.map(e => e[0]), x => x === sel.q, i => sel.q = EQ[i][0]);
-    chips('s-serv', SERV.map(s => s[0] + '<small>S/ ' + s[1] + '</small>'), (x, i) => sel.s.includes(i), i => { const k = sel.s.indexOf(i); k === -1 ? sel.s.push(i) : sel.s.splice(k, 1); });
-    chips('s-met', MET, x => x === sel.m, i => sel.m = MET[i]);
-    $('s-total').textContent = fmt(sel.s.reduce((a, i) => a + SERV[i][1], 0));
-    $('s-reg').disabled = !sel.s.length;
-  }
-  function pintarPanel(nuevo) {
-    const total = reg.reduce((a, r) => a + r.v, 0);
-    contar($('d-total'), mostrado, total, 900, fmt); mostrado = total;
-    if (nuevo) pulsar($('d-total'));
-    $('d-sub').textContent = reg.length + ' atenciones';
-    const porM = {}; MET.forEach(m => porM[m] = 0); reg.forEach(r => porM[r.m] += r.v);
-    const max = Math.max(1, ...Object.values(porM));
-    $('d-met').innerHTML = MET.map(m => '<div class="metodo"><span>' + m + '</span><div class="m-bar"><i style="background:' + COL[m] + ';width:0" data-w="' + (porM[m] / max * 100) + '"></i></div><b class="num">' + fmt(porM[m]) + '</b></div>').join('');
-    requestAnimationFrame(() => requestAnimationFrame(() => $('d-met').querySelectorAll('i').forEach(i => i.style.width = i.dataset.w + '%')));
-    const porQ = {}; EQ.forEach(e => porQ[e[0]] = 0); reg.forEach(r => porQ[r.q] += r.v);
-    $('d-com').innerHTML = EQ.map(e => '<div' + (nuevo && nuevo.q === e[0] ? ' class="flash"' : '') + '><span><span class="av" style="display:inline-grid;width:22px;height:22px;font-size:10px;background:' + e[1] + ';margin-right:8px;vertical-align:-6px">' + e[0][0] + '</span>' + e[0] + '</span><b class="num">' + fmt(porQ[e[0]] * 0.1) + '</b></div>').join('');
-  }
-  function chispas(x, y) {
-    if (REDUCIR) return;
-    const cols = ['#0071e3', '#8b5cf6', '#ff2d78', '#34c759', '#f59e0b'];
-    for (let i = 0; i < 22; i++) {
-      const c = document.createElement('div'); c.className = 'chispa';
-      c.style.background = cols[i % cols.length]; c.style.left = x + 'px'; c.style.top = y + 'px';
-      document.body.appendChild(c);
-      const a = Math.random() * Math.PI * 2, d = 50 + Math.random() * 90;
-      c.animate([{ transform: 'translate(0,0) scale(1)', opacity: 1 }, { transform: 'translate(' + Math.cos(a) * d + 'px,' + (Math.sin(a) * d - 30) + 'px) scale(.3)', opacity: 0 }],
-        { duration: 700 + Math.random() * 400, easing: 'cubic-bezier(.2,.8,.2,1)' }).onfinish = () => c.remove();
-    }
-  }
-  $('s-reg').onclick = () => {
-    const v = sel.s.reduce((a, i) => a + SERV[i][1], 0);
-    if (!v) return;
-    const r = $('s-reg').getBoundingClientRect();
-    chispas(r.left + r.width / 2, r.top + r.height / 2);
-    const nuevo = { q: sel.q, v, m: sel.m };
-    reg.push(nuevo);
-    $('s-ok').classList.add('on');
-    setTimeout(() => { $('s-ok').classList.remove('on'); sel.s = []; pintarForm(); }, 1300);
-    setTimeout(() => pintarPanel(nuevo), 350);
-    if (innerWidth < 860) setTimeout(() => $('d-total').scrollIntoView({ behavior: 'smooth', block: 'center' }), 900);
-  };
-  $('s-reset').onclick = () => { reg = INI(); mostrado = 0; sel = { q: 'Ana', s: [0], m: 'Yape' }; pintarForm(); pintarPanel(); };
-  pintarForm(); pintarPanel();
-})();
-
-// ---------- Calculadora ----------
-(function () {
-  const v = document.getElementById('c-v'), p = document.getElementById('c-p'), h = document.getElementById('c-h');
-  function calc() {
-    [v, p, h].forEach(i => i.style.setProperty('--p', ((i.value - i.min) / (i.max - i.min) * 100) + '%'));
-    const ventas = +v.value, pct = +p.value, horas = +h.value;
-    document.getElementById('c-v-txt').textContent = fmt(ventas);
-    document.getElementById('c-p-txt').textContent = pct.toLocaleString('es-PE') + '%';
-    document.getElementById('c-h-txt').textContent = horas + ' h';
-    const perdida = ventas * pct / 100, horasMes = Math.round(horas * 4.3);
-    document.getElementById('c-perdida').textContent = fmt(perdida);
-    document.getElementById('c-horas').textContent = horasMes + ' h';
-    const veces = perdida / L.PRECIO;
-    document.getElementById('c-x').innerHTML = veces >= 1
-      ? 'Eso es <b>' + (veces >= 10 ? Math.round(veces) : Number(veces.toFixed(1)).toLocaleString('es-PE')) + ' veces</b> lo que cuesta 7LEGEND (S/ ' + L.PRECIO + ' al mes).'
-      : '7LEGEND cuesta S/ ' + L.PRECIO + ' al mes y te devuelve ' + horasMes + ' horas.';
-  }
-  [v, p, h].forEach(i => i.addEventListener('input', calc));
-  calc();
-})();
-
-// ---------- Preguntas frecuentes ----------
+// Preguntas frecuentes
 document.querySelectorAll('.q button').forEach(b => b.onclick = () => {
   const q = b.parentElement, abierta = q.classList.contains('on');
   document.querySelectorAll('.q').forEach(x => x.classList.remove('on'));
@@ -1299,7 +835,7 @@ async function crearCuenta() {
   const dig = st.whatsapp.replace(/\D/g, '');
   const payload = {
     web: document.getElementById('f-web').value,
-    dueno: st.dueno.trim(), email: st.email.trim(), whatsapp: dig.length <= 9 ? pref + dig : dig, clave: st.clave,
+    fuente: leerLocal('leg_fuente') || '', dueno: st.dueno.trim(), email: st.email.trim(), whatsapp: dig.length <= 9 ? pref + dig : dig, clave: st.clave,
     config: {
       negocio: st.negocio, rubro: st.rubro,
       sedes: st.sedes.map(s => ({ nombre: s, meta: 0, posTope: 0 })),
