@@ -12,7 +12,7 @@
 <link rel="icon" href="img/icon-192.png">
 <link rel="apple-touch-icon" href="img/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <script src="config.js"></script>
 <script src="comun.js"></script>
 <style>
@@ -220,6 +220,182 @@
     .rev, .entra, h1 .w { opacity: 1 !important; transform: none !important; filter: none !important; }
   }
 
+  /* =================== v5: secciones premium =================== */
+  .sec-tit { font-size: clamp(32px, 6vw, 56px); letter-spacing: -0.045em; line-height: 1.04; font-weight: 800; margin: 0 0 12px; text-align: center; }
+  .sec-sub { text-align: center; color: var(--ink2); font-size: 18px; max-width: 560px; margin: 0 auto 34px; }
+  .eti { display: block; text-align: center; font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+
+  /* ---------- Antes / después con deslizador ---------- */
+  .ba-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  @media (max-width: 880px) { .ba-wrap { grid-template-columns: 1fr; gap: 26px; } }
+  .ba-txt h2 { text-align: left; }
+  .ba-txt .sec-sub { text-align: left; margin-left: 0; }
+  @media (max-width: 880px) { .ba-txt h2, .ba-txt .sec-sub { text-align: center; margin-left: auto; } }
+  .dolores { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .dolores li { display: flex; gap: 12px; align-items: center; background: #fff; border-radius: 16px; padding: 13px 16px; font-size: 16px; font-weight: 600; transition: all .5s; }
+  .dolores li .x { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font-size: 12px; font-weight: 800; flex: none; background: #fff0f0; color: #e5484d; transition: all .5s; }
+  .dolores li s { text-decoration: none; transition: color .5s; }
+  .resuelto .dolores li .x { background: rgba(52,199,89,.15); color: var(--green); }
+  .resuelto .dolores li s { color: var(--ink3); text-decoration: line-through; text-decoration-color: var(--green2); text-decoration-thickness: 2px; }
+  @media (max-width: 880px) { .dolores { display: none; } }
+
+  .ba { position: relative; width: 100%; max-width: 420px; aspect-ratio: 4 / 5; margin: 0 auto; border-radius: 30px; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-select: none;
+    box-shadow: 0 40px 80px rgba(0,0,0,.14), 0 0 0 1px rgba(0,0,0,.05); --x: 85%; cursor: ew-resize; }
+  .ba-capa { position: absolute; inset: 0; }
+  .ba-antes { clip-path: inset(0 calc(100% - var(--x)) 0 0); z-index: 2; }
+  .ba-linea { position: absolute; top: 0; bottom: 0; left: var(--x); width: 3px; margin-left: -1.5px; background: #fff; z-index: 3; box-shadow: 0 0 12px rgba(0,0,0,.25); }
+  .ba-mango { position: absolute; top: 50%; left: var(--x); width: 52px; height: 52px; margin: -26px 0 0 -26px; border-radius: 50%; background: #fff; z-index: 4;
+    box-shadow: 0 8px 24px rgba(0,0,0,.25); display: grid; place-items: center; color: var(--ink); font-size: 18px; font-weight: 800; letter-spacing: -2px; }
+  .ba-mango::after { content: ''; position: absolute; inset: -8px; border-radius: 50%; border: 2px solid rgba(255,255,255,.7); animation: aro 2s ease-out infinite; }
+  @keyframes aro { from { transform: scale(.8); opacity: 1; } to { transform: scale(1.5); opacity: 0; } }
+  .ba-rot { position: absolute; top: 16px; z-index: 5; font-size: 11px; font-weight: 800; letter-spacing: .08em; padding: 6px 10px; border-radius: 999px; text-transform: uppercase; }
+  .ba-rot.a { left: 16px; background: rgba(229,72,77,.92); color: #fff; }
+  .ba-rot.b { right: 16px; background: rgba(0,113,227,.92); color: #fff; }
+
+  /* Cuaderno */
+  .cuaderno { background: #fffdf5; background-image: linear-gradient(90deg, transparent 46px, rgba(229,72,77,.35) 46px, rgba(229,72,77,.35) 48px, transparent 48px),
+    repeating-linear-gradient(#fffdf5 0 33px, #c9daf2 33px 34px); padding: 58px 22px 20px 62px; font-family: 'Caveat', 'Bradley Hand', 'Segoe Print', 'Comic Sans MS', cursive; color: #2b3a67; font-size: 25px; line-height: 34px; }
+  .cuaderno .fecha { font-size: 21px; color: #6b7aa1; }
+  .cuaderno .tach { text-decoration: line-through; text-decoration-color: #e5484d; text-decoration-thickness: 2px; }
+  .cuaderno .rojo { color: #e5484d; }
+  .mancha { position: absolute; width: 120px; height: 120px; border-radius: 50%; border: 10px solid rgba(160,110,60,.13); right: -24px; top: 120px; transform: rotate(20deg); }
+  .postit { position: absolute; left: 70px; bottom: 34px; background: #fff27a; padding: 10px 14px 12px; transform: rotate(-5deg); box-shadow: 0 8px 18px rgba(0,0,0,.15); font-size: 23px; line-height: 1.05; color: #a12424; width: 165px; }
+  .capturas { position: absolute; right: 16px; bottom: 22px; width: 120px; height: 150px; }
+  .cap { position: absolute; width: 70px; height: 112px; border-radius: 10px; background: linear-gradient(170deg, #7b2cbf, #5a189a); box-shadow: 0 8px 18px rgba(0,0,0,.25); color: #fff;
+    font-family: 'Inter', sans-serif; font-size: 9px; font-weight: 800; padding: 8px 6px; text-align: center; }
+  .cap b { display: block; font-size: 15px; margin-top: 22px; }
+  .cap:nth-child(1) { right: 0; top: 0; transform: rotate(12deg); }
+  .cap:nth-child(2) { right: 34px; top: 22px; transform: rotate(-8deg); background: linear-gradient(170deg, #00b4d8, #0077b6); }
+  .cap:nth-child(3) { right: 12px; top: 38px; transform: rotate(3deg); }
+
+  /* App limpia */
+  .limpio { background: linear-gradient(170deg, #f2f7ff, #f5f0ff); padding: 58px 20px 20px; font-size: 14px; }
+  .l-card { background: #fff; border-radius: 20px; padding: 16px; margin-bottom: 10px; box-shadow: 0 6px 20px rgba(0,0,0,.05); }
+  .l-total { font-size: 38px; font-weight: 800; letter-spacing: -0.045em; color: var(--green); line-height: 1.1; }
+  .l-fila { display: flex; justify-content: space-between; padding: 6px 0; color: var(--ink2); font-size: 14px; }
+  .l-fila b { color: var(--ink); font-variant-numeric: tabular-nums; }
+  .l-ok { display: flex; align-items: center; justify-content: center; gap: 8px; background: rgba(52,199,89,.12); color: var(--green); font-weight: 700; border-radius: 14px; padding: 12px; }
+  .ba-pista { text-align: center; color: var(--ink3); font-size: 13px; margin-top: 14px; }
+
+  /* ---------- Historias (estilo Instagram) ---------- */
+  .oscuro { background: #000; color: #fff; position: relative; overflow: hidden; isolation: isolate; }
+  .oscuro .sec-sub { color: rgba(255,255,255,.62); }
+  .oscuro .eti { color: #6cb4ff; }
+  .halo { position: absolute; width: 700px; height: 700px; border-radius: 50%; left: 50%; top: 52%; transform: translate(-50%,-50%); background: radial-gradient(circle, rgba(0,113,227,.35), rgba(139,92,246,.18) 40%, transparent 70%); z-index: -1; filter: blur(20px); }
+  .hist-wrap { display: grid; grid-template-columns: 1fr auto 1fr; gap: 40px; align-items: center; }
+  .hist-lado { display: grid; gap: 14px; }
+  @media (max-width: 880px) { .hist-wrap { grid-template-columns: 1fr; gap: 18px; } .hist-lado { display: none; } }
+  .hist-lado button { text-align: left; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); color: rgba(255,255,255,.5); border-radius: 18px; padding: 18px 20px; cursor: pointer; transition: all .4s; font-size: 16px; }
+  .hist-lado button b { display: block; color: rgba(255,255,255,.75); font-size: 18px; margin-bottom: 2px; letter-spacing: -0.01em; }
+  .hist-lado button.on { background: rgba(255,255,255,.12); border-color: rgba(108,180,255,.5); color: rgba(255,255,255,.8); }
+  .hist-lado button.on b { color: #fff; }
+  .hist { position: relative; width: min(88vw, 360px); aspect-ratio: 9 / 16.5; border-radius: 34px; overflow: hidden; margin: 0 auto; box-shadow: 0 40px 100px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.12);
+    user-select: none; -webkit-user-select: none; touch-action: pan-y; cursor: pointer; background: #111; }
+  @media (max-width: 880px) { .hist { max-height: 72vh; width: auto; height: min(72vh, calc(88vw * 16.5 / 9)); } }
+  .h-barras { position: absolute; top: 12px; left: 12px; right: 12px; display: flex; gap: 4px; z-index: 10; }
+  .h-barras span { flex: 1; height: 3px; border-radius: 3px; background: rgba(255,255,255,.35); overflow: hidden; }
+  .h-barras span i { display: block; height: 100%; width: 0; background: #fff; }
+  .h-cab { position: absolute; top: 24px; left: 14px; right: 14px; display: flex; align-items: center; gap: 8px; z-index: 10; font-size: 13px; font-weight: 700; color: #fff; }
+  .h-cab .av7 { width: 30px; height: 30px; border-radius: 50%; background: #fff; color: #1d1d1f; display: grid; place-items: center; font-weight: 900; font-size: 13px; box-shadow: 0 0 0 2px rgba(255,255,255,.4); }
+  .h-cab span { opacity: .7; font-weight: 500; }
+  .h-cab .h-pausa { margin-left: auto; opacity: 0; transition: opacity .2s; }
+  .hist.pausada .h-cab .h-pausa { opacity: .9; }
+  .h-slide { position: absolute; inset: 0; padding: 74px 18px 18px; opacity: 0; transition: opacity .5s; display: flex; flex-direction: column; }
+  .h-slide.on { opacity: 1; }
+  .h-slide h3 { color: #fff; font-size: clamp(28px, 8vw, 34px); line-height: 1.02; letter-spacing: -0.04em; margin: 4px 0 16px; font-weight: 800; }
+  .h-slide.on h3 { animation: subir .7s cubic-bezier(.2,.8,.2,1) both; }
+  @keyframes subir { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  .h-s1 { background: linear-gradient(165deg, #0a2a6b, #0071e3 70%, #39a0ff); }
+  .h-s2 { background: linear-gradient(165deg, #3b0a6b, #8b5cf6 60%, #ff5fa2); }
+  .h-s3 { background: linear-gradient(170deg, #1e1b4b, #6d28d9 55%, #f472b6); }
+  .h-card { background: #fff; color: var(--ink); border-radius: 20px; padding: 14px; box-shadow: 0 18px 40px rgba(0,0,0,.25); font-size: 13px; }
+  .h-slide.on .h-card { animation: subir .7s .15s cubic-bezier(.2,.8,.2,1) both; }
+  .h-total { font-size: 34px; font-weight: 800; letter-spacing: -0.045em; color: var(--green); display: inline-block; line-height: 1.1; }
+  .h-feed { height: 150px; overflow: hidden; margin-top: 6px; }
+  .h-com { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid #f2f2f7; font-size: 14px; }
+  .h-com:last-of-type { border: none; }
+  .h-com b { color: var(--green); font-variant-numeric: tabular-nums; }
+  .h-copiar { margin-top: 10px; background: var(--bg2); border-radius: 12px; text-align: center; padding: 11px; font-weight: 700; transition: all .25s; }
+  .h-copiar.tap { transform: scale(.94); background: var(--accent); color: #fff; }
+  .h-wa { margin-top: 12px; align-self: flex-end; max-width: 92%; background: #dcf8c6; color: #111; border-radius: 16px 16px 4px 16px; padding: 10px 12px; font-size: 13px; line-height: 1.45;
+    box-shadow: 0 14px 30px rgba(0,0,0,.25); opacity: 0; transform: translateY(20px) scale(.95); transition: all .6s cubic-bezier(.2,.9,.3,1.2); }
+  .h-wa.on { opacity: 1; transform: none; }
+  .h-wa .de { font-size: 10.5px; font-weight: 700; color: #075e54; }
+  .h-hora { text-align: center; color: #fff; font-size: 66px; font-weight: 300; letter-spacing: -0.03em; line-height: 1; margin-top: 4px; }
+  .h-fecha { text-align: center; color: rgba(255,255,255,.75); font-size: 13px; margin-bottom: 18px; }
+  .h-noti { background: rgba(255,255,255,.85); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); border-radius: 18px; padding: 11px 12px; display: flex; gap: 10px; margin-bottom: 8px; color: var(--ink);
+    opacity: 0; transform: translateY(-16px) scale(.96); transition: all .6s cubic-bezier(.2,.8,.2,1); }
+  .h-noti.on { opacity: 1; transform: none; }
+  .h-noti .ic { width: 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; color: #fff; font-weight: 900; flex: none; }
+  .h-noti .t1 { font-weight: 700; font-size: 13px; display: flex; justify-content: space-between; gap: 6px; }
+  .h-noti .t1 span { color: var(--ink3); font-weight: 500; font-size: 11px; }
+  .h-noti .t2 { font-size: 12px; color: var(--ink2); line-height: 1.4; }
+  .h-tocar { position: absolute; bottom: 14px; left: 0; right: 0; text-align: center; font-size: 11px; color: rgba(255,255,255,.6); z-index: 10; pointer-events: none; }
+  .extras-o { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 34px; }
+  .extras-o span { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); padding: 8px 14px; border-radius: 999px; font-size: 14px; color: rgba(255,255,255,.85); }
+  .extras-o span::before { content: '✓ '; color: var(--green2); font-weight: 800; }
+
+  /* ---------- Reloj de 3 minutos ---------- */
+  .reloj-wrap { display: grid; grid-template-columns: auto 1fr; gap: 60px; align-items: center; max-width: 920px; margin: 0 auto; }
+  @media (max-width: 880px) { .reloj-wrap { grid-template-columns: 1fr; gap: 22px; } }
+  .reloj { position: relative; width: 250px; height: 250px; margin: 0 auto; }
+  @media (max-width: 880px) { .reloj { width: 190px; height: 190px; } }
+  .reloj svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .reloj .r-fondo { stroke: #e5e5ea; }
+  .reloj .r-valor { stroke: url(#gradReloj); stroke-linecap: round; }
+  .reloj .r-centro { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; }
+  .reloj .r-centro b { display: block; font-size: 54px; font-weight: 800; letter-spacing: -0.05em; line-height: 1; font-variant-numeric: tabular-nums; }
+  @media (max-width: 880px) { .reloj .r-centro b { font-size: 42px; } }
+  .reloj .r-centro span { color: var(--ink3); font-size: 13px; font-weight: 600; }
+  .reloj.listo .r-centro b { color: var(--green); }
+  .t-pasos { position: relative; display: grid; gap: 12px; }
+  .t-paso { position: relative; display: grid; grid-template-columns: 44px 1fr; gap: 14px; background: #fff; border-radius: 22px; padding: 16px; opacity: .45; transform: scale(.98); transition: all .5s cubic-bezier(.2,.8,.2,1); }
+  .t-paso.on { opacity: 1; transform: none; box-shadow: 0 16px 40px rgba(0,0,0,.08); }
+  .t-num { width: 44px; height: 44px; border-radius: 50%; background: var(--bg2); color: var(--ink3); display: grid; place-items: center; font-weight: 800; transition: all .4s; }
+  .t-paso.on .t-num { background: var(--accent); color: #fff; }
+  .t-paso.hecho .t-num { background: var(--green2); color: #fff; }
+  .t-paso b { display: block; font-size: 17px; letter-spacing: -0.01em; margin-top: 2px; }
+  .t-paso .d { color: var(--ink2); font-size: 14.5px; }
+  .t-vis { grid-column: 2; max-height: 0; overflow: hidden; transition: max-height .6s cubic-bezier(.2,.8,.2,1), margin .6s; }
+  .t-paso.on .t-vis { max-height: 120px; margin-top: 10px; }
+  .mini-form div { height: 10px; border-radius: 6px; background: var(--bg2); margin: 6px 0; position: relative; overflow: hidden; }
+  .mini-form div::after { content: ''; position: absolute; inset: 0; width: 0; background: rgba(0,113,227,.3); transition: width .9s ease; transition-delay: var(--d, 0s); }
+  .t-paso.on .mini-form div::after { width: 100%; }
+  .mini-wa { background: #dcf8c6; border-radius: 14px 14px 4px 14px; padding: 8px 11px; font-size: 12.5px; display: inline-block; }
+  .mini-home { display: flex; gap: 8px; align-items: center; }
+  .mini-home i { width: 30px; height: 30px; border-radius: 8px; background: #e5e5ea; }
+  .mini-home i.app { background: #1d1d1f url('img/icon-192.png') center/cover; transform: scale(0); transition: transform .5s .3s cubic-bezier(.2,1.6,.4,1); }
+  .t-paso.on .mini-home i.app { transform: scale(1); }
+  .reloj-fin { text-align: center; margin-top: 26px; }
+  .repetir { background: none; border: none; color: var(--accent); font-weight: 600; font-size: 14px; cursor: pointer; margin-top: 8px; }
+
+  /* ---------- Narración ---------- */
+  .voz-hero { display: inline-flex; align-items: center; gap: 10px; margin-top: 18px; background: #fff; border: none; border-radius: 999px; padding: 8px 16px 8px 8px; font-size: 15px; font-weight: 600; color: var(--ink); cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0,0,0,.08), 0 0 0 1px rgba(0,0,0,.05); transition: transform .2s; }
+  .voz-hero:active { transform: scale(.96); }
+  .voz-hero .play { width: 34px; height: 34px; border-radius: 50%; background: var(--ink); color: #fff; display: grid; place-items: center; font-size: 12px; position: relative; }
+  .voz-hero .play::after { content: ''; position: absolute; inset: -4px; border-radius: 50%; border: 2px solid rgba(29,29,31,.25); animation: aro 2s ease-out infinite; }
+  .voz-hero small { color: var(--ink3); font-weight: 500; }
+  .voz { position: fixed; left: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 46; display: flex; align-items: center; gap: 8px; border: none; cursor: pointer;
+    background: rgba(29,29,31,.92); color: #fff; border-radius: 999px; padding: 10px 14px; font-size: 13px; font-weight: 600; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.25); opacity: 0; pointer-events: none; transform: translateY(20px); transition: all .45s cubic-bezier(.2,.8,.2,1); }
+  .voz.visible { transform: none; opacity: 1; pointer-events: auto; }
+  @media (max-width: 880px) { .voz { bottom: calc(86px + env(safe-area-inset-bottom)); } }
+  .eq { display: inline-flex; gap: 2px; align-items: flex-end; height: 14px; }
+  .eq i { width: 3px; height: 4px; background: #fff; border-radius: 2px; }
+  .voz.sonando .eq i { animation: eq .9s ease-in-out infinite; }
+  .voz.sonando .eq i:nth-child(2) { animation-delay: .2s; }
+  .voz.sonando .eq i:nth-child(3) { animation-delay: .4s; }
+  .voz.sonando .eq i:nth-child(4) { animation-delay: .1s; }
+  @keyframes eq { 0%, 100% { height: 4px; } 50% { height: 14px; } }
+  .subt { position: fixed; left: 50%; bottom: calc(150px + env(safe-area-inset-bottom)); transform: translateX(-50%) translateY(10px); z-index: 46; width: min(92vw, 560px); text-align: center;
+    background: rgba(29,29,31,.88); color: #fff; font-size: 15px; line-height: 1.45; padding: 12px 16px; border-radius: 16px; -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+    opacity: 0; pointer-events: none; transition: all .4s; }
+  .subt.on { opacity: 1; transform: translateX(-50%); }
+  @media (min-width: 881px) { .subt { bottom: 80px; } }
+  .subt .pal { opacity: .35; transition: opacity .25s; }
+  .subt .pal.dicha { opacity: 1; }
+
   /* ---------- Registro (asistente) ---------- */
   .hoja { position: fixed; inset: 0; z-index: 100; background: var(--bg); display: none; flex-direction: column; }
   .hoja.on { display: flex; animation: subir .35s cubic-bezier(.2,.8,.2,1); }
@@ -304,7 +480,7 @@
 </header>
 
 <!-- ============ 1. PROMESA (lo que viste en el video) ============ -->
-<section class="hero">
+<section class="hero" id="hero" data-voz="s0">
   <div class="burbujas" aria-hidden="true"><span></span><span></span></div>
   <div class="wrap hero-grid">
     <div>
@@ -317,6 +493,7 @@
       <div class="entra" style="animation-delay:1.02s">
         <button class="btn btn-primary" onclick="abrirRegistro()">Empezar mis 14 días gratis</button>
         <div class="bajo-btn">Luego <b>S/ <span class="precio-num">100</span> al mes</b> · Sin tarjeta · Cancelas cuando quieras</div>
+        <div><button class="voz-hero" id="voz-hero"><span class="play">▶</span>Escúchalo en 1 minuto <small>🔊</small></button></div>
       </div>
     </div>
     <div class="escena entra" style="animation-delay:.4s" aria-hidden="true">
@@ -340,74 +517,146 @@
   </div>
 </section>
 
-<!-- ============ 2. EL DOLOR ============ -->
-<section class="gris">
-  <div class="wrap">
-    <h2 class="titulo rev">Si hoy llevas tu salón así…</h2>
-    <div class="dolor" style="margin-top:30px">
-      <div class="d-item rev"><div class="x">✕</div><div><b>Cuaderno y capturas</b><span>Y aun así la caja no cuadra.</span></div></div>
-      <div class="d-item rev" style="--d:.1s"><div class="x">✕</div><div><b>Comisiones a mano</b><span>Horas cada semana, y discusiones.</span></div></div>
-      <div class="d-item rev" style="--d:.2s"><div class="x">✕</div><div><b>No sabes cuánto ganas</b><span>Solo cuánto vendes.</span></div></div>
+<!-- ============ 2. DEL CUADERNO A TU CELULAR ============ -->
+<section class="gris" id="problema" data-voz="s1">
+  <div class="wrap ba-wrap" id="ba-wrap">
+    <div class="ba-txt">
+      <span class="eti rev" style="text-align:inherit">El problema</span>
+      <h2 class="sec-tit rev">Del cuaderno<br>a tu celular.</h2>
+      <p class="sec-sub rev">Si hoy llevas tu salón con cuaderno y capturas de Yape, desliza y mira la diferencia.</p>
+      <ul class="dolores rev">
+        <li><span class="x">✕</span><s>La caja nunca cuadra</s></li>
+        <li><span class="x">✕</span><s>Comisiones calculadas a mano</s></li>
+        <li><span class="x">✕</span><s>No sabes cuánto ganas de verdad</s></li>
+      </ul>
     </div>
-    <p class="giro rev">…7LEGEND lo resuelve <em>desde tu celular</em>, en 3 minutos.</p>
+    <div class="rev">
+      <div class="ba" id="ba" aria-label="Comparación antes y después">
+        <div class="ba-capa limpio">
+          <div class="l-card">
+            <div class="p-lbl">Hoy · todas las sedes</div>
+            <div class="l-total num">S/ 1,960</div>
+            <div class="l-fila"><span>Yape / Plin</span><b>S/ 880</b></div>
+            <div class="l-fila"><span>Tarjeta</span><b>S/ 720</b></div>
+            <div class="l-fila"><span>Efectivo</span><b>S/ 360</b></div>
+          </div>
+          <div class="l-card">
+            <div class="p-lbl" style="margin-bottom:4px">Comisiones</div>
+            <div class="l-fila"><span>Ana</span><b style="color:var(--green)">S/ 128</b></div>
+            <div class="l-fila"><span>Lucía</span><b style="color:var(--green)">S/ 96</b></div>
+          </div>
+          <div class="l-ok">✓ Caja cuadrada</div>
+        </div>
+        <div class="ba-capa ba-antes cuaderno">
+          <div class="fecha">Sáb 07/11</div>
+          <div>Mariana – mani gel 50 <span class="rojo">¿yape?</span></div>
+          <div>Camila – acríl. 90 tarj</div>
+          <div><span class="tach">Daniela 40</span> 30 efect.</div>
+          <div>Fiorella – pedi + ¿?</div>
+          <div>Comisión Ana… <span class="rojo">¿¿??</span></div>
+          <div>Total: <span class="tach">1,890</span> <span class="rojo">1,9??</span></div>
+          <div class="mancha"></div>
+          <div class="postit">¡La caja no cuadra! faltan S/ 140</div>
+          <div class="capturas"><div class="cap">Yape<b>S/ 50</b></div><div class="cap">Plin<b>S/ 80</b></div><div class="cap">Yape<b>S/ 110</b></div></div>
+        </div>
+        <span class="ba-rot a">Antes</span><span class="ba-rot b">Con 7LEGEND</span>
+        <div class="ba-linea"></div>
+        <div class="ba-mango">‹ ›</div>
+      </div>
+      <div class="ba-pista">← Desliza para comparar →</div>
+    </div>
   </div>
 </section>
 
-<!-- ============ 3. CÓMO TE AYUDA ============ -->
-<section>
+<!-- ============ 3. HISTORIAS ============ -->
+<section class="oscuro" id="ayuda" data-voz="s2">
+  <div class="halo" aria-hidden="true"></div>
   <div class="wrap">
-    <h2 class="titulo rev">Así te ayuda cada día.</h2>
-    <p class="bajada rev">Tres cosas. Sin complicaciones.</p>
-    <div class="benef">
-      <div class="b-card rev" id="b1">
-        <div class="n">01</div><h3>Ves cada sol que entra</h3><p>Cada atención llega a tu celular apenas tu equipo la registra.</p>
-        <div class="vis">
-          <div class="p-lbl">Hoy · Miraflores</div>
-          <div class="v-total num" id="b1-total">S/ 0</div>
-          <div class="v-fila"><span>Yape / Plin</span><b id="b1-a">S/ 0</b></div>
-          <div class="v-fila"><span>Tarjeta</span><b id="b1-b">S/ 0</b></div>
-          <div class="v-fila"><span>Efectivo</span><b id="b1-c">S/ 0</b></div>
-        </div>
+    <span class="eti rev">Así te ayuda</span>
+    <h2 class="sec-tit rev">Tu salón, en tu bolsillo.</h2>
+    <p class="sec-sub rev">Toca para avanzar. Mantén presionado para pausar.</p>
+    <div class="hist-wrap">
+      <div class="hist-lado" id="lado-a">
+        <button data-i="0"><b>Ves cada sol que entra</b>En vivo, por Yape, tarjeta o efectivo.</button>
+        <button data-i="1"><b>Comisiones, solas</b>Listas para enviar por WhatsApp.</button>
       </div>
-      <div class="b-card rev" style="--d:.1s" id="b2">
-        <div class="n">02</div><h3>Comisiones calculadas solas</h3><p>Cópialas y envíalas por WhatsApp en un toque. Cero discusiones.</p>
-        <div class="vis">
-          <div class="p-lbl">Comisiones · esta semana</div>
-          <div class="v-fila verde"><span>Ana</span><b>S/ 128</b></div>
-          <div class="v-fila verde"><span>Lucía</span><b>S/ 96</b></div>
-          <div class="v-fila verde"><span>Carla</span><b>S/ 94</b></div>
-          <div class="wa" id="b2-wa"><div class="de">Grupo · Equipo</div>💰 <b>COMISIONES</b> · Ana S/ 128 · Lucía S/ 96 · Carla S/ 94 · <b>Total S/ 318</b></div>
+      <div class="hist rev" id="hist">
+        <div class="h-barras"><span><i></i></span><span><i></i></span><span><i></i></span></div>
+        <div class="h-cab"><div class="av7">7</div>7legend <span>· ahora</span><span class="h-pausa">❚❚</span></div>
+
+        <div class="h-slide h-s1">
+          <h3>Ves cada sol<br>que entra.</h3>
+          <div class="h-card">
+            <div class="p-lbl">Hoy · en vivo</div>
+            <div class="h-total num" id="hs1-total">S/ 0</div>
+            <div class="metodo"><span>Yape/Plin</span><div class="m-bar"><i id="hs1-b1" style="background:#8b5cf6"></i></div><b class="num" id="hs1-v1">S/ 0</b></div>
+            <div class="metodo"><span>Tarjeta</span><div class="m-bar"><i id="hs1-b2" style="background:#0071e3"></i></div><b class="num" id="hs1-v2">S/ 0</b></div>
+            <div class="metodo"><span>Efectivo</span><div class="m-bar"><i id="hs1-b3" style="background:#34c759"></i></div><b class="num" id="hs1-v3">S/ 0</b></div>
+            <div class="h-feed" id="hs1-feed"></div>
+          </div>
         </div>
+
+        <div class="h-slide h-s2">
+          <h3>Comisiones,<br>solas.</h3>
+          <div class="h-card">
+            <div class="p-lbl" style="margin-bottom:4px">Esta semana · 10%</div>
+            <div class="h-com"><span>Ana</span><b class="hs2-c" data-v="128">S/ 0</b></div>
+            <div class="h-com"><span>Lucía</span><b class="hs2-c" data-v="96">S/ 0</b></div>
+            <div class="h-com"><span>Carla</span><b class="hs2-c" data-v="94">S/ 0</b></div>
+            <div class="h-copiar" id="hs2-btn">Copiar para WhatsApp</div>
+          </div>
+          <div class="h-wa" id="hs2-wa"><div class="de">Grupo · Equipo</div>💰 <b>COMISIONES</b><br>Ana S/ 128 · Lucía S/ 96 · Carla S/ 94<br><b>Total S/ 318</b> ✨</div>
+        </div>
+
+        <div class="h-slide h-s3">
+          <div class="h-hora">23:30</div><div class="h-fecha">sábado, 7 de noviembre</div>
+          <div class="h-noti" id="hs3-n1"><div class="ic" style="background:#1d1d1f">7</div><div style="flex:1"><div class="t1">Cierre del día <span>ahora</span></div><div class="t2">Total: S/ 3,180 · 46 atenciones</div></div></div>
+          <div class="h-noti" id="hs3-n2"><div class="ic" style="background:#34c759">↑</div><div style="flex:1"><div class="t1">Utilidad del mes <span>ahora</span></div><div class="t2">S/ 10,300 · meta al 67%</div></div></div>
+          <div class="h-noti" id="hs3-n3"><div class="ic" style="background:#ff9500">!</div><div style="flex:1"><div class="t1">POS al 80% <span>18:02</span></div><div class="t2">Quedan S/ 1,580 este mes</div></div></div>
+          <h3 style="margin-top:auto;margin-bottom:28px">El cierre llega<br>solo cada noche.</h3>
+        </div>
+        <div class="h-tocar">Toca para avanzar</div>
       </div>
-      <div class="b-card rev" style="--d:.2s" id="b3">
-        <div class="n">03</div><h3>El cierre llega solo cada noche</h3><p>Total del día, utilidad del mes y alertas. Sin pedírselo a nadie.</p>
-        <div class="vis" style="background:linear-gradient(170deg,#e0e7ff,#f3e8ff 60%,#fde7f1)">
-          <div class="hora-bloq">23:30</div>
-          <div class="noti" id="b3-n1"><div class="ic">7</div><div style="flex:1"><div class="t1">Cierre del día <span>ahora</span></div><div class="t2">Total: S/ 3,180 · 46 atenciones</div></div></div>
-          <div class="noti" id="b3-n2"><div class="ic" style="background:var(--green2)">↑</div><div style="flex:1"><div class="t1">Utilidad del mes <span>ahora</span></div><div class="t2">S/ 10,300 · meta al 67%</div></div></div>
-        </div>
+      <div class="hist-lado" id="lado-b">
+        <button data-i="2"><b>El cierre llega solo</b>Cada noche, en tu celular.</button>
+        <button onclick="abrirRegistro()" style="background:var(--accent);border-color:var(--accent);color:#fff"><b>Lo quiero →</b>14 días gratis</button>
       </div>
     </div>
-    <div class="extras rev"><span>Varias sedes</span><span>Gastos y utilidad</span><span>Meta del mes</span><span>Cero duplicados</span><span>Funciona sin señal</span></div>
-    <div class="cta-centro rev"><button class="btn btn-primary" onclick="abrirRegistro()">Lo quiero en mi salón</button><div class="bajo-btn">14 días gratis · Sin tarjeta</div></div>
+    <div class="extras-o rev"><span>Varias sedes</span><span>Gastos y utilidad</span><span>Meta del mes</span><span>Cero duplicados</span><span>Funciona sin señal</span></div>
   </div>
 </section>
 
-<!-- ============ 4. EMPEZAR ES FÁCIL ============ -->
-<section class="gris">
+<!-- ============ 4. LISTO EN 3 MINUTOS ============ -->
+<section class="gris" id="pasos" data-voz="s3">
   <div class="wrap">
-    <h2 class="titulo rev">Listo en 3 minutos.</h2>
-    <p class="bajada rev">No descargas nada de la tienda. No necesitas saber de tecnología.</p>
-    <div class="pasos">
-      <div class="paso rev"><div class="n">1</div><div><b>Responde 6 preguntas</b><span>Tus sedes, tu equipo y tus precios.</span></div></div>
-      <div class="paso rev" style="--d:.1s"><div class="n">2</div><div><b>Envía un link a tu equipo</b><span>Por WhatsApp. Lo abren y registran.</span></div></div>
-      <div class="paso rev" style="--d:.2s"><div class="n">3</div><div><b>Mira tus números</b><span>Desde el ícono en tu celular.</span></div></div>
+    <span class="eti rev">Empezar es fácil</span>
+    <h2 class="sec-tit rev">Listo en 3 minutos.</h2>
+    <p class="sec-sub rev">Sin descargar nada de la tienda. Sin saber de tecnología.</p>
+    <div class="reloj-wrap">
+      <div class="reloj rev" id="reloj">
+        <svg viewBox="0 0 140 140"><defs><linearGradient id="gradReloj" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0071e3"/><stop offset="1" stop-color="#34c759"/></linearGradient></defs>
+          <circle class="r-fondo" cx="70" cy="70" r="60" fill="none" stroke-width="11"/><circle class="r-valor" id="r-valor" cx="70" cy="70" r="60" fill="none" stroke-width="11" stroke-dasharray="377" stroke-dashoffset="377"/></svg>
+        <div class="r-centro"><div><b id="r-tiempo">0:00</b><span id="r-txt">de 3:00 min</span></div></div>
+      </div>
+      <div class="t-pasos rev">
+        <div class="t-paso" id="tp1"><div class="t-num">1</div><div><b>Responde 6 preguntas</b><div class="d">Tus sedes, tu equipo y tus precios.</div></div>
+          <div class="t-vis"><div class="mini-form"><div></div><div style="--d:.3s"></div><div style="--d:.6s;width:60%"></div></div></div></div>
+        <div class="t-paso" id="tp2"><div class="t-num">2</div><div><b>Envía un link a tu equipo</b><div class="d">Por WhatsApp. Lo abren y registran.</div></div>
+          <div class="t-vis"><div class="mini-wa">Hola equipo 👋 desde hoy registramos aquí 👉 7legend…/equipo</div></div></div>
+        <div class="t-paso" id="tp3"><div class="t-num">3</div><div><b>Mira tus números</b><div class="d">Desde el ícono en tu celular.</div></div>
+          <div class="t-vis"><div class="mini-home"><i></i><i></i><i class="app"></i><i></i><i></i></div></div></div>
+      </div>
+    </div>
+    <div class="reloj-fin rev">
+      <button class="btn btn-primary" onclick="abrirRegistro()">Empezar ahora</button>
+      <div><button class="repetir" id="r-repetir">↻ Ver de nuevo</button></div>
     </div>
   </div>
 </section>
+
 
 <!-- ============ 5. PRECIO CLARO ============ -->
-<section id="precio">
+<section id="precio" data-voz="s4">
   <div class="wrap">
     <h2 class="titulo rev">Pruébalo gratis. Decide después.</h2>
     <p class="bajada rev">Menos de lo que pierdes en un solo error de caja.</p>
@@ -445,7 +694,7 @@
 </section>
 
 <!-- ============ 7. CIERRE ============ -->
-<section class="final" id="final">
+<section class="final" id="final" data-voz="s5">
   <div class="burbujas" aria-hidden="true"><span></span><span></span></div>
   <div class="wrap">
     <h2 class="titulo rev">Esta noche ya podrías saber cuánto ganaste.</h2>
@@ -464,6 +713,9 @@
 <div class="barra-cta" id="barra-cta"><div class="t"><b>14 días gratis</b>Luego S/ <span class="precio-num">100</span>/mes · sin tarjeta</div><button class="btn btn-primary" onclick="abrirRegistro()">Probar gratis</button></div>
 
 
+<button class="voz" id="voz" aria-label="Narración"><span class="eq"><i></i><i></i><i></i><i></i></span><span id="voz-txt">Escuchar</span></button>
+<div class="subt" id="subt" aria-live="polite"></div>
+
 <!-- ================== ASISTENTE DE REGISTRO ================== -->
 <div class="hoja" id="registro" role="dialog" aria-modal="true" aria-label="Crear cuenta">
   <div class="hoja-top">
@@ -478,14 +730,15 @@
 
 
 <script>
-// ================== Landing: animaciones ==================
+// ================== Landing 7LEGEND ==================
 const L = window.LEGEND || { PRECIO: 100, WHATSAPP: '', DIAS_PRUEBA: 14 };
 const REDUCIR = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = id => document.getElementById(id);
 document.querySelectorAll('.precio-num').forEach(e => e.textContent = L.PRECIO);
-document.getElementById('btn-wa').href = 'https://wa.me/' + L.WHATSAPP + '?text=' + encodeURIComponent('Hola, vi el video de 7LEGEND y quiero que me ayuden a configurarlo');
+$('btn-wa').href = 'https://wa.me/' + L.WHATSAPP + '?text=' + encodeURIComponent('Hola, vi el video de 7LEGEND y quiero que me ayuden a configurarlo');
 const fmt = n => 'S/ ' + Math.round(n).toLocaleString('es-PE');
 
-// De dónde viene la visita (anuncio, Instagram, etc.): se guarda con el registro
+// Origen de la visita (anuncio, Instagram…), se guarda con el registro
 (function () {
   const q = new URLSearchParams(location.search);
   const f = q.get('utm_source') || q.get('ref') || q.get('fuente') || (document.referrer.includes('instagram') ? 'instagram' : '');
@@ -504,40 +757,42 @@ function contar(el, desde, hasta, ms) {
   })(ini);
 }
 function pulsar(el) { el.classList.remove('pulso'); void el.offsetWidth; el.classList.add('pulso'); }
+function chispas(x, y) {
+  if (REDUCIR) return;
+  const cols = ['#0071e3', '#8b5cf6', '#ff2d78', '#34c759', '#f59e0b'];
+  for (let i = 0; i < 24; i++) {
+    const c = document.createElement('div');
+    c.style.cssText = 'position:fixed;width:8px;height:8px;border-radius:50%;pointer-events:none;z-index:200;left:' + x + 'px;top:' + y + 'px;background:' + cols[i % 5];
+    document.body.appendChild(c);
+    const a = Math.random() * Math.PI * 2, d = 50 + Math.random() * 100;
+    c.animate([{ transform: 'translate(0,0)', opacity: 1 }, { transform: 'translate(' + Math.cos(a) * d + 'px,' + (Math.sin(a) * d - 30) + 'px) scale(.3)', opacity: 0 }],
+      { duration: 800 + Math.random() * 400, easing: 'cubic-bezier(.2,.8,.2,1)' }).onfinish = () => c.remove();
+  }
+}
 
-// Barra fija en celular
-const barra = document.getElementById('barra-cta');
+// ---------- Barra fija (celular) ----------
+const barra = $('barra-cta');
 let finalVisible = false;
-new IntersectionObserver(es => { finalVisible = es[0].isIntersecting; alScroll(); }).observe(document.getElementById('final'));
+new IntersectionObserver(es => { finalVisible = es[0].isIntersecting; alScroll(); }).observe($('final'));
 function alScroll() {
-  const reg = document.getElementById('registro');
-  barra.classList.toggle('on', scrollY > innerHeight * 0.6 && !finalVisible && !(reg && reg.classList.contains('on')));
+  const reg = $('registro');
+  const abierto = reg && reg.classList.contains('on');
+  barra.classList.toggle('on', scrollY > innerHeight * 0.6 && !finalVisible && !abierto);
+  $('voz').classList.toggle('visible', (scrollY > innerHeight * 0.5 || VOZ.activa) && !abierto);
 }
 addEventListener('scroll', alScroll, { passive: true });
 
-// Aparición al hacer scroll + animaciones de cada beneficio
-const acciones = {
-  b1() {
-    const t = document.getElementById('b1-total');
-    contar(t, 0, 1960, 1400);
-    contar(document.getElementById('b1-a'), 0, 880, 1400);
-    contar(document.getElementById('b1-b'), 0, 720, 1400);
-    contar(document.getElementById('b1-c'), 0, 360, 1400);
-    let total = 1960;
-    if (!REDUCIR) setInterval(() => { if (document.hidden) return; const v = [50, 90, 110, 60][Math.floor(Math.random() * 4)]; contar(t, total, total + v, 700); total += v; pulsar(t); }, 3500);
-  },
-  b2() { setTimeout(() => document.getElementById('b2-wa').classList.add('on'), 900); },
-  b3() { setTimeout(() => document.getElementById('b3-n1').classList.add('on'), 500); setTimeout(() => document.getElementById('b3-n2').classList.add('on'), 1400); }
-};
-const io = new IntersectionObserver(es => es.forEach(e => {
-  if (!e.isIntersecting) return;
-  e.target.classList.add('on'); io.unobserve(e.target);
-  if (acciones[e.target.id]) acciones[e.target.id]();
-}), { threshold: .2, rootMargin: '0px 0px -30px 0px' });
+// ---------- Aparición al hacer scroll ----------
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }), { threshold: .15, rootMargin: '0px 0px -30px 0px' });
 document.querySelectorAll('.rev').forEach(e => io.observe(e));
+function alVer(el, fn, umbral) {
+  new IntersectionObserver((es, o) => { if (es[0].isIntersecting) { o.disconnect(); fn(); } }, { threshold: umbral || .45 }).observe(el);
+}
 
-// Teléfono del hero con actividad en vivo
-const tel = document.getElementById('telefono'), hero = document.querySelector('.hero');
+// =====================================================
+// HERO: teléfono con actividad en vivo
+// =====================================================
+const tel = $('telefono'), hero = document.querySelector('.hero');
 if (!REDUCIR && matchMedia('(pointer:fine)').matches) {
   hero.addEventListener('pointermove', e => {
     const r = hero.getBoundingClientRect();
@@ -552,48 +807,253 @@ const DATOS = [
   ['Ana', 'Jimena V.', 'Manicure gel', 'Tarjeta', 50], ['Lucía', 'Sofía P.', 'Acrílicas + Diseño', 'Yape', 115],
   ['Carla', 'Paola G.', 'Pedicure clásica', 'Yape', 40], ['Rosa', 'Ximena C.', 'Manicure gel + Retiro', 'Efectivo', 65]
 ];
+function itemFeed(d) {
+  const [q, c, s, , v] = d, it = document.createElement('div');
+  it.className = 'f-item';
+  it.innerHTML = '<div class="av" style="background:' + COL[q] + '">' + q[0] + '</div><div class="t"><b>' + c + '</b><span>' + s + ' · ' + q + '</span></div><div class="m num">' + fmt(v) + '</div>';
+  return it;
+}
+function meterFeed(feed, d, max) { feed.prepend(itemFeed(d)); while (feed.children.length > max) feed.lastChild.remove(); }
 const est = { total: 2840, dig: 1360, tar: 1020, efe: 460 };
 let idx = 0, tick = 0, heroVisible = true;
 new IntersectionObserver(es => heroVisible = es[0].isIntersecting).observe(hero);
-function meterFeed(d) {
-  const [q, c, s, , v] = d, feed = document.getElementById('feed'), it = document.createElement('div');
-  it.className = 'f-item';
-  it.innerHTML = '<div class="av" style="background:' + COL[q] + '">' + q[0] + '</div><div class="t"><b>' + c + '</b><span>' + s + ' · ' + q + '</span></div><div class="m num">' + fmt(v) + '</div>';
-  feed.prepend(it); while (feed.children.length > 5) feed.lastChild.remove();
-}
-function barras() {
+function barrasHero() {
   const max = Math.max(est.dig, est.tar, est.efe);
-  [['dig', est.dig], ['tar', est.tar], ['efe', est.efe]].forEach(([k, v]) => {
-    document.getElementById('hb-' + k).style.width = (v / max * 100) + '%';
-    document.getElementById('hv-' + k).textContent = fmt(v);
-  });
+  [['dig', est.dig], ['tar', est.tar], ['efe', est.efe]].forEach(([k, v]) => { $('hb-' + k).style.width = (v / max * 100) + '%'; $('hv-' + k).textContent = fmt(v); });
 }
-function atencion() {
+function atencionHero() {
   const d = DATOS[idx++ % DATOS.length], [q, c, , m, v] = d;
-  meterFeed(d);
+  meterFeed($('feed'), d, 5);
   const antes = est.total; est.total += v;
   if (m === 'Tarjeta') est.tar += v; else if (m === 'Efectivo') est.efe += v; else est.dig += v;
-  const t = document.getElementById('h-total'); contar(t, antes, est.total, 900); pulsar(t); barras();
-  document.getElementById('flot1-txt').innerHTML = '<b>' + q + '</b> atendió a ' + c + ' · <b>' + fmt(v) + '</b> por ' + m;
-  const f = document.getElementById('flot1'); f.classList.add('on'); setTimeout(() => f.classList.remove('on'), 2200);
+  contar($('h-total'), antes, est.total, 900); pulsar($('h-total')); barrasHero();
+  $('flot1-txt').innerHTML = '<b>' + q + '</b> atendió a ' + c + ' · <b>' + fmt(v) + '</b> por ' + m;
+  $('flot1').classList.add('on'); setTimeout(() => $('flot1').classList.remove('on'), 2200);
 }
-for (let i = 0; i < 4; i++) meterFeed(DATOS[idx++]);
-setTimeout(() => { contar(document.getElementById('h-total'), 0, est.total, 1500); barras(); }, 800);
+for (let i = 0; i < 4; i++) meterFeed($('feed'), DATOS[idx++], 5);
+setTimeout(() => { contar($('h-total'), 0, est.total, 1500); barrasHero(); }, 800);
 if (!REDUCIR) setInterval(() => {
   if (!heroVisible || document.hidden) return;
   if (++tick % 4 === 0) {
-    document.getElementById('flot2-txt').textContent = 'Total: ' + fmt(est.total) + ' · día cerrado ✔';
-    const f = document.getElementById('flot2'); f.classList.add('on'); setTimeout(() => f.classList.remove('on'), 2600);
-  } else atencion();
+    $('flot2-txt').textContent = 'Total: ' + fmt(est.total) + ' · día cerrado ✔';
+    $('flot2').classList.add('on'); setTimeout(() => $('flot2').classList.remove('on'), 2600);
+  } else atencionHero();
 }, 2800);
 
-// Preguntas frecuentes
-document.querySelectorAll('.q button').forEach(b => b.onclick = () => {
-  const q = b.parentElement, abierta = q.classList.contains('on');
-  document.querySelectorAll('.q').forEach(x => x.classList.remove('on'));
-  if (!abierta) q.classList.add('on');
-});
+// =====================================================
+// ANTES / DESPUÉS con deslizador
+// =====================================================
+(function () {
+  const ba = $('ba'), wrap = $('ba-wrap');
+  let x = 85, arrastrando = false, demo = null;
+  function poner(v) {
+    x = Math.max(4, Math.min(96, v));
+    ba.style.setProperty('--x', x + '%');
+    wrap.classList.toggle('resuelto', x < 55);
+  }
+  function desdeEvento(e) { const r = ba.getBoundingClientRect(); poner((e.clientX - r.left) / r.width * 100); }
+  ba.addEventListener('pointerdown', e => { arrastrando = true; cancelarDemo(); ba.setPointerCapture(e.pointerId); desdeEvento(e); });
+  ba.addEventListener('pointermove', e => { if (arrastrando) desdeEvento(e); });
+  ba.addEventListener('pointerup', () => arrastrando = false);
+  ba.addEventListener('pointercancel', () => arrastrando = false);
+  function cancelarDemo() { if (demo) cancelAnimationFrame(demo); demo = null; }
+  function tween(a, b, ms) {
+    return new Promise(res => {
+      const ini = performance.now();
+      (function paso(t) {
+        const p = Math.min(1, (t - ini) / ms), e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+        poner(a + (b - a) * e);
+        if (p < 1 && demo !== null) demo = requestAnimationFrame(paso); else res();
+      })(ini);
+      demo = demo === null ? 1 : demo;
+    });
+  }
+  poner(85);
+  alVer(ba, async () => {
+    if (REDUCIR) { poner(50); return; }
+    demo = 1;
+    await new Promise(r => setTimeout(r, 500));
+    if (demo === null) return; await tween(85, 10, 1600);
+    if (demo === null) return; await new Promise(r => setTimeout(r, 900));
+    if (demo === null) return; await tween(10, 40, 900);
+    demo = null;
+  }, .55);
+})();
 
+// =====================================================
+// HISTORIAS estilo Instagram
+// =====================================================
+(function () {
+  const hist = $('hist'), slides = hist.querySelectorAll('.h-slide'), barras = hist.querySelectorAll('.h-barras i');
+  const botones = document.querySelectorAll('.hist-lado button[data-i]');
+  const DUR = 6500, N = slides.length;
+  let cur = 0, transcurrido = 0, pausada = false, visible = false, ultimo = 0, timers = [], intervalos = [];
+  const T = (fn, ms) => timers.push(setTimeout(fn, ms));
+  function limpiar() { timers.forEach(clearTimeout); intervalos.forEach(clearInterval); timers = []; intervalos = []; }
+  const INI = [
+    function () {
+      const feed = $('hs1-feed'), tot = $('hs1-total'); feed.innerHTML = '';
+      const m = { a: 880, b: 720, c: 360 }; let total = 1960, k = 0;
+      function barritas() {
+        const mx = Math.max(m.a, m.b, m.c);
+        [['1', m.a], ['2', m.b], ['3', m.c]].forEach(([i, v]) => { $('hs1-b' + i).style.width = (v / mx * 100) + '%'; $('hs1-v' + i).textContent = fmt(v); });
+      }
+      for (let j = 0; j < 3; j++) meterFeed(feed, DATOS[j + 3], 4);
+      contar(tot, 0, total, 1200); barritas();
+      intervalos.push(setInterval(() => {
+        if (pausada) return;
+        const d = DATOS[k++ % DATOS.length]; meterFeed(feed, d, 4);
+        if (d[3] === 'Tarjeta') m.b += d[4]; else if (d[3] === 'Efectivo') m.c += d[4]; else m.a += d[4];
+        contar(tot, total, total + d[4], 700); total += d[4]; pulsar(tot); barritas();
+      }, 1300));
+    },
+    function () {
+      const cs = hist.querySelectorAll('.hs2-c'), b = $('hs2-btn'), wa = $('hs2-wa');
+      b.classList.remove('tap'); b.textContent = 'Copiar para WhatsApp'; wa.classList.remove('on');
+      cs.forEach((c, i) => T(() => contar(c, 0, +c.dataset.v, 900), 300 + i * 250));
+      T(() => { b.classList.add('tap'); b.textContent = '¡Copiado! ✓'; }, 2400);
+      T(() => wa.classList.add('on'), 3000);
+    },
+    function () {
+      ['hs3-n1', 'hs3-n2', 'hs3-n3'].forEach((id, i) => { $(id).classList.remove('on'); T(() => $(id).classList.add('on'), 500 + i * 900); });
+    }
+  ];
+  function ir(i) {
+    cur = (i + N) % N; transcurrido = 0; limpiar();
+    slides.forEach((s, k) => s.classList.toggle('on', k === cur));
+    barras.forEach((b, k) => b.style.width = k < cur ? '100%' : '0%');
+    botones.forEach(b => b.classList.toggle('on', +b.dataset.i === cur));
+    INI[cur]();
+  }
+  function bucle(t) {
+    const dt = ultimo ? t - ultimo : 0; ultimo = t;
+    if (visible && !pausada && !document.hidden) {
+      transcurrido += dt;
+      barras[cur].style.width = Math.min(100, transcurrido / DUR * 100) + '%';
+      if (transcurrido >= DUR) ir(cur + 1);
+    }
+    requestAnimationFrame(bucle);
+  }
+  let abajo = 0, xIni = 0;
+  hist.addEventListener('pointerdown', e => { abajo = Date.now(); xIni = e.clientX; pausada = true; hist.classList.add('pausada'); });
+  hist.addEventListener('pointerup', e => {
+    const dur = Date.now() - abajo; pausada = false; hist.classList.remove('pausada');
+    const r = hist.getBoundingClientRect(), dx = e.clientX - xIni;
+    if (Math.abs(dx) > 40) ir(cur + (dx < 0 ? 1 : -1));
+    else if (dur < 300) ir(cur + ((e.clientX - r.left) < r.width * .33 ? -1 : 1));
+  });
+  hist.addEventListener('pointerleave', () => { pausada = false; hist.classList.remove('pausada'); });
+  hist.addEventListener('contextmenu', e => e.preventDefault());
+  botones.forEach(b => b.addEventListener('click', () => ir(+b.dataset.i)));
+  new IntersectionObserver(es => {
+    const antes = visible; visible = es[0].isIntersecting;
+    if (visible && !antes && !hist._iniciada) { hist._iniciada = true; ir(0); }
+  }, { threshold: .5 }).observe(hist);
+  window.irHistoria = ir;
+  requestAnimationFrame(bucle);
+})();
+
+// =====================================================
+// RELOJ: listo en 3 minutos
+// =====================================================
+(function () {
+  const reloj = $('reloj'), valor = $('r-valor'), tiempo = $('r-tiempo'), txt = $('r-txt');
+  const pasos = [$('tp1'), $('tp2'), $('tp3')], C = 377, MS = 7000;
+  let anim = null;
+  function correr() {
+    if (anim) cancelAnimationFrame(anim);
+    reloj.classList.remove('listo'); txt.textContent = 'de 3:00 min';
+    pasos.forEach(p => p.classList.remove('on', 'hecho'));
+    const ini = performance.now();
+    (function paso(t) {
+      const p = Math.min(1, (t - ini) / (REDUCIR ? 1 : MS)), seg = Math.round(p * 180);
+      valor.style.strokeDashoffset = C * (1 - p);
+      tiempo.textContent = Math.floor(seg / 60) + ':' + String(seg % 60).padStart(2, '0');
+      const activo = Math.min(2, Math.floor(p * 3));
+      pasos.forEach((el, k) => { el.classList.toggle('on', k <= activo); el.classList.toggle('hecho', k < activo || p >= 1); });
+      if (p < 1) anim = requestAnimationFrame(paso);
+      else {
+        reloj.classList.add('listo'); txt.textContent = '¡Listo!';
+        const r = reloj.getBoundingClientRect(); chispas(r.left + r.width / 2, r.top + r.height / 2);
+      }
+    })(ini);
+  }
+  alVer(reloj, correr, .6);
+  $('r-repetir').onclick = correr;
+})();
+
+// =====================================================
+// NARRACIÓN con voz (se activa con un toque)
+// =====================================================
+const SUBS = {"s0": {"t": "Hola. Imagina saber cuánto ganó tu salón hoy, sin estar ahí. Eso hace 7LEGEND. Baja conmigo, te lo muestro en un minuto.", "d": 9.62}, "s1": {"t": "Hoy, muchos salones se llevan con cuaderno, capturas de Yape y comisiones a mano. Y al final del mes, la plata no cuadra. Desliza y mira la diferencia.", "d": 11.74}, "s2": {"t": "Con 7LEGEND, tu equipo registra cada atención en segundos, y tú lo ves al instante. Las comisiones se calculan solas. Y cada noche, el cierre del día llega a tu celular.", "d": 12.53}, "s3": {"t": "Empezar es muy fácil. Respondes 6 preguntas, envías un link a tu equipo por WhatsApp, y listo. En 3 minutos ya estás funcionando.", "d": 10.06}, "s4": {"t": "Los primeros 14 días son gratis, y no te pedimos tarjeta. Si te gusta, son 100 soles al mes. Si no, no pagas nada.", "d": 9.46}, "s5": {"t": "Esta noche ya podrías saber cuánto ganaste. Toca el botón azul y empieza gratis.", "d": 6.22}};
+const VOZ = { activa: false, tour: false, audio: new Audio(), actual: null, tocadas: {}, ultimoGesto: 0 };
+VOZ.audio.preload = 'auto';
+const btnVoz = $('voz'), subt = $('subt');
+function pintarVoz() {
+  const sonando = VOZ.activa && !VOZ.audio.paused;
+  btnVoz.classList.toggle('sonando', sonando);
+  $('voz-txt').textContent = VOZ.activa ? (sonando ? 'Pausar voz' : 'Reanudar voz') : 'Escuchar';
+  alScroll();
+}
+function hablar(clave) {
+  if (!SUBS[clave]) return;
+  VOZ.actual = clave; VOZ.tocadas[clave] = true;
+  VOZ.audio.src = 'voz/' + clave + '.mp3';
+  VOZ.audio.currentTime = 0;
+  const palabras = SUBS[clave].t.split(' ');
+  subt.innerHTML = palabras.map(p => '<span class="pal">' + p + ' </span>').join('');
+  subt.classList.add('on');
+  VOZ.audio.play().catch(() => { VOZ.activa = false; subt.classList.remove('on'); pintarVoz(); });
+  pintarVoz();
+}
+VOZ.audio.addEventListener('timeupdate', () => {
+  if (!VOZ.actual) return;
+  const d = VOZ.audio.duration || SUBS[VOZ.actual].d, pals = subt.querySelectorAll('.pal');
+  const n = Math.ceil(VOZ.audio.currentTime / d * pals.length * 1.05);
+  pals.forEach((p, i) => p.classList.toggle('dicha', i < n));
+});
+VOZ.audio.addEventListener('play', pintarVoz);
+VOZ.audio.addEventListener('pause', pintarVoz);
+VOZ.audio.addEventListener('ended', () => {
+  setTimeout(() => { if (VOZ.audio.paused) subt.classList.remove('on'); }, 1200);
+  pintarVoz();
+  if (!VOZ.tour) return;
+  const orden = ['hero', 'problema', 'ayuda', 'pasos', 'precio', 'final'];
+  const i = orden.findIndex(id => $(id) && $(id).dataset.voz === VOZ.actual);
+  const sig = orden[i + 1];
+  if (!sig || Date.now() - VOZ.ultimoGesto < 2500) { VOZ.tour = false; return; }
+  setTimeout(() => {
+    if (!VOZ.tour || !VOZ.activa) return;
+    const el = $(sig);
+    scrollTo({ top: el.getBoundingClientRect().top + scrollY - 56, behavior: REDUCIR ? 'auto' : 'smooth' });
+  }, 500);
+});
+// Si la persona mueve la pantalla, se respeta su ritmo (sin avance automático)
+['touchstart', 'wheel'].forEach(ev => addEventListener(ev, () => { VOZ.ultimoGesto = Date.now(); if (VOZ.tour && !VOZ.audio.paused) VOZ.tour = false; }, { passive: true }));
+
+function iniciarVoz(tour) {
+  VOZ.activa = true; VOZ.tour = !!tour; VOZ.tocadas = {};
+  if (tour) { scrollTo({ top: 0, behavior: 'smooth' }); hablar('s0'); }
+  else { const s = seccionVisible(); hablar(s ? s.dataset.voz : 's0'); }
+}
+function seccionVisible() {
+  let mejor = null;
+  document.querySelectorAll('[data-voz]').forEach(s => { const r = s.getBoundingClientRect(); if (r.top < innerHeight * .55 && r.bottom > innerHeight * .45) mejor = s; });
+  return mejor;
+}
+btnVoz.addEventListener('click', () => {
+  if (!VOZ.activa) return iniciarVoz(false);
+  if (VOZ.audio.paused) VOZ.audio.play(); else { VOZ.audio.pause(); VOZ.tour = false; }
+});
+$('voz-hero').addEventListener('click', () => iniciarVoz(true));
+const vozObs = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting || !VOZ.activa) return;
+  const k = e.target.dataset.voz;
+  if (VOZ.tocadas[k]) return;
+  if (VOZ.audio.paused && !VOZ.audio.ended && VOZ.audio.currentTime > 0 && !VOZ.tour) return; // la pausó la persona
+  hablar(k);
+}), { rootMargin: '-45% 0px -45% 0px' });
+document.querySelectorAll('[data-voz]').forEach(s => vozObs.observe(s));
 
 // ================== Datos por rubro ==================
 const RUBROS = {
