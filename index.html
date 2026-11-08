@@ -394,6 +394,12 @@
   .subt.on { opacity: 1; transform: translateX(-50%); }
   @media (min-width: 881px) { .subt { bottom: 80px; } }
   .subt .pal { opacity: .35; transition: opacity .25s; }
+  .subt-aviso { display: none; margin: 9px auto 0; width: max-content; max-width: 100%; background: var(--accent); color: #fff; font-size: 13px; font-weight: 700; padding: 7px 14px; border-radius: 999px; animation: latidoAzul 1.6s infinite; }
+  .subt.mudo .subt-aviso { display: block; }
+  .subt.mudo .pal { opacity: .55; }
+  .subt.mudo .pal.dicha { opacity: 1; }
+  @keyframes latidoAzul { 0% { box-shadow: 0 0 0 0 rgba(0,113,227,.6); } 70% { box-shadow: 0 0 0 10px rgba(0,113,227,0); } 100% { box-shadow: 0 0 0 0 rgba(0,113,227,0); } }
+  .voz.mudo { background: var(--accent); animation: latidoAzul 1.6s infinite; }
   .subt .pal.dicha { opacity: 1; }
 
   /* ---------- Registro (asistente) ---------- */
@@ -983,39 +989,58 @@ if (!REDUCIR) setInterval(() => {
 })();
 
 // =====================================================
-// NARRACIÓN con voz (se activa con un toque)
+// NARRACIÓN con voz: arranca sola al entrar a la página
+// Los celulares no dejan sonar audio sin un toque: si lo bloquean, la narración
+// arranca en silencio con subtítulos y el sonido se activa con el primer toque.
 // =====================================================
 const SUBS = {"s0": {"t": "Hola. Imagina saber cuánto ganó tu salón hoy, sin estar ahí. Eso hace 7LEGEND. Baja conmigo, te lo muestro en un minuto.", "d": 9.62}, "s1": {"t": "Hoy, muchos salones se llevan con cuaderno, capturas de Yape y comisiones a mano. Y al final del mes, la plata no cuadra. Desliza y mira la diferencia.", "d": 11.74}, "s2": {"t": "Con 7LEGEND, tu equipo registra cada atención en segundos, y tú lo ves al instante. Las comisiones se calculan solas. Y cada noche, el cierre del día llega a tu celular.", "d": 12.53}, "s3": {"t": "Empezar es muy fácil. Respondes 6 preguntas, envías un link a tu equipo por WhatsApp, y listo. En 3 minutos ya estás funcionando.", "d": 10.06}, "s4": {"t": "Los primeros 14 días son gratis, y no te pedimos tarjeta. Si te gusta, son 100 soles al mes. Si no, no pagas nada.", "d": 9.46}, "s5": {"t": "Esta noche ya podrías saber cuánto ganaste. Toca el botón azul y empieza gratis.", "d": 6.22}};
-const VOZ = { activa: false, tour: false, audio: new Audio(), actual: null, tocadas: {}, ultimoGesto: 0 };
+const VOZ = { activa: false, tour: false, audio: new Audio(), actual: null, tocadas: {}, ultimoGesto: 0, mudo: false, simulado: null, inicio: 0, pausaManual: false, recien: 0 };
 VOZ.audio.preload = 'auto';
+VOZ.audio.setAttribute('playsinline', '');
 const btnVoz = $('voz'), subt = $('subt');
+function sonando() { return VOZ.activa && (!VOZ.audio.paused || !!VOZ.simulado); }
 function pintarVoz() {
-  const sonando = VOZ.activa && !VOZ.audio.paused;
-  btnVoz.classList.toggle('sonando', sonando);
-  $('voz-txt').textContent = VOZ.activa ? (sonando ? 'Pausar voz' : 'Reanudar voz') : 'Escuchar';
+  btnVoz.classList.toggle('sonando', sonando() && !VOZ.mudo);
+  btnVoz.classList.toggle('mudo', VOZ.activa && VOZ.mudo);
+  $('voz-txt').textContent = !VOZ.activa ? 'Escuchar' : VOZ.mudo ? 'Activar sonido' : (sonando() ? 'Pausar voz' : 'Reanudar voz');
+  subt.classList.toggle('mudo', VOZ.mudo);
   alScroll();
+}
+function pintarSub(seg) {
+  if (!VOZ.actual) return;
+  const d = VOZ.audio.duration || SUBS[VOZ.actual].d, pals = subt.querySelectorAll('.pal');
+  const n = Math.ceil(seg / d * pals.length * 1.05);
+  pals.forEach((p, i) => p.classList.toggle('dicha', i < n));
+}
+function detenerSimulado() { clearInterval(VOZ.simulado); VOZ.simulado = null; }
+function simular(clave) { // si el navegador no deja reproducir ni en silencio: solo subtítulos
+  detenerSimulado(); VOZ.inicio = performance.now();
+  VOZ.simulado = setInterval(() => {
+    const t = (performance.now() - VOZ.inicio) / 1000; pintarSub(t);
+    if (t >= SUBS[clave].d) { detenerSimulado(); alTerminar(); }
+  }, 120);
+  pintarVoz();
 }
 function hablar(clave) {
   if (!SUBS[clave]) return;
-  VOZ.actual = clave; VOZ.tocadas[clave] = true;
+  detenerSimulado();
+  VOZ.actual = clave; VOZ.tocadas[clave] = true; VOZ.pausaManual = false;
   VOZ.audio.src = 'voz/' + clave + '.mp3';
-  VOZ.audio.currentTime = 0;
-  const palabras = SUBS[clave].t.split(' ');
-  subt.innerHTML = palabras.map(p => '<span class="pal">' + p + ' </span>').join('');
+  VOZ.audio.muted = VOZ.mudo;
+  subt.innerHTML = '<div>' + SUBS[clave].t.split(' ').map(p => '<span class="pal">' + p + ' </span>').join('') + '</div><div class="subt-aviso">🔊 Toca la pantalla para escuchar</div>';
   subt.classList.add('on');
-  VOZ.audio.play().catch(() => { VOZ.activa = false; subt.classList.remove('on'); pintarVoz(); });
+  VOZ.audio.play().catch(() => {
+    if (!VOZ.mudo) { VOZ.mudo = true; VOZ.audio.muted = true; VOZ.audio.play().catch(() => simular(clave)); pintarVoz(); }
+    else simular(clave);
+  });
   pintarVoz();
 }
-VOZ.audio.addEventListener('timeupdate', () => {
-  if (!VOZ.actual) return;
-  const d = VOZ.audio.duration || SUBS[VOZ.actual].d, pals = subt.querySelectorAll('.pal');
-  const n = Math.ceil(VOZ.audio.currentTime / d * pals.length * 1.05);
-  pals.forEach((p, i) => p.classList.toggle('dicha', i < n));
-});
+VOZ.audio.addEventListener('timeupdate', () => pintarSub(VOZ.audio.currentTime));
 VOZ.audio.addEventListener('play', pintarVoz);
 VOZ.audio.addEventListener('pause', pintarVoz);
-VOZ.audio.addEventListener('ended', () => {
-  setTimeout(() => { if (VOZ.audio.paused) subt.classList.remove('on'); }, 1200);
+VOZ.audio.addEventListener('ended', alTerminar);
+function alTerminar() {
+  setTimeout(() => { if (!sonando()) subt.classList.remove('on'); }, 1200);
   pintarVoz();
   if (!VOZ.tour) return;
   const orden = ['hero', 'problema', 'ayuda', 'pasos', 'precio', 'final'];
@@ -1024,15 +1049,23 @@ VOZ.audio.addEventListener('ended', () => {
   if (!sig || Date.now() - VOZ.ultimoGesto < 2500) { VOZ.tour = false; return; }
   setTimeout(() => {
     if (!VOZ.tour || !VOZ.activa) return;
-    const el = $(sig);
-    scrollTo({ top: el.getBoundingClientRect().top + scrollY - 56, behavior: REDUCIR ? 'auto' : 'smooth' });
+    scrollTo({ top: $(sig).getBoundingClientRect().top + scrollY - 56, behavior: REDUCIR ? 'auto' : 'smooth' });
   }, 500);
-});
+}
 // Si la persona mueve la pantalla, se respeta su ritmo (sin avance automático)
-['touchstart', 'wheel'].forEach(ev => addEventListener(ev, () => { VOZ.ultimoGesto = Date.now(); if (VOZ.tour && !VOZ.audio.paused) VOZ.tour = false; }, { passive: true }));
+['touchstart', 'wheel'].forEach(ev => addEventListener(ev, () => { VOZ.ultimoGesto = Date.now(); if (VOZ.tour && sonando()) VOZ.tour = false; }, { passive: true }));
+
+// Primer toque en cualquier parte: se activa el sonido y se repite el fragmento actual completo
+function activarSonido(e) {
+  if (!VOZ.activa || !VOZ.mudo || VOZ.pausaManual) return;
+  if (e && e.target && e.target.closest && e.target.closest('#registro, [onclick*="abrirRegistro"], a[href]')) return;
+  VOZ.mudo = false; VOZ.recien = Date.now();
+  hablar(VOZ.actual || 's0');
+}
+['pointerup', 'touchend', 'click', 'keydown'].forEach(ev => addEventListener(ev, activarSonido, { capture: true, passive: true }));
 
 function iniciarVoz(tour) {
-  VOZ.activa = true; VOZ.tour = !!tour; VOZ.tocadas = {};
+  VOZ.activa = true; VOZ.tour = !!tour; VOZ.tocadas = {}; VOZ.mudo = false;
   if (tour) { scrollTo({ top: 0, behavior: 'smooth' }); hablar('s0'); }
   else { const s = seccionVisible(); hablar(s ? s.dataset.voz : 's0'); }
 }
@@ -1042,18 +1075,29 @@ function seccionVisible() {
   return mejor;
 }
 btnVoz.addEventListener('click', () => {
+  if (Date.now() - VOZ.recien < 400) return; // este toque ya activó el sonido
   if (!VOZ.activa) return iniciarVoz(false);
-  if (VOZ.audio.paused) VOZ.audio.play(); else { VOZ.audio.pause(); VOZ.tour = false; }
+  if (sonando()) { VOZ.audio.pause(); detenerSimulado(); VOZ.pausaManual = true; VOZ.tour = false; subt.classList.remove('on'); }
+  else if (VOZ.audio.currentTime > 0 && !VOZ.audio.ended && !VOZ.mudo) { VOZ.pausaManual = false; subt.classList.add('on'); VOZ.audio.play(); }
+  else { VOZ.mudo = false; hablar(VOZ.actual || 's0'); }
+  pintarVoz();
 });
-$('voz-hero').addEventListener('click', () => iniciarVoz(true));
+$('voz-hero').addEventListener('click', () => { VOZ.recien = Date.now(); iniciarVoz(true); });
 const vozObs = new IntersectionObserver(es => es.forEach(e => {
-  if (!e.isIntersecting || !VOZ.activa) return;
+  if (!e.isIntersecting || !VOZ.activa || VOZ.pausaManual) return;
   const k = e.target.dataset.voz;
   if (VOZ.tocadas[k]) return;
-  if (VOZ.audio.paused && !VOZ.audio.ended && VOZ.audio.currentTime > 0 && !VOZ.tour) return; // la pausó la persona
   hablar(k);
 }), { rootMargin: '-45% 0px -45% 0px' });
 document.querySelectorAll('[data-voz]').forEach(s => vozObs.observe(s));
+
+// Al abrir el registro, la voz se calla
+new MutationObserver(() => {
+  if ($('registro').classList.contains('on')) { VOZ.audio.pause(); detenerSimulado(); VOZ.tour = false; subt.classList.remove('on'); pintarVoz(); }
+}).observe($('registro'), { attributes: true, attributeFilter: ['class'] });
+
+// Arranque automático al entrar
+setTimeout(() => { if (!document.hidden && scrollY < innerHeight * .5) iniciarVoz(false); }, 1300);
 
 // ================== Datos por rubro ==================
 const RUBROS = {
