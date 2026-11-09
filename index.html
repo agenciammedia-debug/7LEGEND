@@ -1093,8 +1093,8 @@ if (!REDUCIR) setInterval(() => {
 // ACTIVIDAD REAL: negocios que empezaron su prueba (datos del sistema)
 // =====================================================
 (function () {
-  const RUB = { unas: ['💅', 'Coque nails'], peluqueria: ['✂️', 'koki salón'], barberia: ['💈', 'God barber'], pestanas: ['👁️', 'Lash PRO'],
-    spa: ['💆', 'Harmony Spa'], estetica: ['✨', 'Boost'], tatuajes: ['🖋️', 'Giogia tattjo'], otro: ['🏪', 'Un negocio'] };
+  const RUB = { unas: ['💅', 'Un salón de uñas'], peluqueria: ['✂️', 'Una peluquería'], barberia: ['💈', 'Una barbería'], pestanas: ['👁️', 'Un estudio de pestañas'],
+    spa: ['💆', 'Un spa'], estetica: ['✨', 'Un centro de estética'], tatuajes: ['🖋️', 'Un estudio de tatuajes'], otro: ['🏪', 'Un negocio'] };
   function hace(ms) {
     const m = Math.round(ms / 60000);
     if (m < 2) return 'hace un momento';
@@ -1537,6 +1537,13 @@ function siguiente() {
 }
 function atras() { if (st.paso > 0) { st.paso--; pintar(); } }
 
+// Moneda inicial según el código de país del WhatsApp (se cambia luego en Ajustes)
+function monedaDePrefijo(p) {
+  const M = { '51': 'PEN', '52': 'MXN', '57': 'COP', '56': 'CLP', '54': 'ARS', '591': 'BOB', '55': 'BRL', '502': 'GTQ', '506': 'CRC', '598': 'UYU',
+    '595': 'PYG', '504': 'HNL', '505': 'NIO', '58': 'VES', '34': 'EUR', '593': 'USD', '503': 'USD', '507': 'USD', '1': 'USD', '44': 'GBP' };
+  if (/^1(809|829|849)$/.test(p)) return 'DOP';
+  return M[p] || M[String(p).slice(0, 3)] || M[String(p).slice(0, 2)] || 'PEN';
+}
 async function crearCuenta() {
   const pref = (document.getElementById('f-pref').value || '+51').replace(/\D/g, '');
   const dig = st.whatsapp.replace(/\D/g, '');
@@ -1544,7 +1551,7 @@ async function crearCuenta() {
     web: document.getElementById('f-web').value,
     fuente: leerLocal('leg_fuente') || '', publico: !!st.publico, dueno: st.dueno.trim(), email: st.email.trim(), whatsapp: dig.length <= 9 ? pref + dig : dig, clave: st.clave,
     config: {
-      negocio: st.negocio, rubro: st.rubro,
+      negocio: st.negocio, rubro: st.rubro, moneda: monedaDePrefijo(pref),
       sedes: st.sedes.map(s => ({ nombre: s, meta: 0, posTope: 0 })),
       equipo: st.equipo.map(e => ({ nombre: e.nombre, sede: st.sedes[e.sede] || st.sedes[0] })),
       servicios: st.servicios.map(s => ({ categoria: s.categoria, nombre: s.nombre.trim(), precio: Number(s.precio) })),
