@@ -175,7 +175,7 @@ let sel = { trab: '', sede: '', metodo: '', estado: '' }, servSel = [], cat = 'T
 let procesando = false, esperandoTurno = false;
 
 // ===================== ARRANQUE =====================
-(function arrancar() {
+function arrancar() {
   const q = new URLSearchParams(location.search);
   const kUrl = q.get('k');
   K = kUrl || leerLocal('leg_k') || '';
@@ -186,7 +186,7 @@ let procesando = false, esperandoTurno = false;
   const cache = leerLocal('leg_eq_cfg', true);
   if (cache && cache.config) { aplicar(cache); }
   refrescar();
-})();
+}
 
 async function refrescar() {
   try {
@@ -211,6 +211,7 @@ function mensaje(html) {
 function aplicar(r, fresco) {
   const primeraVez = !CFG;
   CFG = r.config; CLIENTES = r.clientes || [];
+  fijarMoneda(CFG.moneda);
   bloqueado = !!(r.cuenta && r.cuenta.bloqueado);
   if (bloqueado) return mensaje('La suscripción de ' + esc(CFG.negocio) + ' está vencida. Avísale al dueño del negocio para seguir registrando.');
   document.getElementById('pant-carga').hidden = true;
@@ -324,7 +325,7 @@ function pintarServicios() {
   });
   const el = document.getElementById('elegidos');
   el.innerHTML = servSel.length ? '<div class="elegidos">' + servSel.map((s, k) => '<div class="eleg"><span>' + esc(s.nombre) + '</span>' +
-    (s.libre ? '<input class="pin" data-k="' + k + '" inputmode="decimal" placeholder="S/ precio" value="' + esc(s.precio) + '">' : '<span>' + soles(s.precio) + '</span>') + '</div>').join('') +
+    (s.libre ? '<input class="pin" data-k="' + k + '" inputmode="decimal" placeholder="' + simbolo() + ' precio" value="' + esc(s.precio) + '">' : '<span>' + soles(s.precio) + '</span>') + '</div>').join('') +
     '<div class="total"><span>Total</span><span id="tot-sel">' + soles(totalSel()) + '</span></div></div>' : '';
   el.querySelectorAll('.pin').forEach(x => x.oninput = () => {
     servSel[+x.dataset.k].precio = x.value; x.classList.remove('mal');
@@ -501,6 +502,8 @@ async function cargarRegistros() {
 }
 
 if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+
+arrancar();
 </script>
 </body>
 </html>
