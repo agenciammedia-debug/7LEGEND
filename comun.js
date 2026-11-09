@@ -27,11 +27,24 @@
     return String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   };
 
-  window.soles = function (n) {
-    const v = Math.round((Number(n) || 0) * 100) / 100;
-    const ent = Number.isInteger(v);
-    return 'S/ ' + v.toLocaleString('es-PE', { minimumFractionDigits: ent ? 0 : 2, maximumFractionDigits: 2 });
+  // Monedas: código → [símbolo, nombre, decimales]
+  window.MONEDAS = {
+    PEN: ['S/', 'Sol peruano', 2], USD: ['US$', 'Dólar estadounidense', 2], EUR: ['€', 'Euro', 2], MXN: ['MX$', 'Peso mexicano', 2],
+    COP: ['COL$', 'Peso colombiano', 0], CLP: ['CLP$', 'Peso chileno', 0], ARS: ['AR$', 'Peso argentino', 2], BOB: ['Bs', 'Boliviano', 2],
+    BRL: ['R$', 'Real brasileño', 2], GTQ: ['Q', 'Quetzal', 2], CRC: ['₡', 'Colón costarricense', 0], DOP: ['RD$', 'Peso dominicano', 2],
+    UYU: ['$U', 'Peso uruguayo', 2], PYG: ['₲', 'Guaraní', 0], HNL: ['L', 'Lempira', 2], NIO: ['C$', 'Córdoba', 2],
+    PAB: ['B/.', 'Balboa', 2], VES: ['Bs.', 'Bolívar', 2], CAD: ['CA$', 'Dólar canadiense', 2], GBP: ['£', 'Libra esterlina', 2]
   };
+  window.MONEDA = 'PEN';
+  window.fijarMoneda = function (c) { window.MONEDA = window.MONEDAS[c] ? c : 'PEN'; };
+  window.simbolo = function (c) { return (window.MONEDAS[c || window.MONEDA] || window.MONEDAS.PEN)[0]; };
+  window.dinero = function (n, c) {
+    const m = window.MONEDAS[c || window.MONEDA] || window.MONEDAS.PEN;
+    const v = Math.round((Number(n) || 0) * 100) / 100;
+    const ent = Number.isInteger(v) || m[2] === 0;
+    return m[0] + ' ' + v.toLocaleString('en-US', { minimumFractionDigits: ent ? 0 : 2, maximumFractionDigits: ent ? 0 : 2 });
+  };
+  window.soles = function (n) { return window.dinero(n); };   // nombre histórico: usa la moneda del negocio
 
   window.norm = function (x) {
     return String(x == null ? '' : x).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/\s+/g, ' ').trim();
