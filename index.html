@@ -15,6 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <script src="config.js"></script>
 <script src="comun.js"></script>
+<script src="importar.js" defer></script>
 <style>
   :root { --ink: #1d1d1f; --ink2: #6e6e73; --ink3: #86868b; --line: #e8e8ed; --bg: #fff; --bg2: #f5f5f7;
     --accent: #0071e3; --accent-h: #0077ed; --green: #1a7f37; --green2: #34c759; --r: 24px; }
@@ -378,6 +379,34 @@
   .fila select.inp { width: 132px; flex: none; }
   .quitar { width: 36px; height: 36px; flex: none; border-radius: 50%; border: none; background: var(--bg2); color: var(--ink3); font-size: 20px; cursor: pointer; line-height: 1; }
   .agregar { background: none; border: none; color: var(--accent); font-weight: 600; font-size: 15px; padding: 8px 4px; cursor: pointer; }
+  /* Importar servicios (registro) */
+  .imp-caja { background: var(--bg2); border-radius: 18px; margin: 4px 0 14px; overflow: hidden; }
+  .imp-abrir { display: flex; align-items: center; gap: 12px; width: 100%; background: none; border: none; padding: 14px 16px; text-align: left; cursor: pointer; font-family: inherit; color: var(--ink); }
+  .imp-abrir b { display: block; font-size: 15px; }
+  .imp-abrir small { display: block; font-size: 13px; color: var(--ink3); margin-top: 2px; }
+  .imp-abrir > span:nth-child(2) { flex: 1; }
+  .imp-ico { width: 34px; height: 34px; border-radius: 10px; background: var(--accent); color: #fff; display: grid; place-items: center; font-weight: 700; flex: none; }
+  .imp-fl { color: var(--ink3); font-size: 22px; transition: transform .2s; }
+  .imp-caja.on .imp-fl { transform: rotate(90deg); }
+  .imp-cuerpo { display: none; padding: 0 14px 12px; }
+  .imp-caja.on .imp-cuerpo { display: block; }
+  .imp-ops { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .imp-op { display: flex; flex-direction: column; align-items: center; gap: 4px; background: #fff; border: 2px solid transparent; border-radius: 14px; padding: 12px 4px; font-size: 13px; font-weight: 600; color: var(--ink); cursor: pointer; font-family: inherit; text-align: center; }
+  .imp-op span { font-size: 22px; }
+  .imp-op.on { border-color: var(--accent); }
+  .imp-sub { display: flex; gap: 8px; margin-top: 10px; align-items: center; }
+  .imp-sub.col { flex-direction: column; align-items: stretch; }
+  .imp-sub .inp { font-size: 15px; padding: 11px 13px; }
+  .imp-sub .btn { flex: none; }
+  .imp-nota { font-size: 12px; color: var(--ink3); margin: 6px 4px 0; }
+  .imp-link { background: none; border: none; color: var(--accent); font-weight: 600; font-size: 13px; padding: 10px 2px 0; cursor: pointer; font-family: inherit; }
+  .imp-cargando { font-size: 14px; color: var(--ink3); padding: 12px 4px 0; }
+  .imp-ok { background: #fff; border-radius: 14px; padding: 12px 14px; margin-top: 10px; font-size: 14px; color: var(--ink2); }
+  .imp-ok b { color: var(--ink); }
+  .imp-prev { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+  .imp-prev span { background: var(--bg2); border-radius: 8px; padding: 4px 8px; font-size: 12px; color: var(--ink2); }
+  .imp-err { color: #c4291f; font-size: 13px; margin-top: 8px; line-height: 1.4; }
+  .imp-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px; }
   .cat-tit { font-size: 12px; font-weight: 700; color: var(--ink3); text-transform: uppercase; letter-spacing: .05em; margin: 18px 0 8px 4px; }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; }
   .chip-t { border: 1.5px solid #d2d2d7; background: #fff; border-radius: 999px; padding: 10px 16px; font-size: 15px; font-weight: 600; cursor: pointer; color: var(--ink); }
@@ -1353,6 +1382,40 @@ if (location.hash === '#empezar') setTimeout(abrirRegistro, 50);
 
 function guardarBorrador() { const c = Object.assign({}, st); delete c.clave; guardarLocal('leg_borrador', c); }
 
+// ---- Importar servicios en el registro ----
+function pintarConScroll() { const c = document.getElementById('hoja-cuerpo'), y = c.scrollTop; pintar(); c.scrollTop = y; }
+async function importarDe(leer, origen) {
+  const el = document.getElementById('imp-res');
+  el.innerHTML = '<div class="imp-cargando">Leyendo ' + esc(origen) + '…</div>';
+  try {
+    if (!window.Importar) throw new Error('Un momento, cargando… vuelve a intentar.');
+    const r = Importar.aServicios(await leer());
+    st.impRes = { origen, items: r.items, errores: r.errores };
+  } catch (e) { st.impRes = { origen, items: [], errores: [e.message || 'No se pudo leer.'] }; }
+  pintarResImp();
+}
+function pintarResImp() {
+  const el = document.getElementById('imp-res'), r = st.impRes; if (!el || !r) return;
+  const cats = [...new Set(r.items.map(i => i.categoria))];
+  el.innerHTML = r.items.length ?
+    '<div class="imp-ok"><b>Encontramos ' + r.items.length + (r.items.length === 1 ? ' servicio' : ' servicios') + '</b> en ' + cats.length + (cats.length === 1 ? ' categoría' : ' categorías') + ' (' + esc(r.origen) + ')' +
+      '<div class="imp-prev">' + r.items.slice(0, 5).map(i => '<span>' + esc(i.nombre) + ' · ' + (i.libre ? 'Libre' : 'S/ ' + i.precio) + '</span>').join('') + (r.items.length > 5 ? '<span>…y ' + (r.items.length - 5) + ' más</span>' : '') + '</div>' +
+      (r.errores.length ? '<div class="imp-err">' + r.errores.slice(0, 3).map(esc).join('<br>') + (r.errores.length > 3 ? '<br>…' : '') + '</div>' : '') +
+      '<div class="imp-btns"><button class="btn btn-primary btn-sm" id="imp-reemp" type="button">Usar mi lista</button><button class="btn btn-light btn-sm" id="imp-sumar" type="button">Agregar a la de ejemplo</button></div></div>' :
+    '<div class="imp-err">' + r.errores.map(esc).join('<br>') + '</div>';
+  const aplicar = reemplazar => {
+    const nuevos = r.items.map(i => Object.assign({}, i, { precio: i.libre ? '' : i.precio }));
+    if (reemplazar) st.servicios = nuevos;
+    else nuevos.forEach(n => { const k = st.servicios.findIndex(s => norm(s.nombre) === norm(n.nombre)); if (k >= 0) st.servicios[k] = n; else st.servicios.push(n); });
+    const orden = []; st.servicios.forEach(s => { if (orden.indexOf(s.categoria) === -1) orden.push(s.categoria); });
+    st.servicios.sort((a, b) => orden.indexOf(a.categoria) - orden.indexOf(b.categoria));
+    st.impRes = null; st.impAbierto = false; st.impModo = ''; pintar();
+  };
+  const a = document.getElementById('imp-reemp'), b = document.getElementById('imp-sumar');
+  if (a) a.onclick = () => aplicar(true);
+  if (b) b.onclick = () => aplicar(false);
+}
+
 function pintar() {
   const p = PASOS[st.paso];
   document.getElementById('barra-progreso').style.width = ((st.paso + 1) / (PASOS.length + 1) * 100) + '%';
@@ -1430,20 +1493,38 @@ const VISTAS = {
       st.rubroServ = st.rubro;
       st.comisionPct = RUBROS[st.rubro].com;
     }
-    let html = '<h2 class="h-tit">Tus servicios y precios</h2><p class="h-sub">Te dejamos una lista de ejemplo. Cambia nombres y precios, quita lo que no ofreces y agrega lo que falte.</p><div class="error" id="err"></div>';
+    let html = '<h2 class="h-tit">Tus servicios y precios</h2><p class="h-sub">Te dejamos una lista de ejemplo. Cambia nombres y precios, quita lo que no ofreces y agrega lo que falte.</p><div class="error" id="err"></div>' +
+      '<div class="imp-caja' + (st.impAbierto ? ' on' : '') + '"><button class="imp-abrir" id="imp-abrir" type="button"><span class="imp-ico">⬆︎</span><span><b>¿Ya tienes tu lista de precios?</b><small>Impórtala desde Excel, Google Sheets o cópiala y pégala</small></span><span class="imp-fl">›</span></button>' +
+      '<div class="imp-cuerpo"><div class="imp-ops">' +
+        '<label class="imp-op"><input type="file" id="imp-file" hidden accept=".xlsx,.xls,.csv,.tsv,text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"><span>📄</span>Excel / CSV</label>' +
+        '<button class="imp-op' + (st.impModo === 'sheet' ? ' on' : '') + '" data-m="sheet" type="button"><span>🔗</span>Google Sheets</button>' +
+        '<button class="imp-op' + (st.impModo === 'pegar' ? ' on' : '') + '" data-m="pegar" type="button"><span>📋</span>Copiar y pegar</button></div>' +
+        (st.impModo === 'sheet' ? '<div class="imp-sub"><input class="inp" id="imp-url" inputmode="url" placeholder="Pega el link de tu Google Sheets"><button class="btn btn-primary btn-sm" id="imp-traer" type="button">Traer</button></div><p class="imp-nota">La hoja debe estar en Compartir → “Cualquier persona con el enlace”.</p>' : '') +
+        (st.impModo === 'pegar' ? '<div class="imp-sub col"><textarea class="inp" id="imp-txt" rows="4" placeholder="Selecciona las celdas en Excel o Sheets (categoría, servicio, precio), cópialas y pégalas aquí"></textarea><button class="btn btn-primary btn-sm" id="imp-usar" type="button">Usar lo pegado</button></div>' : '') +
+        '<div id="imp-res"></div><button class="imp-link" id="imp-plantilla" type="button">⬇︎ Descargar plantilla de ejemplo</button></div></div>';
     let cat = null;
     st.servicios.forEach((s, i) => {
       if (s.categoria !== cat) { cat = s.categoria; html += '<div class="cat-tit">' + esc(cat) + '</div>'; }
       html += '<div class="fila"><input class="inp" data-n="' + i + '" maxlength="60" placeholder="Servicio" value="' + esc(s.nombre) + '">' +
-        '<input class="inp precio-inp" data-p="' + i + '" inputmode="decimal" placeholder="S/" value="' + (s.precio === '' ? '' : esc(s.precio)) + '">' +
+        '<input class="inp precio-inp" data-p="' + i + '" inputmode="decimal" placeholder="' + (s.libre ? 'Libre' : 'S/') + '" value="' + (s.libre || s.precio === '' ? '' : esc(s.precio)) + '">' +
         '<button class="quitar" data-q="' + i + '" aria-label="Quitar">×</button></div>';
     });
     return html + '<button class="agregar" id="add">+ Agregar servicio</button><p class="nota">Precios en soles. El total de cada atención se calcula solo.</p>';
   },
   serviciosDespues() {
     document.querySelectorAll('[data-n]').forEach(i => i.oninput = () => st.servicios[i.dataset.n].nombre = i.value);
-    document.querySelectorAll('[data-p]').forEach(i => i.oninput = () => st.servicios[i.dataset.p].precio = i.value.replace(',', '.'));
+    document.querySelectorAll('[data-p]').forEach(i => i.oninput = () => { const sv = st.servicios[i.dataset.p]; sv.precio = i.value.replace(',', '.'); if (i.value.trim()) delete sv.libre; });
     document.querySelectorAll('.quitar').forEach(b => b.onclick = () => { st.servicios.splice(+b.dataset.q, 1); pintar(); });
+    // Importar
+    document.getElementById('imp-abrir').onclick = () => { st.impAbierto = !st.impAbierto; document.querySelector('.imp-caja').classList.toggle('on', st.impAbierto); };
+    document.querySelectorAll('.imp-op[data-m]').forEach(b => b.onclick = () => { st.impModo = st.impModo === b.dataset.m ? '' : b.dataset.m; pintarConScroll(); const x = document.getElementById(st.impModo === 'sheet' ? 'imp-url' : 'imp-txt'); if (x) x.focus(); });
+    document.getElementById('imp-file').onchange = e => { const f = e.target.files[0]; if (f) importarDe(() => Importar.leerArchivo(f), f.name); };
+    const tr = document.getElementById('imp-traer');
+    if (tr) tr.onclick = () => { const u = document.getElementById('imp-url').value.trim(); if (!u) return; importarDe(async () => Importar.parsear((await api('leerSheetPublico', { url: u }, '', 30000)).csv), 'Google Sheets'); };
+    const us = document.getElementById('imp-usar');
+    if (us) us.onclick = () => { const t = document.getElementById('imp-txt').value; if (t.trim()) importarDe(async () => Importar.parsear(t), 'lo pegado'); };
+    document.getElementById('imp-plantilla').onclick = () => Importar.plantilla().catch(e => mostrarError(e.message));
+    if (st.impRes) pintarResImp();
     document.getElementById('add').onclick = () => {
       const ult = st.servicios[st.servicios.length - 1];
       st.servicios.push({ categoria: ult ? ult.categoria : 'General', nombre: '', precio: '' }); pintar();
@@ -1509,10 +1590,11 @@ function validar() {
     if (new Set(st.equipo.map(e => norm(e.nombre))).size !== st.equipo.length) return 'Hay dos personas con el mismo nombre. Agrega la inicial del apellido para diferenciarlas.';
   }
   if (p === 'servicios') {
-    st.servicios = st.servicios.filter(s => String(s.nombre).trim() || String(s.precio).trim());
+    st.servicios = st.servicios.filter(s => String(s.nombre).trim() || String(s.precio).trim() || s.libre);
     if (!st.servicios.length) return 'Agrega al menos un servicio.';
     for (const s of st.servicios) {
       if (!String(s.nombre).trim()) return 'Hay un servicio sin nombre.';
+      if (s.libre && String(s.precio).trim() === '') continue;
       if (String(s.precio).trim() === '' || isNaN(Number(s.precio)) || Number(s.precio) < 0) return 'Revisa el precio de “' + esc(s.nombre) + '”.';
     }
     if (new Set(st.servicios.map(s => norm(s.nombre))).size !== st.servicios.length) return 'Hay servicios repetidos.';
@@ -1554,7 +1636,8 @@ async function crearCuenta() {
       negocio: st.negocio, rubro: st.rubro, moneda: monedaDePrefijo(pref),
       sedes: st.sedes.map(s => ({ nombre: s, meta: 0, posTope: 0 })),
       equipo: st.equipo.map(e => ({ nombre: e.nombre, sede: st.sedes[e.sede] || st.sedes[0] })),
-      servicios: st.servicios.map(s => ({ categoria: s.categoria, nombre: s.nombre.trim(), precio: Number(s.precio) })),
+      servicios: st.servicios.map(s => { const o = { categoria: s.categoria, nombre: s.nombre.trim(), precio: s.libre && String(s.precio).trim() === '' ? 0 : Number(s.precio) };
+        if (s.libre && String(s.precio).trim() === '') o.libre = true; if (s.comValor != null) { o.comTipo = s.comTipo; o.comValor = s.comValor; } return o; }),
       metodos: METODOS.filter(m => st.metodos.indexOf(m[0]) !== -1).map(m => ({ nombre: m[0], tipo: m[1] })),
       comisionPct: st.comisionPct, upselling: true,
       pagadores: ['Caja', st.dueno.trim().split(' ')[0]]
