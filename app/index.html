@@ -146,7 +146,10 @@
   .hoja { background: var(--bg); width: 100%; max-width: 640px; max-height: 92vh; border-radius: 20px 20px 0 0; overflow-y: auto; -webkit-overflow-scrolling: touch;
     padding: 0 16px calc(24px + env(safe-area-inset-bottom)); transform: translateY(100%); transition: transform .3s cubic-bezier(.2,.8,.2,1); }
   .hoja-fondo.on .hoja { transform: none; }
-  .hoja.completa { height: 100vh; max-height: 100vh; border-radius: 0; padding-top: env(safe-area-inset-top); }
+  .hoja.completa { height: 100vh; height: 100dvh; max-height: none; border-radius: 0; padding-top: 0; }
+  /* La barra con "Atrás" siempre visible, debajo del notch / barra de estado */
+  .hoja.completa .hoja-nav { margin: 0 -16px; padding: calc(12px + env(safe-area-inset-top)) 16px 12px; border-bottom: 1px solid rgba(0,0,0,.06); }
+  .hoja-nav button.izq { font-weight: 500; }
   .hoja-nav { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: center; padding: 14px 0; background: var(--bg); }
   .hoja-nav b { font-size: 17px; }
   .hoja-nav button { background: none; border: none; color: var(--accent); font-size: 17px; cursor: pointer; padding: 4px 0; min-width: 70px; }
@@ -1078,7 +1081,17 @@ async function copiarTxt(t) { if (await copiar(t)) toast('Copiado. Pégalo en Wh
 // =====================================================================
 // HOJAS
 // =====================================================================
+// Historial: el botón/gesto "atrás" del celular regresa dentro de Ajustes o cierra la hoja (no sale de la app)
+let HOJA_HIST = false, IGNORAR_POP = 0;
+window.addEventListener('popstate', () => {
+  if (IGNORAR_POP) { IGNORAR_POP--; return; }
+  if (!HOJA_HIST) return;
+  const atras = document.querySelector('#hoja .hoja-nav .izq');
+  if (atras && /Atrás/.test(atras.textContent)) { history.pushState({ hoja: 1 }, ''); atras.click(); }
+  else { HOJA_HIST = false; cerrarHojaUI(); }
+});
 function abrirHoja(html, completa) {
+  if (!HOJA_HIST) { try { history.pushState({ hoja: 1 }, ''); HOJA_HIST = true; } catch (e) {} }
   const f = document.getElementById('hoja-fondo'), h = document.getElementById('hoja');
   h.className = 'hoja' + (completa ? ' completa' : '');
   h.innerHTML = html; h.scrollTop = 0;
@@ -1086,6 +1099,10 @@ function abrirHoja(html, completa) {
   document.body.style.overflow = 'hidden';
 }
 function cerrarHoja() {
+  cerrarHojaUI();
+  if (HOJA_HIST) { HOJA_HIST = false; IGNORAR_POP++; try { history.back(); } catch (e) { IGNORAR_POP--; } }
+}
+function cerrarHojaUI() {
   const f = document.getElementById('hoja-fondo');
   f.classList.remove('on'); document.body.style.overflow = '';
   setTimeout(() => { if (!f.classList.contains('on')) f.style.display = 'none'; }, 300);
