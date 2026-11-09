@@ -179,7 +179,13 @@ function arrancar() {
   const q = new URLSearchParams(location.search);
   const kUrl = q.get('k');
   K = kUrl || leerLocal('leg_k') || '';
-  if (kUrl && kUrl !== leerLocal('leg_k')) { borrarLocal('leg_eq_token'); borrarLocal('leg_eq_cfg'); }
+  const kViejo = leerLocal('leg_k');
+  if (kUrl && kUrl !== kViejo) {
+    // Otro negocio en este celular: se olvida lo del anterior (nombre, sede, historial)
+    ['leg_eq_token', 'leg_eq_cfg', 'leg_eq_yo', 'leg_eq_sede', 'leg_eq_hist'].forEach(borrarLocal);
+    const cola = leerLocal('leg_eq_cola', true);
+    if (kViejo && cola && cola.length) { guardarLocal('leg_eq_cola_' + kViejo, cola); borrarLocal('leg_eq_cola'); }
+  }
   if (!K) return mensaje('Abre el link que te envió el dueño del negocio para empezar a registrar.');
   guardarLocal('leg_k', K);
   TOKEN = leerLocal('leg_eq_token') || '';
@@ -245,10 +251,13 @@ async function abrirInstalar() {
 // ===================== FORMULARIO =====================
 function pintarTrabajadores() {
   const s = document.getElementById('trab');
-  const guardado = leerLocal('leg_eq_yo') || '';
+  let guardado = leerLocal('leg_eq_yo') || '';
+  if (!CFG.equipo.some(e => e.nombre === guardado)) guardado = CFG.equipo.length === 1 ? CFG.equipo[0].nombre : '';
   s.innerHTML = '<option value="" disabled' + (guardado ? '' : ' selected') + '>Elige tu nombre…</option>' +
-    CFG.equipo.map(e => '<option' + (e.nombre === guardado ? ' selected' : '') + '>' + esc(e.nombre) + '</option>').join('');
-  sel.trab = CFG.equipo.some(e => e.nombre === guardado) ? guardado : '';
+    CFG.equipo.map(e => '<option value="' + esc(e.nombre) + '"' + (e.nombre === guardado ? ' selected' : '') + '>' + esc(e.nombre) + '</option>').join('');
+  s.value = guardado;
+  sel.trab = guardado;
+  if (guardado) guardarLocal('leg_eq_yo', guardado);
   if (!sel.sede) {
     const sd = leerLocal('leg_eq_sede');
     const yo = CFG.equipo.find(e => e.nombre === sel.trab);
@@ -349,6 +358,7 @@ function historial() { return (leerLocal('leg_eq_hist', true) || []).filter(x =>
 function revisar() {
   const btn = document.getElementById('btn-enviar');
   const cliente = inpCli.value.trim();
+  if (!sel.trab) sel.trab = document.getElementById('trab').value || '';
   const falta = !sel.trab ? 'Elige tu nombre' : !cliente ? 'Escribe el nombre' : !sel.metodo ? 'Elige el método de pago' : !sel.estado ? 'Elige si es nueva o recurrente' : !servSel.length ? 'Elige los servicios' : servSel.some(s => s.libre && !(precioNum(s.precio) > 0)) ? 'Escribe el precio' : '';
   if (falta === 'Escribe el precio') document.querySelectorAll('.pin').forEach(x => { if (!(precioNum(x.value) > 0)) { x.classList.add('mal'); x.focus(); } });
   if (falta) {
