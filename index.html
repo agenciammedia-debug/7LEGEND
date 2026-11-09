@@ -1244,7 +1244,7 @@ function simular(clave) { // si el navegador no deja reproducir ni en silencio: 
   pintarVoz();
 }
 function hablar(clave) {
-  if (!SUBS[clave]) return;
+  if (!SUBS[clave] || $('registro').classList.contains('on')) return;
   detenerSimulado();
   VOZ.actual = clave; VOZ.tocadas[clave] = true; VOZ.pausaManual = false;
   VOZ.audio.src = 'voz/' + clave + '.mp3';
@@ -1253,6 +1253,7 @@ function hablar(clave) {
   subt.innerHTML = frases.map((f, k) => '<div class="frase' + (k ? '' : ' actual') + '">' + f.split(' ').map(p => '<span class="pal">' + p + ' </span>').join('') + '</div>').join('');
   subt.classList.add('on');
   VOZ.audio.play().catch(() => {
+    if ($('registro').classList.contains('on')) return;
     if (!VOZ.mudo) { VOZ.mudo = true; VOZ.audio.muted = true; VOZ.audio.play().catch(() => simular(clave)); pintarVoz(); }
     else simular(clave);
   });
@@ -1315,7 +1316,7 @@ document.querySelectorAll('[data-voz]').forEach(s => vozObs.observe(s));
 
 // Al abrir el registro, la voz se calla
 new MutationObserver(() => {
-  if ($('registro').classList.contains('on')) { VOZ.audio.pause(); detenerSimulado(); VOZ.tour = false; subt.classList.remove('on'); pintarVoz(); }
+  if ($('registro').classList.contains('on')) { VOZ.pausaManual = true; VOZ.audio.pause(); detenerSimulado(); VOZ.tour = false; subt.classList.remove('on'); pintarVoz(); }
 }).observe($('registro'), { attributes: true, attributeFilter: ['class'] });
 
 // Botón de voz y "Probar gratis" siempre justo encima de los subtítulos
@@ -1365,6 +1366,7 @@ const st = {
 const PASOS = ['negocio', 'sedes', 'equipo', 'servicios', 'cobros', 'cuenta'];
 
 function abrirRegistro() {
+  VOZ.pausaManual = true; VOZ.tour = false; VOZ.audio.pause(); detenerSimulado(); subt.classList.remove('on'); pintarVoz();
   const borrador = leerLocal('leg_borrador', true);
   if (borrador && borrador.rubro) Object.assign(st, borrador, { clave: '' });
   document.getElementById('registro').classList.add('on');
