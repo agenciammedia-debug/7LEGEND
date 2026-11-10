@@ -15,6 +15,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <script src="config.js"></script>
 <script src="comun.js"></script>
+<script>
+// Píxel de Meta (se activa al poner META_PIXEL_ID en config.js)
+(function () {
+  const id = window.LEGEND && LEGEND.META_PIXEL_ID;
+  try { const q = new URLSearchParams(location.search); if (q.get('fbclid')) localStorage.setItem('leg_fbclid', JSON.stringify({ v: q.get('fbclid'), t: Date.now() })); } catch (e) {}
+  if (!id) return;
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', id); fbq('track', 'PageView');
+})();
+window.metaEvento = function (nombre, datos, idEvento) { try { if (window.fbq) fbq('track', nombre, datos || {}, idEvento ? { eventID: idEvento } : undefined); } catch (e) {} };
+window.datosMeta = function () {
+  const ck = n => (document.cookie.match('(?:^|; )' + n + '=([^;]*)') || [])[1] || '';
+  let fbc = ck('_fbc');
+  if (!fbc) { try { const c = JSON.parse(localStorage.getItem('leg_fbclid') || 'null'); if (c && c.v) fbc = 'fb.1.' + c.t + '.' + c.v; } catch (e) {} }
+  return { fbp: ck('_fbp'), fbc: fbc, ua: navigator.userAgent, url: location.href };
+};
+</script>
 <script src="importar.js" defer></script>
 <style>
   :root { --ink: #1d1d1f; --ink2: #6e6e73; --ink3: #86868b; --line: #e8e8ed; --bg: #fff; --bg2: #f5f5f7;
@@ -846,7 +863,7 @@
 </section>
 
 <footer>
-  <div class="wrap"><span><b style="color:var(--ink)">7LEGEND</b> · Los números de tu negocio en orden.</span><span>¿Ya tienes cuenta? <a href="app/">Entrar</a></span></div>
+  <div class="wrap"><span><b style="color:var(--ink)">7LEGEND</b> · Los números de tu negocio en orden.</span><span>¿Ya tienes cuenta? <a href="app/">Entrar</a> · <a href="privacidad/">Privacidad y términos</a></span></div>
 </footer>
 
 <div class="barra-cta" id="barra-cta"><div class="t"><b>14 días gratis</b>Luego S/ <span class="precio-num">100</span>/mes · sin tarjeta</div><button class="btn btn-primary" onclick="abrirRegistro()">Probar gratis</button></div>
@@ -1173,6 +1190,7 @@ if (!REDUCIR) setInterval(() => {
   fondo.addEventListener('click', e => { if (e.target === fondo) cerrarEmpuje(); });
   // Celular: tras ver el precio y seguir 25 s sin registrarse
   let tPrecio = null;
+  alVer($('precio'), () => metaEvento('ViewContent', { content_name: 'precio' }), .3);
   alVer($('precio'), () => { tPrecio = setTimeout(abrir, 25000); }, .3);
   // Escritorio: cuando el mouse sale por arriba (intención de cerrar)
   document.addEventListener('mouseout', e => { if (!e.relatedTarget && e.clientY < 8 && scrollY > innerHeight) abrir(); });
@@ -1366,6 +1384,7 @@ const st = {
 const PASOS = ['negocio', 'sedes', 'equipo', 'servicios', 'cobros', 'cuenta'];
 
 function abrirRegistro() {
+  if (!window._leadMeta) { window._leadMeta = 1; metaEvento('Lead', { content_name: 'registro' }); }
   VOZ.pausaManual = true; VOZ.tour = false; VOZ.audio.pause(); detenerSimulado(); subt.classList.remove('on'); pintarVoz();
   const borrador = leerLocal('leg_borrador', true);
   if (borrador && borrador.rubro) Object.assign(st, borrador, { clave: '' });
@@ -1633,7 +1652,7 @@ async function crearCuenta() {
   const dig = st.whatsapp.replace(/\D/g, '');
   const payload = {
     web: document.getElementById('f-web').value,
-    fuente: leerLocal('leg_fuente') || '', publico: !!st.publico, dueno: st.dueno.trim(), email: st.email.trim(), whatsapp: dig.length <= 9 ? pref + dig : dig, clave: st.clave,
+    fuente: leerLocal('leg_fuente') || '', publico: !!st.publico, meta: datosMeta(), dueno: st.dueno.trim(), email: st.email.trim(), whatsapp: dig.length <= 9 ? pref + dig : dig, clave: st.clave,
     config: {
       negocio: st.negocio, rubro: st.rubro, moneda: monedaDePrefijo(pref),
       sedes: st.sedes.map(s => ({ nombre: s, meta: 0, posTope: 0 })),
@@ -1649,6 +1668,8 @@ async function crearCuenta() {
   const inicio = Date.now();
   try {
     const r = await api('registrar', payload, '', 90000);
+    metaEvento('CompleteRegistration', { status: 'trial' }, 'reg_' + r.id);
+    metaEvento('StartTrial', { value: 0, currency: 'PEN', predicted_ltv: 600 }, 'trial_' + r.id);
     await esperarAnimacion(inicio);
     guardarLocal('leg_token', r.token);
     guardarLocal('leg_negocio', r.negocio);
