@@ -8,6 +8,7 @@ window.LEGEND = {
   ONESIGNAL_APP_ID: 'b3722d3c-98ee-48d0-a9d8-f488f92d76f0',
   // Tu WhatsApp de ventas/soporte: código de país + número, sin "+"
   WHATSAPP: '51987968939',
+    META_PIXEL_ID: '1118614847822357',
   PRECIO: 100,
   DIAS_PRUEBA: 14
 };
