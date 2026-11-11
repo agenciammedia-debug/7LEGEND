@@ -907,9 +907,20 @@ const fmt = n => 'S/ ' + Math.round(n).toLocaleString('es-PE');
 // Origen de la visita (anuncio, Instagram…), se guarda con el registro
 (function () {
   const q = new URLSearchParams(location.search);
-  const f = q.get('utm_source') || q.get('ref') || q.get('fuente') || (document.referrer.includes('instagram') ? 'instagram' : '');
-  const c = q.get('utm_campaign') || '';
+  const r = document.referrer || '';
+  const f = q.get('utm_source') || q.get('ref') || q.get('fuente') || (r.includes('instagram') ? 'instagram' : r.includes('facebook') || q.get('fbclid') ? 'facebook' : '');
+  const c = q.get('utm_campaign') || '', a = q.get('utm_content') || '';
   if (f || c) guardarLocal('leg_fuente', [f, c].filter(Boolean).join(' · '));
+  if (f || c || a) guardarLocal('leg_utm', { s: f, c: c, a: a, t: Date.now() });
+  // Visita para el panel de anuncios (1 por sesión; no cuenta en el navegador donde abres el panel)
+  try {
+    if (sessionStorage.getItem('leg_vis') || localStorage.getItem('leg_panel') || !window.api || !L.API_URL || L.API_URL.indexOf('PEGA_AQUI') !== -1) return;
+    sessionStorage.setItem('leg_vis', '1');
+    const ua = navigator.userAgent, dev = /iPad|Tablet/i.test(ua) ? 'tablet' : /Mobi|Android|iPhone/i.test(ua) ? 'movil' : 'pc';
+    let host = ''; try { host = r ? new URL(r).hostname.replace(/^www\./, '') : ''; } catch (e) {}
+    if (host === location.hostname) host = '';
+    setTimeout(() => api('visita', { s: f || (host ? 'web' : 'directo'), c: c, a: a, dev: dev, ref: host }, '', 10000).catch(() => {}), 400);
+  } catch (e) {}
 })();
 
 function contar(el, desde, hasta, ms) {
@@ -1652,7 +1663,7 @@ async function crearCuenta() {
   const dig = st.whatsapp.replace(/\D/g, '');
   const payload = {
     web: document.getElementById('f-web').value,
-    fuente: leerLocal('leg_fuente') || '', publico: !!st.publico, meta: datosMeta(), dueno: st.dueno.trim(), email: st.email.trim(), whatsapp: dig.length <= 9 ? pref + dig : dig, clave: st.clave,
+    fuente: leerLocal('leg_fuente') || '', utm: leerLocal('leg_utm', true), publico: !!st.publico, meta: datosMeta(), dueno: st.dueno.trim(), email: st.email.trim(), whatsapp: dig.length <= 9 ? pref + dig : dig, clave: st.clave,
     config: {
       negocio: st.negocio, rubro: st.rubro, moneda: monedaDePrefijo(pref),
       sedes: st.sedes.map(s => ({ nombre: s, meta: 0, posTope: 0 })),
