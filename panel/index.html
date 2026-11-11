@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Panel de anuncios · 7LEGEND</title>
+<link rel="icon" href="../img/icon-192.png">
+<script src="../config.js"></script>
+<script src="../comun.js"></script>
+<style>
+  :root { --ink: #1d1d1f; --ink2: #6e6e73; --ink3: #8e8e93; --line: #e5e5ea; --bg: #f5f5f7; --card: #fff;
+    --accent: #0071e3; --green: #1a7f37; --green-bg: #e8f6ec; --amber: #9a6700; --amber-bg: #fff4d6; --red: #c62828; --red-bg: #fdecec;
+    --vis: #a8c7fa; --reg: #0071e3; }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink: #f5f5f7; --ink2: #a1a1a6; --ink3: #8e8e93; --line: #2c2c2e; --bg: #000; --card: #1c1c1e;
+      --accent: #2997ff; --green: #30d158; --green-bg: #0f2a17; --amber: #ffd60a; --amber-bg: #2b2405; --red: #ff6961; --red-bg: #2e1212;
+      --vis: #2c4a73; --reg: #2997ff; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Text", Inter, "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: max(20px, env(safe-area-inset-top)) 16px 48px; }
+  header { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+  header h1 { font-size: 24px; letter-spacing: -0.02em; margin: 0; flex: 1; min-width: 200px; }
+  header h1 span { color: var(--ink2); font-weight: 500; font-size: 15px; display: block; letter-spacing: 0; }
+  .seg { display: inline-flex; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 3px; }
+  .seg button { border: 0; background: none; color: var(--ink2); font: inherit; font-size: 14px; padding: 6px 12px; border-radius: 7px; cursor: pointer; }
+  .seg button.on { background: var(--ink); color: var(--card); font-weight: 600; }
+  .btn { border: 1px solid var(--line); background: var(--card); color: var(--ink); font: inherit; font-size: 14px; padding: 7px 12px; border-radius: 10px; cursor: pointer; }
+  .btn-primary { background: var(--accent); border-color: var(--accent); color: #fff; font-weight: 600; }
+  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 12px; }
+  @media (max-width: 760px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px; }
+  .kpi .lbl { color: var(--ink2); font-size: 13px; }
+  .kpi .val { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; margin-top: 2px; }
+  .kpi .sub { color: var(--ink3); font-size: 13px; margin-top: 2px; }
+  h2 { font-size: 16px; margin: 0 0 12px; letter-spacing: -0.01em; }
+  .grid2 { display: grid; grid-template-columns: 1.2fr 1fr; gap: 12px; margin-bottom: 12px; }
+  @media (max-width: 860px) { .grid2 { grid-template-columns: 1fr; } }
+  .funnel .paso { margin-bottom: 12px; }
+  .funnel .fila { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 5px; }
+  .funnel .fila b { font-variant-numeric: tabular-nums; }
+  .barra { height: 12px; background: var(--bg); border-radius: 6px; overflow: hidden; }
+  .barra i { display: block; height: 100%; background: var(--accent); border-radius: 6px; min-width: 2px; }
+  .funnel .tasa { color: var(--ink3); font-size: 12px; margin-top: 3px; }
+  .leyenda { display: flex; gap: 14px; font-size: 12px; color: var(--ink2); margin-bottom: 6px; }
+  .leyenda i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+  svg text { fill: var(--ink3); font-size: 10px; }
+  .tabla { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: right; font-weight: 600; color: var(--ink2); font-size: 12px; padding: 8px 10px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  td { text-align: right; padding: 10px; border-bottom: 1px solid var(--line); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; }
+  tr:last-child td { border-bottom: 0; }
+  tfoot td { font-weight: 700; border-top: 1px solid var(--line); }
+  .ad { font-weight: 600; } .ad small { display: block; font-weight: 400; color: var(--ink3); font-size: 12px; }
+  .muted { color: var(--ink3); }
+  .chip { display: inline-block; font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: 999px; }
+  .chip.pago { background: var(--green-bg); color: var(--green); }
+  .chip.prueba { background: var(--bg); color: var(--ink2); }
+  .chip.revision { background: var(--amber-bg); color: var(--amber); }
+  .chip.vencido, .chip.suspendido { background: var(--red-bg); color: var(--red); }
+  .regs { list-style: none; margin: 0; padding: 0; }
+  .regs li { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--line); }
+  .regs li:last-child { border-bottom: 0; }
+  .regs .q { flex: 1; min-width: 0; }
+  .regs .q b { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .regs .q span { color: var(--ink3); font-size: 13px; }
+  @media (max-width: 520px) { .regs li { flex-wrap: wrap; gap: 6px 10px; } .regs .q { flex-basis: 100%; } }
+  .wa { color: var(--green); text-decoration: none; font-weight: 600; font-size: 13px; white-space: nowrap; }
+  .nota { color: var(--ink3); font-size: 13px; margin-top: 14px; }
+  .login { max-width: 360px; margin: 14vh auto 0; text-align: center; }
+  .login input { width: 100%; font: inherit; font-size: 16px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: var(--ink); margin: 14px 0 10px; }
+  .login .btn { width: 100%; padding: 12px; font-size: 16px; }
+  .err { color: var(--red); font-size: 14px; min-height: 20px; margin-top: 8px; }
+  .vacio { color: var(--ink3); text-align: center; padding: 18px 0; }
+  .cargando { opacity: .55; pointer-events: none; transition: opacity .2s; }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const L = window.LEGEND || {};
+const $ = id => document.getElementById(id);
+const DIA = 86400000;
+const ANUNCIOS = { '1B': '1B · Dolor', '1C': '1C · Después', '2': '2 · Comisiones', '3': '3 · Bolsillo', '4': '4 · Cierre', 'CAR': 'Carrusel', 'VID': 'Video (Reel)' };
+const META = ['meta', 'facebook', 'fb', 'instagram', 'ig', 'an', 'msg'];
+let DATOS = null, RANGO = leerLocal('leg_panel_rango') || '7', cargando = false;
+
+function origen(s, a) {
+  s = String(s || '').toLowerCase(); a = String(a || '');
+  if (a && (s === 'meta' || s === 'fb' || s === 'ig' || !s)) return { k: 'ad:' + a, n: ANUNCIOS[a] || ('Anuncio ' + a), sub: 'Meta Ads', ad: 1 };
+  if (s === 'meta') return { k: 'meta', n: 'Meta (sin anuncio)', sub: 'Meta Ads', ad: 1 };
+  if (s === 'instagram' || s === 'ig') return { k: 'ig', n: 'Instagram', sub: 'Orgánico' };
+  if (s === 'facebook') return { k: 'fb', n: 'Facebook', sub: 'Orgánico' };
+  if (s === 'directo') return { k: 'dir', n: 'Directo', sub: 'Link escrito o compartido' };
+  if (s === 'web') return { k: 'web', n: 'Otras webs', sub: 'Google y otros' };
+  if (!s) return { k: 'nd', n: 'Sin dato', sub: 'Registros antiguos' };
+  return { k: 's:' + s, n: s.charAt(0).toUpperCase() + s.slice(1), sub: 'Otro origen' };
+}
+const n0 = v => Number(v || 0).toLocaleString('es-PE');
+const pct = (a, b) => b ? (a / b * 100).toLocaleString('es-PE', { maximumFractionDigits: 1 }) + '%' : '—';
+const dinero = (m, mon) => (window.simbolo ? simbolo(mon || 'PEN') : 'S/') + ' ' + Number(m || 0).toLocaleString('es-PE', { maximumFractionDigits: 2 });
+const diaKey = ms => { const d = new Date(ms); return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); };
+const fecha = ms => new Date(ms).toLocaleDateString('es-PE', { day: 'numeric', month: 'short' }) + ' · ' + new Date(ms).toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' });
+const inicioHoy = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d.getTime(); };
+function desde() {
+  if (RANGO === 'hoy') return inicioHoy();
+  if (RANGO === 'todo') return 0;
+  return inicioHoy() - (Number(RANGO) - 1) * DIA;
+}
+
+function pintarLogin(msg) {
+  $('app').innerHTML = '<div class="login card"><h1 style="margin:4px 0 4px;font-size:22px">Panel de anuncios</h1>' +
+    '<div class="muted">Visitas, registros y pagos de 7LEGEND</div>' +
+    '<input id="clave" type="password" autocomplete="current-password" placeholder="Clave del panel">' +
+    '<button class="btn btn-primary" id="entrar">Entrar</button><div class="err" id="err">' + esc(msg || '') + '</div></div>';
+  const ir = () => { const c = $('clave').value.trim(); if (c) cargar(c, true); };
+  $('entrar').onclick = ir; $('clave').onkeydown = e => { if (e.key === 'Enter') ir(); };
+  $('clave').focus();
+}
+
+async function cargar(clave, desdeLogin) {
+  if (cargando) return; cargando = true;
+  if (desdeLogin) { $('entrar').textContent = 'Entrando…'; } else if ($('cuerpo')) $('cuerpo').classList.add('cargando');
+  try {
+    DATOS = await api('embudo', { clave: clave }, '', 45000);
+    guardarLocal('leg_panel', clave);
+    pintar();
+  } catch (e) {
+    if (e.code === 'AUTH') { borrarLocal('leg_panel'); pintarLogin('Clave incorrecta.'); }
+    else if (desdeLogin) { pintarLogin(e.message); }
+    else if ($('estado')) $('estado').textContent = 'No se pudo actualizar: ' + e.message;
+    else pintarLogin(e.message);
+  } finally { cargando = false; }
+}
+
+function pintar() {
+  const d0 = desde(), D = DATOS;
+  const vis = D.visitas.filter(v => v[0] >= d0);
+  const regs = D.registros.filter(r => r.f >= d0).sort((a, b) => b.f - a.f);
+  const pagaron = regs.filter(r => r.estado === 'pago');
+  const ing = {}; regs.forEach(r => r.pagos.forEach(p => { ing[p.mon] = (ing[p.mon] || 0) + p.m; }));
+  const ingTxt = Object.keys(ing).length ? Object.keys(ing).map(m => dinero(ing[m], m)).join(' + ') : dinero(0);
+  const enPrueba = regs.filter(r => r.estado === 'prueba').length;
+
+  // Por origen
+  const filas = {};
+  const fila = o => filas[o.k] = filas[o.k] || { o: o, v: 0, r: 0, p: 0, ing: 0 };
+  vis.forEach(v => fila(origen(v[1], v[2])).v++);
+  regs.forEach(r => { const f = fila(origen(r.s, r.a)); f.r++; if (r.estado === 'pago') { f.p++; r.pagos.forEach(p => { if (p.mon === 'PEN') f.ing += p.m; }); } });
+  const orden = Object.values(filas).sort((a, b) => (b.o.ad || 0) - (a.o.ad || 0) || b.v - a.v || b.r - a.r);
+  const adsV = orden.filter(f => f.o.ad).reduce((s, f) => s + f.v, 0), adsR = orden.filter(f => f.o.ad).reduce((s, f) => s + f.r, 0);
+
+  // Por día
+  const dias = [], fin = inicioHoy();
+  let ini = d0 || Math.min(fin, ...D.visitas.map(v => v[0]), ...D.registros.map(r => r.f));
+  ini = Math.max(new Date(ini).setHours(0, 0, 0, 0), fin - 59 * DIA);
+  for (let t = ini; t <= fin; t += DIA) dias.push({ k: diaKey(t), t: t, v: 0, r: 0 });
+  const idx = {}; dias.forEach((x, i) => idx[x.k] = i);
+  vis.forEach(v => { const i = idx[diaKey(v[0])]; if (i != null) dias[i].v++; });
+  regs.forEach(r => { const i = idx[diaKey(r.f)]; if (i != null) dias[i].r++; });
+
+  const rangos = [['hoy', 'Hoy'], ['7', '7 días'], ['30', '30 días'], ['todo', 'Todo']];
+  $('app').innerHTML =
+    '<header><h1>Panel de anuncios<span id="estado">Actualizado ' + new Date().toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' }) + '</span></h1>' +
+    '<div class="seg">' + rangos.map(r => '<button data-r="' + r[0] + '"' + (RANGO === r[0] ? ' class="on"' : '') + '>' + r[1] + '</button>').join('') + '</div>' +
+    '<button class="btn" id="act">Actualizar</button></header>' +
+    '<div id="cuerpo">' +
+    '<div class="kpis">' +
+      kpi('Visitas a la página', n0(vis.length), adsV ? n0(adsV) + ' desde anuncios' : 'Personas que abrieron 7legend.app') +
+      kpi('Se registraron', n0(regs.length), pct(regs.length, vis.length) + ' de las visitas') +
+      kpi('Pagaron', n0(pagaron.length), pct(pagaron.length, regs.length) + ' de los registros · ' + enPrueba + ' en prueba') +
+      kpi('Ingresos', esc(ingTxt), 'De los registros de este periodo') +
+    '</div>' +
+    '<div class="grid2">' +
+      '<div class="card"><h2>Por día</h2><div class="leyenda"><span><i style="background:var(--vis)"></i>Visitas</span><span><i style="background:var(--reg)"></i>Registros</span></div>' + grafico(dias) + '</div>' +
+      '<div class="card funnel"><h2>Embudo</h2>' +
+        paso('Visitas', vis.length, vis.length, '') +
+        paso('Registros (prueba gratis)', regs.length, vis.length, pct(regs.length, vis.length) + ' de visitas → registro') +
+        paso('Pagaron', pagaron.length, vis.length, pct(pagaron.length, regs.length) + ' de registros → pago') +
+        (adsV || adsR ? '<div class="nota">Solo anuncios: ' + n0(adsV) + ' visitas → ' + n0(adsR) + ' registros (' + pct(adsR, adsV) + ')</div>' : '') +
+      '</div>' +
+    '</div>' +
+    '<div class="card" style="margin-bottom:12px"><h2>¿Qué anuncio funciona mejor?</h2><div class="tabla"><table>' +
+      '<thead><tr><th>Origen</th><th>Visitas</th><th>Registros</th><th>Visita → registro</th><th>Pagaron</th><th>Ingresos</th></tr></thead><tbody>' +
+      (orden.length ? orden.map(f => '<tr><td class="ad">' + esc(f.o.n) + '<small>' + esc(f.o.sub) + '</small></td><td>' + n0(f.v) + '</td><td>' + n0(f.r) +
+        '</td><td>' + (f.v ? pct(f.r, f.v) : '<span class="muted">—</span>') + '</td><td>' + n0(f.p) + '</td><td>' + (f.ing ? dinero(f.ing) : '<span class="muted">—</span>') + '</td></tr>').join('')
+        : '<tr><td colspan="6" class="vacio">Aún no hay visitas en este periodo.</td></tr>') +
+      '</tbody>' + (orden.length > 1 ? '<tfoot><tr><td>Total</td><td>' + n0(vis.length) + '</td><td>' + n0(regs.length) + '</td><td>' + pct(regs.length, vis.length) + '</td><td>' + n0(pagaron.length) + '</td><td>' + (ing.PEN ? dinero(ing.PEN) : '—') + '</td></tr></tfoot>' : '') +
+    '</table></div></div>' +
+    '<div class="card"><h2>Registros' + (regs.length ? ' (' + regs.length + ')' : '') + '</h2>' +
+      (regs.length ? '<ul class="regs">' + regs.slice(0, 100).map(registro).join('') + '</ul>' : '<div class="vacio">Aún no hay registros en este periodo.</div>') +
+    '</div>' +
+    '<p class="nota">Las visitas se cuentan desde el 10/11/2026 (1 por persona por sesión; no se cuentan las tuyas desde este navegador). Gasto, alcance y costo por resultado: Ads Manager. ' +
+    '<a href="#" id="salir" style="color:inherit">Cerrar sesión</a></p>' +
+    '</div>';
+  document.querySelectorAll('.seg button').forEach(b => b.onclick = () => { RANGO = b.dataset.r; guardarLocal('leg_panel_rango', RANGO); pintar(); });
+  $('act').onclick = () => cargar(leerLocal('leg_panel'));
+  $('salir').onclick = e => { e.preventDefault(); borrarLocal('leg_panel'); pintarLogin(); };
+}
+
+function kpi(l, v, s) { return '<div class="card kpi"><div class="lbl">' + l + '</div><div class="val">' + v + '</div><div class="sub">' + s + '</div></div>'; }
+function paso(n, v, base, t) {
+  return '<div class="paso"><div class="fila"><span>' + n + '</span><b>' + n0(v) + '</b></div><div class="barra"><i style="width:' + (base ? Math.max(1, v / base * 100) : 0) + '%"></i></div>' + (t ? '<div class="tasa">' + t + '</div>' : '') + '</div>';
+}
+function grafico(dias) {
+  const W = 560, H = 190, pad = 22, max = Math.max(1, ...dias.map(d => Math.max(d.v, d.r)));
+  const bw = (W - pad) / dias.length, cada = Math.ceil(dias.length / 8);
+  let s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="Visitas y registros por día">';
+  [0, .5, 1].forEach(f => { const y = 6 + (H - 30) * (1 - f); s += '<line x1="' + pad + '" x2="' + W + '" y1="' + y + '" y2="' + y + '" stroke="var(--line)"/><text x="0" y="' + (y + 3) + '">' + Math.round(max * f) + '</text>'; });
+  dias.forEach((d, i) => {
+    const x = pad + i * bw, w = Math.max(2, bw * .7), hv = (H - 30) * d.v / max, hr = (H - 30) * d.r / max;
+    s += '<rect x="' + (x + bw * .15) + '" y="' + (6 + H - 30 - hv) + '" width="' + w + '" height="' + hv + '" rx="2" fill="var(--vis)"><title>' + d.k + ': ' + d.v + ' visitas, ' + d.r + ' registros</title></rect>';
+    if (d.r) s += '<rect x="' + (x + bw * .32) + '" y="' + (6 + H - 30 - hr) + '" width="' + Math.max(2, bw * .36) + '" height="' + hr + '" rx="2" fill="var(--reg)"/>';
+    if (i % cada === 0) s += '<text x="' + (x + bw / 2) + '" y="' + (H - 6) + '" text-anchor="middle">' + new Date(d.t).toLocaleDateString('es-PE', { day: 'numeric', month: 'short' }) + '</text>';
+  });
+  return s + '</svg>';
+}
+function registro(r) {
+  const o = origen(r.s, r.a), rub = { unas: 'Uñas', peluqueria: 'Peluquería', barberia: 'Barbería', pestanas: 'Pestañas', spa: 'Spa', estetica: 'Estética', tatuajes: 'Tatuajes', otro: 'Otro' }[r.rubro] || '';
+  let chip;
+  if (r.estado === 'pago') chip = '<span class="chip pago">Pagó ' + esc(r.pagos.length ? dinero(r.pagos.reduce((s, p) => s + p.m, 0), r.pagos[0].mon) : '') + '</span>';
+  else if (r.revision) chip = '<span class="chip revision">Comprobante en revisión</span>';
+  else if (r.estado === 'prueba') chip = '<span class="chip prueba">En prueba · ' + Math.max(0, Math.ceil((r.finPrueba - DATOS.ahora) / DIA)) + ' d</span>';
+  else chip = '<span class="chip vencido">' + (r.estado === 'suspendido' ? 'Suspendido' : 'Venció sin pagar') + '</span>';
+  const wa = String(r.wa || '').replace(/\D/g, '');
+  return '<li><div class="q"><b>' + esc(r.negocio) + '</b><span>' + esc([rub, r.dueno, o.n, fecha(r.f)].filter(Boolean).join(' · ')) + '</span></div>' + chip +
+    (wa ? '<a class="wa" target="_blank" rel="noopener" href="https://wa.me/' + wa + '">WhatsApp</a>' : '') + '</li>';
+}
+
+const guardada = leerLocal('leg_panel');
+if (guardada) { $('app').innerHTML = '<div class="vacio" style="margin-top:20vh">Cargando…</div>'; cargar(guardada); } else pintarLogin();
+setInterval(() => { if (!document.hidden && leerLocal('leg_panel')) cargar(leerLocal('leg_panel')); }, 5 * 60000);
+</script>
+</body>
+</html>
