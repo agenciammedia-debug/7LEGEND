@@ -218,14 +218,15 @@ function grafico(dias) {
   return s + '</svg>';
 }
 function registro(r) {
-  const o = origen(r.s, r.a), rub = { unas: 'Uñas', peluqueria: 'Peluquería', barberia: 'Barbería', pestanas: 'Pestañas', spa: 'Spa', estetica: 'Estética', tatuajes: 'Tatuajes', otro: 'Otro' }[r.rubro] || '';
+  const o = origen(r.s, r.a), rub = { salon: 'Salón de belleza', unas: 'Uñas', peluqueria: 'Peluquería', barberia: 'Barbería', pestanas: 'Pestañas', spa: 'Spa', estetica: 'Estética', tatuajes: 'Tatuajes', otro: 'Otro' }[r.rubro] || '';
   let chip;
   if (r.estado === 'pago') chip = '<span class="chip pago">Pagó ' + esc(r.pagos.length ? dinero(r.pagos.reduce((s, p) => s + p.m, 0), r.pagos[0].mon) : '') + '</span>';
   else if (r.revision) chip = '<span class="chip revision">Comprobante en revisión</span>';
   else if (r.estado === 'prueba') chip = '<span class="chip prueba">En prueba · ' + Math.max(0, Math.ceil((r.finPrueba - DATOS.ahora) / DIA)) + ' d</span>';
   else chip = '<span class="chip vencido">' + (r.estado === 'suspendido' ? 'Suspendido' : 'Venció sin pagar') + '</span>';
   const wa = String(r.wa || '').replace(/\D/g, '');
-  return '<li><div class="q"><b>' + esc(r.negocio) + '</b><span>' + esc([rub, r.dueno, o.n, fecha(r.f)].filter(Boolean).join(' · ')) + '</span></div>' + chip +
+  const uso = r.aten == null ? '' : r.aten ? ' · <b style="display:inline;color:var(--green)">' + r.aten + (r.aten === 1 ? ' atención' : ' atenciones') + '</b>' : ' · <b style="display:inline;color:var(--red)">Sin uso aún</b>';
+  return '<li><div class="q"><b>' + esc(r.negocio) + '</b><span>' + esc([rub, r.dueno, o.n, fecha(r.f)].filter(Boolean).join(' · ')) + uso + '</span></div>' + chip +
     (wa ? '<a class="wa" target="_blank" rel="noopener" href="https://wa.me/' + wa + '">WhatsApp</a>' : '') + '</li>';
 }
 
