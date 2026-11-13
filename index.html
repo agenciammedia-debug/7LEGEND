@@ -617,9 +617,9 @@ window.datosMeta = function () {
   <div class="burbujas" aria-hidden="true"><span></span><span></span></div>
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow entra" style="animation-delay:.05s"><span class="vivo"></span>Para salones, barberías y spas</div>
-      <h1 aria-label="Sabes cuánto ganó tu negocio este mes, y cuánto te quedó.">
-        <span class="w" style="animation-delay:.1s">Sabes</span> <span class="w" style="animation-delay:.18s">cuánto</span> <span class="w" style="animation-delay:.26s">ganó</span> <span class="w" style="animation-delay:.34s">tu</span> <span class="w" style="animation-delay:.42s">negocio</span> <span class="w" style="animation-delay:.5s">este</span> <span class="w" style="animation-delay:.58s">mes,</span>
+      <div class="eyebrow entra" style="animation-delay:.05s"><span class="vivo"></span>Para salones de belleza, uñas, spas y barberías</div>
+      <h1 aria-label="Sabes cuánto ganó tu salón este mes, y cuánto te quedó.">
+        <span class="w" style="animation-delay:.1s">Sabes</span> <span class="w" style="animation-delay:.18s">cuánto</span> <span class="w" style="animation-delay:.26s">ganó</span> <span class="w" style="animation-delay:.34s">tu</span> <span class="w" style="animation-delay:.42s">salón</span> <span class="w" style="animation-delay:.5s">este</span> <span class="w" style="animation-delay:.58s">mes,</span>
         <span class="w azul" style="animation-delay:.72s">y</span> <span class="w azul" style="animation-delay:.8s">cuánto</span> <span class="w azul" style="animation-delay:.88s">te</span> <span class="w azul" style="animation-delay:.96s">quedó.</span>
       </h1>
       <p class="sub entra" style="animation-delay:.9s">Tu equipo registra cada atención desde su celular. Tú ves al instante cuánto entró, por Yape, tarjeta o efectivo, y cuánto le toca a cada una.</p>
@@ -1150,7 +1150,7 @@ if (!REDUCIR) setInterval(() => {
 // ACTIVIDAD REAL: negocios que empezaron su prueba (datos del sistema)
 // =====================================================
 (function () {
-  const RUB = { unas: ['💅', 'Un salón de uñas'], peluqueria: ['✂️', 'Una peluquería'], barberia: ['💈', 'Una barbería'], pestanas: ['👁️', 'Un estudio de pestañas'],
+  const RUB = { salon: ['💇‍♀️', 'Un salón de belleza'], unas: ['💅', 'Un salón de uñas'], peluqueria: ['✂️', 'Una peluquería'], barberia: ['💈', 'Una barbería'], pestanas: ['👁️', 'Un estudio de pestañas'],
     spa: ['💆', 'Un spa'], estetica: ['✨', 'Un centro de estética'], tatuajes: ['🖋️', 'Un estudio de tatuajes'], otro: ['🏪', 'Un negocio'] };
   function hace(ms) {
     const m = Math.round(ms / 60000);
@@ -1361,6 +1361,9 @@ setTimeout(() => { if (!document.hidden && scrollY < innerHeight * .5) iniciarVo
 
 // ================== Datos por rubro ==================
 const RUBROS = {
+  salon: { nombre: 'Salón de belleza (varios servicios)', e: '💇‍♀️', com: 30, serv: [
+    ['Cabello', 'Corte dama', 50], ['Cabello', 'Brushing', 40], ['Cabello', 'Tinte', 120], ['Cabello', 'Keratina', 200],
+    ['Uñas', 'Manicure', 30], ['Uñas', 'Manicure gel', 50], ['Uñas', 'Pedicure', 40], ['Cejas y pestañas', 'Diseño de cejas', 30], ['Cejas y pestañas', 'Lifting de pestañas', 80]] },
   unas: { nombre: 'Salón de uñas', e: '💅', com: 10, serv: [
     ['Manos', 'Manicure clásica', 30], ['Manos', 'Manicure gel', 50], ['Manos', 'Uñas acrílicas', 90], ['Manos', 'Retiro de gel', 15],
     ['Pies', 'Pedicure clásica', 40], ['Pies', 'Pedicure spa', 60], ['Extras', 'Diseño por uña', 5], ['Extras', 'Parafina', 20]] },
@@ -1382,10 +1385,10 @@ const RUBROS = {
   tatuajes: { nombre: 'Tatuajes', e: '🖋️', com: 50, serv: [
     ['Tatuajes', 'Tatuaje pequeño', 150], ['Tatuajes', 'Tatuaje mediano', 350], ['Tatuajes', 'Sesión por hora', 200],
     ['Piercing', 'Piercing', 60], ['Otros', 'Retoque', 80]] },
-  otro: { nombre: 'Otro', e: '🏪', com: 10, serv: [['General', 'Servicio 1', 50], ['General', 'Servicio 2', 80]] }
+  otro: { nombre: 'Otro (no es de belleza)', e: '🏪', com: 10, serv: [['General', 'Servicio 1', 50], ['General', 'Servicio 2', 80]] }
 };
 const METODOS = [['Yape', 'digital'], ['Plin', 'digital'], ['Efectivo', 'efectivo'], ['Tarjeta', 'tarjeta'], ['Transferencia', 'digital'], ['Canje', 'canje']];
-const TRAB = { unas: 'manicuristas', peluqueria: 'estilistas', barberia: 'barberos', pestanas: 'especialistas', spa: 'terapeutas', estetica: 'esteticistas', tatuajes: 'artistas', otro: 'colaboradores' };
+const TRAB = { salon: 'estilistas', unas: 'manicuristas', peluqueria: 'estilistas', barberia: 'barberos', pestanas: 'especialistas', spa: 'terapeutas', estetica: 'esteticistas', tatuajes: 'artistas', otro: 'colaboradores' };
 
 // ================== Estado del asistente ==================
 const st = {
@@ -1679,8 +1682,10 @@ async function crearCuenta() {
   const inicio = Date.now();
   try {
     const r = await api('registrar', payload, '', 90000);
-    metaEvento('CompleteRegistration', { status: 'trial' }, 'reg_' + r.id);
-    metaEvento('StartTrial', { value: 0, currency: 'PEN', predicted_ltv: 600 }, 'trial_' + r.id);
+    if (st.rubro !== 'otro') {  // a Meta solo le avisamos de negocios de belleza (el público objetivo)
+      metaEvento('CompleteRegistration', { status: 'trial' }, 'reg_' + r.id);
+      metaEvento('StartTrial', { value: 0, currency: 'PEN', predicted_ltv: 600 }, 'trial_' + r.id);
+    }
     await esperarAnimacion(inicio);
     guardarLocal('leg_token', r.token);
     guardarLocal('leg_negocio', r.negocio);
