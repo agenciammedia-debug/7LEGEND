@@ -120,13 +120,73 @@ function pintarLogin(msg) {
   $('clave').focus();
 }
 
+// ---- Face ID / huella (WebAuthn): desbloquea la clave guardada en este dispositivo ----
+let DESBLOQUEADO = false;
+const b64 = buf => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+const deB64 = s => Uint8Array.from(atob(s.replace(/-/g, '+').replace(/_/g, '/')), c => c.charCodeAt(0));
+async function bioDisponible() {
+  try { return !!(window.PublicKeyCredential && await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable()); } catch (e) { return false; }
+}
+async function activarBio() {
+  const cred = await navigator.credentials.create({ publicKey: {
+    challenge: crypto.getRandomValues(new Uint8Array(32)),
+    rp: { name: '7LEGEND Panel', id: location.hostname },
+    user: { id: crypto.getRandomValues(new Uint8Array(16)), name: 'panel@7legend', displayName: 'Panel 7LEGEND' },
+    pubKeyCredParams: [{ type: 'public-key', alg: -7 }, { type: 'public-key', alg: -257 }],
+    authenticatorSelection: { authenticatorAttachment: 'platform', userVerification: 'required', residentKey: 'preferred' },
+    timeout: 60000 } });
+  guardarLocal('leg_panel_fid', b64(cred.rawId));
+}
+async function verificarBio() {
+  await navigator.credentials.get({ publicKey: {
+    challenge: crypto.getRandomValues(new Uint8Array(32)), rpId: location.hostname, userVerification: 'required', timeout: 60000,
+    allowCredentials: [{ type: 'public-key', id: deB64(leerLocal('leg_panel_fid')), transports: ['internal'] }] } });
+}
+function pintarBloqueo(msg) {
+  $('app').innerHTML = '<div class="login card"><div style="font-size:44px;line-height:1">🔒</div><h1 style="margin:10px 0 4px;font-size:22px">Panel de anuncios</h1>' +
+    '<div class="muted">Usa Face ID para entrar</div>' +
+    '<button class="btn btn-primary" id="bio" style="margin-top:18px">Entrar con Face ID</button>' +
+    '<div class="err" id="err">' + esc(msg || '') + '</div>' +
+    '<a href="#" id="conclave" class="muted" style="font-size:14px;display:inline-block;margin-top:6px">Entrar con la clave</a></div>';
+  $('bio').onclick = desbloquear;
+  $('conclave').onclick = e => { e.preventDefault(); borrarLocal('leg_panel'); borrarLocal('leg_panel_fid'); pintarLogin(); };
+}
+async function desbloquear() {
+  try {
+    if ($('bio')) $('bio').textContent = 'Verificando…';
+    await verificarBio();
+    DESBLOQUEADO = true;
+    $('app').innerHTML = '<div class="vacio" style="margin-top:20vh">Cargando…</div>';
+    cargar(leerLocal('leg_panel'));
+  } catch (e) { pintarBloqueo(e.name === 'NotAllowedError' ? '' : 'No se pudo verificar. Intenta de nuevo.'); }
+}
+function ofrecerBio() {
+  if (leerLocal('leg_panel_fid') || leerLocal('leg_panel_nobio')) return;
+  bioDisponible().then(ok => {
+    if (!ok || !$('cuerpo')) return;
+    const d = document.createElement('div');
+    d.className = 'card'; d.id = 'ofertabio';
+    d.style.cssText = 'display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px';
+    d.innerHTML = '<div style="flex:1;min-width:200px"><b>Entra con Face ID</b><div class="muted" style="font-size:14px">La próxima vez no tendrás que escribir la clave.</div></div>' +
+      '<button class="btn btn-primary" id="sibio">Activar</button><button class="btn" id="nobio">Ahora no</button>';
+    $('cuerpo').prepend(d);
+    $('sibio').onclick = async () => {
+      try { await activarBio(); d.innerHTML = '<b>✓ Face ID activado.</b> <span class="muted">La próxima vez entrarás con tu cara.</span>'; setTimeout(() => d.remove(), 3000); }
+      catch (e) { d.querySelector('.muted').textContent = 'No se pudo activar (' + (e.name || 'error') + '). Prueba desde Safari.'; }
+    };
+    $('nobio').onclick = () => { guardarLocal('leg_panel_nobio', '1'); d.remove(); };
+  });
+}
+
 async function cargar(clave, desdeLogin) {
   if (cargando) return; cargando = true;
   if (desdeLogin) { $('entrar').textContent = 'Entrando…'; } else if ($('cuerpo')) $('cuerpo').classList.add('cargando');
   try {
     DATOS = await api('embudo', { clave: clave }, '', 45000);
     guardarLocal('leg_panel', clave);
+    DESBLOQUEADO = true;
     pintar();
+    if (!window._bioOfrecido) { window._bioOfrecido = true; ofrecerBio(); }
   } catch (e) {
     if (e.code === 'AUTH') { borrarLocal('leg_panel'); pintarLogin('Clave incorrecta.'); }
     else if (desdeLogin) { pintarLogin(e.message); }
@@ -197,7 +257,7 @@ function pintar() {
     '</div>';
   document.querySelectorAll('.seg button').forEach(b => b.onclick = () => { RANGO = b.dataset.r; guardarLocal('leg_panel_rango', RANGO); pintar(); });
   $('act').onclick = () => cargar(leerLocal('leg_panel'));
-  $('salir').onclick = e => { e.preventDefault(); borrarLocal('leg_panel'); pintarLogin(); };
+  $('salir').onclick = e => { e.preventDefault(); borrarLocal('leg_panel'); borrarLocal('leg_panel_fid'); DESBLOQUEADO = false; pintarLogin(); };
 }
 
 function kpi(l, v, s) { return '<div class="card kpi"><div class="lbl">' + l + '</div><div class="val">' + v + '</div><div class="sub">' + s + '</div></div>'; }
@@ -231,8 +291,10 @@ function registro(r) {
 }
 
 const guardada = leerLocal('leg_panel');
-if (guardada) { $('app').innerHTML = '<div class="vacio" style="margin-top:20vh">Cargando…</div>'; cargar(guardada); } else pintarLogin();
-setInterval(() => { if (!document.hidden && leerLocal('leg_panel')) cargar(leerLocal('leg_panel')); }, 5 * 60000);
+if (guardada && leerLocal('leg_panel_fid')) { pintarBloqueo(); desbloquear(); }
+else if (guardada) { $('app').innerHTML = '<div class="vacio" style="margin-top:20vh">Cargando…</div>'; cargar(guardada); }
+else pintarLogin();
+setInterval(() => { if (DESBLOQUEADO && !document.hidden && leerLocal('leg_panel')) cargar(leerLocal('leg_panel')); }, 5 * 60000);
 </script>
 </body>
 </html>
